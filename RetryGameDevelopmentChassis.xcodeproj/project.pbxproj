@@ -15,6 +15,9 @@
 		1C6BAE222684EBC400EF9B27 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C6BAE202684EBC400EF9B27 /* LaunchScreen.storyboard */; };
 		1C6BAE2D2684EBC500EF9B27 /* RetryGameDevelopmentChassisTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6BAE2C2684EBC500EF9B27 /* RetryGameDevelopmentChassisTests.swift */; };
 		1C6BAE382684EBC500EF9B27 /* RetryGameDevelopmentChassisUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6BAE372684EBC500EF9B27 /* RetryGameDevelopmentChassisUITests.swift */; };
+		1C6BAE4C2684EC6300EF9B27 /* GameEnabledRetryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6BAE4B2684EC6300EF9B27 /* GameEnabledRetryView.swift */; };
+		1C6BAE4E2684ED0200EF9B27 /* RetryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6BAE4D2684ED0200EF9B27 /* RetryViewModel.swift */; };
+		1C6BAE502684EE7A00EF9B27 /* RetryViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6BAE4F2684EE7A00EF9B27 /* RetryViewModelDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,9 @@
 		1C6BAE332684EBC500EF9B27 /* RetryGameDevelopmentChassisUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RetryGameDevelopmentChassisUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C6BAE372684EBC500EF9B27 /* RetryGameDevelopmentChassisUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryGameDevelopmentChassisUITests.swift; sourceTree = "<group>"; };
 		1C6BAE392684EBC500EF9B27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1C6BAE4B2684EC6300EF9B27 /* GameEnabledRetryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEnabledRetryView.swift; sourceTree = "<group>"; };
+		1C6BAE4D2684ED0200EF9B27 /* RetryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryViewModel.swift; sourceTree = "<group>"; };
+		1C6BAE4F2684EE7A00EF9B27 /* RetryViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryViewModelDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,12 +105,12 @@
 		1C6BAE142684EBC200EF9B27 /* RetryGameDevelopmentChassis */ = {
 			isa = PBXGroup;
 			children = (
-				1C6BAE152684EBC200EF9B27 /* AppDelegate.swift */,
-				1C6BAE172684EBC200EF9B27 /* SceneDelegate.swift */,
-				1C6BAE192684EBC200EF9B27 /* ViewController.swift */,
-				1C6BAE1B2684EBC200EF9B27 /* Main.storyboard */,
-				1C6BAE1E2684EBC400EF9B27 /* Assets.xcassets */,
-				1C6BAE202684EBC400EF9B27 /* LaunchScreen.storyboard */,
+				1C6BAE4A2684EBFF00EF9B27 /* Assets */,
+				1C6BAE492684EBF600EF9B27 /* ViewController */,
+				1C6BAE482684EBEE00EF9B27 /* ViewModel */,
+				1C6BAE472684EBE800EF9B27 /* View */,
+				1C6BAE462684EBE100EF9B27 /* Storyboard */,
+				1C6BAE452684EBD300EF9B27 /* Delegate */,
 				1C6BAE232684EBC400EF9B27 /* Info.plist */,
 			);
 			path = RetryGameDevelopmentChassis;
@@ -126,6 +132,57 @@
 				1C6BAE392684EBC500EF9B27 /* Info.plist */,
 			);
 			path = RetryGameDevelopmentChassisUITests;
+			sourceTree = "<group>";
+		};
+		1C6BAE452684EBD300EF9B27 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				1C6BAE152684EBC200EF9B27 /* AppDelegate.swift */,
+				1C6BAE172684EBC200EF9B27 /* SceneDelegate.swift */,
+				1C6BAE4F2684EE7A00EF9B27 /* RetryViewModelDelegate.swift */,
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
+		1C6BAE462684EBE100EF9B27 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				1C6BAE202684EBC400EF9B27 /* LaunchScreen.storyboard */,
+				1C6BAE1B2684EBC200EF9B27 /* Main.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		1C6BAE472684EBE800EF9B27 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1C6BAE4B2684EC6300EF9B27 /* GameEnabledRetryView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1C6BAE482684EBEE00EF9B27 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				1C6BAE4D2684ED0200EF9B27 /* RetryViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		1C6BAE492684EBF600EF9B27 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1C6BAE192684EBC200EF9B27 /* ViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		1C6BAE4A2684EBFF00EF9B27 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				1C6BAE1E2684EBC400EF9B27 /* Assets.xcassets */,
+			);
+			path = Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,7 +317,10 @@
 			files = (
 				1C6BAE1A2684EBC200EF9B27 /* ViewController.swift in Sources */,
 				1C6BAE162684EBC200EF9B27 /* AppDelegate.swift in Sources */,
+				1C6BAE502684EE7A00EF9B27 /* RetryViewModelDelegate.swift in Sources */,
 				1C6BAE182684EBC200EF9B27 /* SceneDelegate.swift in Sources */,
+				1C6BAE4E2684ED0200EF9B27 /* RetryViewModel.swift in Sources */,
+				1C6BAE4C2684EC6300EF9B27 /* GameEnabledRetryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
