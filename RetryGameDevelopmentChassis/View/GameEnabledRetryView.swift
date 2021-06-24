@@ -6,9 +6,10 @@
 //
 
 import SpriteKit
+import RetryGame
 
 class GameEnabledRetryView: SKView {
     
-    var retryViewModel: RetryViewModelProtocol! = StubRetryViewModel() // handled elsewhere in the main app
-    
+    var retryViewModel: RetryViewModelProtocol! = StubRetryViewModel() // handled by the RetryViewFactory in the main app
+    var gameContainer: RetryGameContainer! = RetryGameContainer()
 }

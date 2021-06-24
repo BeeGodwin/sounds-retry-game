@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,6 +18,7 @@
 		1C6BAE4C2684EC6300EF9B27 /* GameEnabledRetryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6BAE4B2684EC6300EF9B27 /* GameEnabledRetryView.swift */; };
 		1C6BAE4E2684ED0200EF9B27 /* RetryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6BAE4D2684ED0200EF9B27 /* RetryViewModel.swift */; };
 		1C6BAE502684EE7A00EF9B27 /* RetryViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6BAE4F2684EE7A00EF9B27 /* RetryViewModelDelegate.swift */; };
+		1C6BAE552684F0F300EF9B27 /* RetryGame in Frameworks */ = {isa = PBXBuildFile; productRef = 1C6BAE542684F0F300EF9B27 /* RetryGame */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		1C6BAE4B2684EC6300EF9B27 /* GameEnabledRetryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEnabledRetryView.swift; sourceTree = "<group>"; };
 		1C6BAE4D2684ED0200EF9B27 /* RetryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryViewModel.swift; sourceTree = "<group>"; };
 		1C6BAE4F2684EE7A00EF9B27 /* RetryViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryViewModelDelegate.swift; sourceTree = "<group>"; };
+		1C6BAE522684F04100EF9B27 /* RetryGame */ = {isa = PBXFileReference; lastKnownFileType = folder; path = RetryGame; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C6BAE552684F0F300EF9B27 /* RetryGame in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,10 +88,12 @@
 		1C6BAE092684EBC200EF9B27 = {
 			isa = PBXGroup;
 			children = (
+				1C6BAE512684F02300EF9B27 /* Modules */,
 				1C6BAE142684EBC200EF9B27 /* RetryGameDevelopmentChassis */,
 				1C6BAE2B2684EBC500EF9B27 /* RetryGameDevelopmentChassisTests */,
 				1C6BAE362684EBC500EF9B27 /* RetryGameDevelopmentChassisUITests */,
 				1C6BAE132684EBC200EF9B27 /* Products */,
+				1C6BAE532684F0F300EF9B27 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -185,6 +190,21 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
+		1C6BAE512684F02300EF9B27 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				1C6BAE522684F04100EF9B27 /* RetryGame */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		1C6BAE532684F0F300EF9B27 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -201,6 +221,9 @@
 			dependencies = (
 			);
 			name = RetryGameDevelopmentChassis;
+			packageProductDependencies = (
+				1C6BAE542684F0F300EF9B27 /* RetryGame */,
+			);
 			productName = RetryGameDevelopmentChassis;
 			productReference = 1C6BAE122684EBC200EF9B27 /* RetryGameDevelopmentChassis.app */;
 			productType = "com.apple.product-type.application";
@@ -653,6 +676,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1C6BAE542684F0F300EF9B27 /* RetryGame */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RetryGame;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1C6BAE0A2684EBC200EF9B27 /* Project object */;
 }
