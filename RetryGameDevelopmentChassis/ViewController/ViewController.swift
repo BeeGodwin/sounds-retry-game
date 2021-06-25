@@ -6,14 +6,22 @@
 //
 
 import UIKit
+import RetryGame
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        guard let gameView = view as? GameEnabledRetryView else { return }
+        
+        let viewModel = StubRetryViewModel()
+        let delegate = RetryDelegate(with: viewModel)
+        gameView.gameContainer = GameContainer(on: gameView, with: delegate)
     }
+}
 
-
+fileprivate extension UIViewController {
+    
 }
 
