@@ -17,9 +17,16 @@ public class GameContainer {
 
         let rect = hostView.bounds
         let gameView = GameView(frame: rect)
+        
+        let inputManager = InputManager()
+        let game = Game()
+        inputManager.attach(game)
+        
+        gameView.inputManager = inputManager
+        
         hostView.addSubview(gameView)
         
-        let scene = SKScene(size: rect.size)
+        let scene = GameScene(size: rect.size)
         scene.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         gameView.presentScene(scene)
         
