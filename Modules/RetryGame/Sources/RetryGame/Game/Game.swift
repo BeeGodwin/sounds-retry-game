@@ -2,7 +2,11 @@ import Foundation
 
 class Game: ObserverProtocol {
     
-    init() {
+    let eventBus: EventBus
+    
+    init(eventBus: EventBus) {
+        self.eventBus = eventBus
+        eventBus.subscribe(self)
         print("game initialised")
     }
     

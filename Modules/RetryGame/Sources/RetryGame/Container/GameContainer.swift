@@ -10,25 +10,22 @@ public class GameContainer {
         hostView = view
         retryDelegate = delegate
         
-        setUpGame()
+        bootstrap()
     }
     
-    private func setUpGame() {
+    private func bootstrap() {
 
+        let eventBus = EventBus()
+        
+        let game = Game(eventBus: eventBus)
+        
         let rect = hostView.bounds
         let gameView = GameView(frame: rect)
-        
-        let inputManager = InputManager()
-        let game = Game()
-        inputManager.attach(game)
-        
-        gameView.inputManager = inputManager
-        
+        gameView.inputManager = InputManager(eventBus: eventBus)
         hostView.addSubview(gameView)
         
         let scene = GameScene(size: rect.size)
         scene.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         gameView.presentScene(scene)
-        
     }
 }

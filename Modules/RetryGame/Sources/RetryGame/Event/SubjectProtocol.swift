@@ -1,7 +1,7 @@
 import Foundation
 
 protocol SubjectProtocol {
-    func attach(_ observer: ObserverProtocol) -> Void
-    func detatch(_ observer: ObserverProtocol) -> Void
-    func notifyObservers(of message: EventProtocol)
+    func subscribe(_ observer: ObserverProtocol) -> Void
+    func unsubscribe(_ observer: ObserverProtocol) -> Void
+    func notify(_ event: EventProtocol)
 }
