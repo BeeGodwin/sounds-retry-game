@@ -1,5 +1,5 @@
 import Foundation
 
-protocol ObserverProtocol {
+protocol ObserverProtocol: AnyObject {
     func receiveEvent(_ event: EventProtocol)
 }
