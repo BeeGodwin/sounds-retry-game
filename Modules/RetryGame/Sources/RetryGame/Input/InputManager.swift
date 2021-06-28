@@ -6,9 +6,9 @@ enum InputEvent: Event {
 
 class InputManager {
     
-    let eventBus: EventBus
+    private let eventBus: EventBusProtocol
         
-    init(eventBus: EventBus) {
+    init(eventBus: EventBusProtocol) {
         self.eventBus = eventBus
     }
     
