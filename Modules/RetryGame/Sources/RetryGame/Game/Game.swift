@@ -11,6 +11,6 @@ class Game: ObserverProtocol {
     }
     
     func receiveEvent(_ message: EventProtocol) {
-        print("\(message.channel) : \(message.id)")
+        print("\(message.channel) : \(message.event)")
     }
 }

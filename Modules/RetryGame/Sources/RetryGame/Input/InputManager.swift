@@ -1,5 +1,9 @@
 import Foundation
 
+enum InputEvent: Event {
+    case touched
+}
+
 class InputManager {
     
     let eventBus: EventBus
@@ -11,7 +15,7 @@ class InputManager {
     func touchStart() { }
     
     func touchEnd() {
-        let event = GameTouchedEvent(channel: "game", id: "game_touched")
+        let event = EventMessage(channel: .input, event: InputEvent.touched)
         eventBus.notify(event)
     }
 }

@@ -4,6 +4,8 @@ class EventBus: SubjectProtocol {
     
     private lazy var observers = [ObserverProtocol]()
     
+    private lazy var channels = [EventChannel: [ObserverProtocol]]()
+    
     func subscribe(_ observer: ObserverProtocol) {
         observers.append(observer)
     }

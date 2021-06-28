@@ -1,6 +1,6 @@
 import Foundation
 
 protocol EventProtocol {
-    var channel: String { get }
-    var id: String { get }
+    var channel: EventChannel { get }
+    var event: Event { get }
 }
