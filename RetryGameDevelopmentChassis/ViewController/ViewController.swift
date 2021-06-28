@@ -17,7 +17,10 @@ class ViewController: UIViewController {
         
         let viewModel = StubRetryViewModel()
         let delegate = RetryDelegate(with: viewModel)
+        
         gameView.gameContainer = GameContainer(on: gameView, with: delegate)
+        
+        gameView.gameContainer.bootstrap()
     }
 }
 

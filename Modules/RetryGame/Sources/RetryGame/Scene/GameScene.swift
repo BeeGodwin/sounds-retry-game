@@ -4,6 +4,8 @@ class GameScene: SKScene {
     
     var contentCreated = false
     
+    var container: GameContainer?
+    
     override func didMove(to view: SKView) {
         if !contentCreated {
             createSceneContents()
@@ -19,14 +21,17 @@ class GameScene: SKScene {
     }
     
     func createSprite() {
-        let texture = SKTexture(image: UIImage(named: "lightgrey", in: .module, compatibleWith: nil)!)
-        let sprite = SKSpriteNode(texture: texture)
-        sprite.position = CGPoint(x: 0, y: 0)
-        self.addChild(sprite)
-        let textureTwo = SKTexture(image: UIImage(named: "darkgrey", in: .module, compatibleWith: nil)!)
-        let spriteTwo = SKSpriteNode(texture: textureTwo)
-        spriteTwo.position = CGPoint(x: 64, y: 0)
-        self.addChild(spriteTwo)
+        if let lightGreyTexture = container?.textureManager.debugLightGrey() {
+            let sprite = SKSpriteNode(texture: lightGreyTexture)
+            sprite.position = CGPoint(x: 0, y: 0)
+            self.addChild(sprite)
+        }
+        
+        if let darkGreyTexture = container?.textureManager.debugDarkGrey() {
+            let spriteTwo = SKSpriteNode(texture: darkGreyTexture)
+            spriteTwo.position = CGPoint(x: 64, y: 0)
+            self.addChild(spriteTwo)
+        }
     }
 }
 
