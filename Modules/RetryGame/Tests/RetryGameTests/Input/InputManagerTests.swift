@@ -1,11 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Bee Godwin on 28/06/2021.
-//
-
-
 import XCTest
 @testable import RetryGame
 
@@ -26,5 +18,9 @@ final class InputManagerTests: XCTestCase {
         XCTAssertEqual(eventBus?.notifyCalledTimes, 1)
         XCTAssertEqual(expectedEvent.channel, .input)
         XCTAssertEqual(expectedEvent.event as! InputEvent, InputEvent.touched)
+    }
+    
+    func testTouchStartDoesNotCrash() {
+        inputManager.touchStart()
     }
 }
