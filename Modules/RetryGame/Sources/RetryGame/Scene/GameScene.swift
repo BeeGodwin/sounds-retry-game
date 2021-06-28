@@ -26,20 +26,15 @@ class GameScene: SKScene {
     
     func createEntities() {
         if let factory: DebugEntityFactory = container?.factory {
-            self.addChild(factory.build(.light)!)
-            self.addChild(factory.build(.dark)!)
+            if let lightEntity = factory.build(.light) {
+                lightEntity.position = CGPoint(x: 0, y: 0)
+                self.addChild(lightEntity)
+            }
+            if let darkEntity = factory.build(.dark) {
+                darkEntity.position = CGPoint(x: 64, y: 0)
+                self.addChild(darkEntity)
+            }
         }
-//        if let lightGreyTexture = container?.textureManager.debugLightGrey() {
-//            let sprite = SKSpriteNode(texture: lightGreyTexture)
-//            sprite.position = CGPoint(x: 0, y: 0)
-//            self.addChild(sprite)
-//        }
-//
-//        if let darkGreyTexture = container?.textureManager.debugDarkGrey() {
-//            let spriteTwo = SKSpriteNode(texture: darkGreyTexture)
-//            spriteTwo.position = CGPoint(x: 64, y: 0)
-//            self.addChild(spriteTwo)
-//        }
     }
 }
 

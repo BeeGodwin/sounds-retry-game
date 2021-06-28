@@ -30,12 +30,26 @@ extension EntityFactory: DebugEntityFactory {
     }
     
     private func buildLight() -> SKNode {
-        print("building debug light")
-        return SKNode()
+        let node = SKNode()
+        addSpriteNode(to: node, flavour: .light)
+        return node
     }
     
     private func buildDark() -> SKNode {
-        print("building debug dark")
-        return SKNode()
+        let node = SKNode()
+        addSpriteNode(to: node, flavour: .dark)
+        return node
+    }
+    
+    func addSpriteNode(to node: SKNode, flavour: DebugEntityFlavour) {
+        let textureManager = container.textureManager
+        var sprite: SKSpriteNode
+        switch flavour {
+        case .light:
+            sprite = SKSpriteNode(texture: textureManager.debugLightGrey())
+        case .dark:
+            sprite = SKSpriteNode(texture: textureManager.debugDarkGrey())
+        }
+        node.addChild(sprite)
     }
 }
