@@ -10,6 +10,8 @@ public class GameContainer {
     let inputManager: InputManager
     let eventBus: EventBus
     
+    var factory: EntityFactory?
+    
     public init(on view: UIView, with delegate: RetryDelegateProtocol) {
         hostView = view
         retryDelegate = delegate
@@ -20,6 +22,8 @@ public class GameContainer {
     }
     
     public func bootstrap() {
+        
+        factory = EntityFactory(container: self)
         
         let game = Game(eventBus: eventBus)
 

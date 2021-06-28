@@ -13,25 +13,33 @@ class GameScene: SKScene {
         }
     }
     
+    override func update(_ currentTime: TimeInterval) {
+        // here's the game clock.
+    }
+    
     func createSceneContents() {
         backgroundColor = SKColor.gray
         scaleMode = SKSceneScaleMode.aspectFit
         
-        createSprite()
+        createEntities()
     }
     
-    func createSprite() {
-        if let lightGreyTexture = container?.textureManager.debugLightGrey() {
-            let sprite = SKSpriteNode(texture: lightGreyTexture)
-            sprite.position = CGPoint(x: 0, y: 0)
-            self.addChild(sprite)
+    func createEntities() {
+        if let factory: DebugEntityFactory = container?.factory {
+            self.addChild(factory.build(.light)!)
+            self.addChild(factory.build(.dark)!)
         }
-        
-        if let darkGreyTexture = container?.textureManager.debugDarkGrey() {
-            let spriteTwo = SKSpriteNode(texture: darkGreyTexture)
-            spriteTwo.position = CGPoint(x: 64, y: 0)
-            self.addChild(spriteTwo)
-        }
+//        if let lightGreyTexture = container?.textureManager.debugLightGrey() {
+//            let sprite = SKSpriteNode(texture: lightGreyTexture)
+//            sprite.position = CGPoint(x: 0, y: 0)
+//            self.addChild(sprite)
+//        }
+//
+//        if let darkGreyTexture = container?.textureManager.debugDarkGrey() {
+//            let spriteTwo = SKSpriteNode(texture: darkGreyTexture)
+//            spriteTwo.position = CGPoint(x: 64, y: 0)
+//            self.addChild(spriteTwo)
+//        }
     }
 }
 
