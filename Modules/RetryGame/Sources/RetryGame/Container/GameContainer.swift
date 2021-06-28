@@ -1,7 +1,13 @@
 import UIKit
 import SpriteKit
 
-public class GameContainer {
+protocol GameContainerProtocol {
+    var factory: EntityFactory? { get }
+    var eventBus: EventBus { get }
+    var textureManager: TextureManager { get }
+}
+
+public class GameContainer: GameContainerProtocol {
     
     var hostView: UIView
     var retryDelegate: RetryDelegateProtocol
@@ -25,8 +31,6 @@ public class GameContainer {
         
         factory = EntityFactory(container: self)
         
-        let game = Game(eventBus: eventBus)
-
         let rect = hostView.bounds
         let gameView = GameView(frame: rect)
         gameView.inputManager = inputManager
@@ -35,6 +39,10 @@ public class GameContainer {
         let scene = GameScene(size: rect.size)
         scene.container = self
         scene.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        
+        let game = Game(container: self, scene: scene)
+        
         gameView.presentScene(scene)
+        game.start()
     }
 }

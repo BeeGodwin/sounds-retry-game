@@ -2,7 +2,7 @@ import GameplayKit
 
 protocol EntityFactoryProtocol {
     
-    var container: GameContainer { get }
+    var container: GameContainerProtocol { get }
     
     func create(producing kind: EntityFactoryProducing) -> SKNode?
 }
@@ -13,9 +13,9 @@ enum EntityFactoryProducing {
 
 class EntityFactory: EntityFactoryProtocol {
     
-    let container: GameContainer
+    let container: GameContainerProtocol
     
-    init(container: GameContainer) {
+    init(container: GameContainerProtocol) {
         self.container = container
     }
     
@@ -23,8 +23,7 @@ class EntityFactory: EntityFactoryProtocol {
         var result: SKNode?
         switch kind {
         case .debug(let flavour):
-            guard let factory = self as? DebugEntityFactory else { return nil }
-            result = factory.build(flavour)
+            result = self.build(flavour)
         }
         return result
     }
