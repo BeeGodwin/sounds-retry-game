@@ -12,7 +12,6 @@ class InputManager {
     
     func touchEnd() {
         let event = GameTouchedEvent(channel: "game", id: "game_touched")
-        notify(of: event)
         eventBus.notify(event)
     }
 }
