@@ -5,4 +5,4 @@ struct EventMessage: EventProtocol {
     var event: Event
 }
 
-protocol Event { }
+public protocol Event { }

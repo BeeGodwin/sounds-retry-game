@@ -1,5 +1,5 @@
 import Foundation
 
-enum EventChannel {
+public enum EventChannel {
     case input
 }
