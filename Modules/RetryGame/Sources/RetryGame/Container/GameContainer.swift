@@ -2,8 +2,8 @@ import UIKit
 import SpriteKit
 
 protocol GameContainerProtocol {
-    var factory: EntityFactory? { get }
-    var eventBus: EventBus { get }
+    var factory: EntityFactoryProtocol? { get }
+    var eventBus: EventBusProtocol { get }
     var textureManager: TextureManager { get }
 }
 
@@ -14,9 +14,9 @@ public class GameContainer: GameContainerProtocol {
     
     let textureManager: TextureManager
     let inputManager: InputManager
-    let eventBus: EventBus
+    let eventBus: EventBusProtocol
     
-    var factory: EntityFactory?
+    var factory: EntityFactoryProtocol?
     
     public init(on view: UIView, with delegate: RetryDelegateProtocol) {
         hostView = view
@@ -42,7 +42,9 @@ public class GameContainer: GameContainerProtocol {
         
         let game = Game(container: self, scene: scene)
         
+        
         gameView.presentScene(scene)
+        scene.game = game
         game.start()
     }
 }

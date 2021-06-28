@@ -1,11 +1,4 @@
-//
-//  File.swift
-//  
-//
-//  Created by Bee Godwin on 28/06/2021.
-//
-
-import RetryGame
+@testable import RetryGame
 
 class StubEventBus: EventBusProtocol {
     
