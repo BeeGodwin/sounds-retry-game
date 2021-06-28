@@ -6,7 +6,7 @@ class Game: ObserverProtocol {
     
     init(eventBus: EventBus) {
         self.eventBus = eventBus
-        eventBus.subscribe(self)
+        eventBus.subscribe(to: .input, with: self)
         print("game initialised")
     }
     

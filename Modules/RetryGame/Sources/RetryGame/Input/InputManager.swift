@@ -16,6 +16,6 @@ class InputManager {
     
     func touchEnd() {
         let event = EventMessage(channel: .input, event: InputEvent.touched)
-        eventBus.notify(event)
+        eventBus.notify(of: event)
     }
 }

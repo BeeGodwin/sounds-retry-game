@@ -1,22 +1,28 @@
 import Foundation
 
 class EventBus: SubjectProtocol {
-    
-    private lazy var observers = [ObserverProtocol]()
-    
+        
     private lazy var channels = [EventChannel: [ObserverProtocol]]()
     
-    func subscribe(_ observer: ObserverProtocol) {
-        observers.append(observer)
+    func subscribe(to channel: EventChannel, with observer: ObserverProtocol) {
+        if var observers = channels[channel] {
+            observers.append(observer)
+        } else {
+            channels[channel] = [observer]
+        }
     }
     
-    func unsubscribe(_ observer: ObserverProtocol) {
+    func unsubscribe(from channel: EventChannel, with observer: ObserverProtocol) {
+        guard var observers = channels[channel] else { return }
         if let idx = observers.firstIndex(where: { $0 === observer }) {
             observers.remove(at: idx)
         }
     }
     
-    func notify(_ event: EventProtocol) {
-        observers.forEach { $0.receiveEvent(event) }
+
+    func notify(of event: EventProtocol) {
+        if let observers = channels[event.channel] {
+            observers.forEach { $0.receiveEvent(event) }
+        }
     }
 }
