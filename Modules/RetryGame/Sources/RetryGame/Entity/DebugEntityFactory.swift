@@ -14,21 +14,23 @@ extension EntityFactory: DebugEntityFactory {
     func build(on entity: Entity, with flavour: DebugEntityFlavour) {
         switch flavour {
         case .light:
-            addSpriteNode(to: entity.node, flavour: .light)
+            addSpriteComponent(to: entity, flavour: .light)
         case .dark:
-            addSpriteNode(to: entity.node, flavour: .dark)
+            addSpriteComponent(to: entity, flavour: .dark)
         }
     }
     
-    private func addSpriteNode(to node: SKNode, flavour: DebugEntityFlavour) {
+    private func addSpriteComponent(to entity: Entity, flavour: DebugEntityFlavour) {
         let textures = container.textureManager
-        var sprite: SKSpriteNode
+        var texture: SKTexture?
         switch flavour {
         case .light:
-            sprite = SKSpriteNode(texture: textures.debugLightGrey())
+            texture = textures.debugLightGrey()
         case .dark:
-            sprite = SKSpriteNode(texture: textures.debugDarkGrey())
+            texture = textures.debugDarkGrey()
         }
-        node.addChild(sprite)
+        if let tx = texture {
+            entity.addComponent(SpriteComponent(on: entity.node, texture: tx))
+        }
     }
 }
