@@ -22,13 +22,13 @@ class ParallaxRowFactory: ParallaxRowFactoryProtocol {
         node.position = position
         scene.addChild(node)
         
-        // only confirmed to work with powers of 2 as yet!
+        // only confirmed to work with powers of 2 right now!
         let cellSize = 64 * distance
         
         var cells = [Entity]()
         let numCells = Int((sceneWidth + cellSize * 2) / cellSize)
         let width = Int(CGFloat(numCells) * cellSize)
-        for idx in 0...numCells + 1 {
+        for idx in 0...numCells {
             let cell = factory.create(entity: prototype[idx % prototype.count])
             cells.append(cell)
             node.addChild(cell.skNode)
