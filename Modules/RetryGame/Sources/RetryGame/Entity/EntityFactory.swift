@@ -4,7 +4,7 @@ protocol EntityFactoryProtocol {
     
     var container: GameContainerProtocol { get }
     
-    func create(entity kind: EntityFactoryProducing) -> SKNode?
+    func create(entity kind: EntityFactoryProducing) -> Entity
 }
 
 enum EntityFactoryProducing {
@@ -19,16 +19,14 @@ class EntityFactory: EntityFactoryProtocol {
         self.container = container
     }
     
-    func create(entity kind: EntityFactoryProducing) -> SKNode? { // this should no longer produce an SKNode but an Entity.
-        var result: SKNode?
+    func create(entity kind: EntityFactoryProducing) -> Entity {
+        let entity = Entity()
         switch kind {
         case .debug(let flavour):
-            result = self.build(flavour)
+            build(on: entity, with: flavour)
         }
-        return result
+        return entity
     }
-    
-    // should produce the vanilla entity here along with anything needed by entities generally
-    
+        
     // needs to have references to any GKComponentSystem object managing components
 }

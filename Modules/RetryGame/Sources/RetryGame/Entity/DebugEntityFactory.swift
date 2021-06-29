@@ -1,7 +1,7 @@
 import SpriteKit
 
 protocol DebugEntityFactory {
-    func build(_ flavour: DebugEntityFlavour) -> SKNode?
+    func build(on entity: Entity, with flavour: DebugEntityFlavour)
 }
 
 enum DebugEntityFlavour {
@@ -11,37 +11,23 @@ enum DebugEntityFlavour {
 
 extension EntityFactory: DebugEntityFactory {
     
-    func build(_ flavour: DebugEntityFlavour) -> SKNode? {
-        var node: SKNode?
+    func build(on entity: Entity, with flavour: DebugEntityFlavour) {
         switch flavour {
         case .light:
-            node = buildLight()
+            addSpriteNode(to: entity.node, flavour: .light)
         case .dark:
-            node = buildDark()
+            addSpriteNode(to: entity.node, flavour: .dark)
         }
-        return node
     }
     
-    private func buildLight() -> SKNode {
-        let node = SKNode() // let's hang an entity off of an SKNode
-        addSpriteNode(to: node, flavour: .light) // let's make this a SpriteComponent that owns a sprite
-        return node
-    }
-    
-    private func buildDark() -> SKNode {
-        let node = SKNode()
-        addSpriteNode(to: node, flavour: .dark)
-        return node
-    }
-    
-    func addSpriteNode(to node: SKNode, flavour: DebugEntityFlavour) {
-        let textureManager = container.textureManager
+    private func addSpriteNode(to node: SKNode, flavour: DebugEntityFlavour) {
+        let textures = container.textureManager
         var sprite: SKSpriteNode
         switch flavour {
         case .light:
-            sprite = SKSpriteNode(texture: textureManager.debugLightGrey())
+            sprite = SKSpriteNode(texture: textures.debugLightGrey())
         case .dark:
-            sprite = SKSpriteNode(texture: textureManager.debugDarkGrey())
+            sprite = SKSpriteNode(texture: textures.debugDarkGrey())
         }
         node.addChild(sprite)
     }

@@ -28,14 +28,14 @@ class Game: ObserverProtocol {
     
     func spawnTilePair(at x: Int) {
         if let factory = container.factory {
-            if let lightEntity = factory.create(entity: .debug(.light)) {
-                lightEntity.position = CGPoint(x: x, y: 0)
-                scene.addChild(lightEntity) // this won't add the entity, but add its node instead.
-            }
-            if let darkEntity = factory.create(entity: .debug(.dark)) {
-                darkEntity.position = CGPoint(x: x + 64, y: 0)
-                scene.addChild(darkEntity)
-            }
+            let lightTile = factory.create(entity: .debug(.light))
+            lightTile.node.position = CGPoint(x: x, y: 0)
+            scene.addChild(lightTile.node)
+            
+            let darkTile = factory.create(entity: .debug(.dark))
+            darkTile.node.position = CGPoint(x: x + 64, y: 0)
+            scene.addChild(darkTile.node)
+            
         }
     }
     
