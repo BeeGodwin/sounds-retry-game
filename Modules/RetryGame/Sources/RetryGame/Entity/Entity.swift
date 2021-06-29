@@ -2,10 +2,14 @@ import GameplayKit
 import SpriteKit
 
 class Entity: GKEntity {
-    let node: SKNode
+    
+    let node: NodeComponent
+    var sprite: SpriteComponent?
+    
+    var skNode: SKNode { node.skNode }
     
     override init() {
-        node = SKNode()
+        node = NodeComponent()
         super.init()
     }
     

@@ -30,7 +30,7 @@ extension EntityFactory: DebugEntityFactory {
             texture = textures.debugDarkGrey()
         }
         if let tx = texture {
-            entity.addComponent(SpriteComponent(on: entity.node, texture: tx))
+            entity.addSpriteComponent(SpriteComponent(texture: tx))
         }
     }
 }

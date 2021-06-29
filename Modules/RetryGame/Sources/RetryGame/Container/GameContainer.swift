@@ -3,6 +3,7 @@ import SpriteKit
 
 protocol GameContainerProtocol {
     var factory: EntityFactoryProtocol? { get }
+    var parallaxFactory: ParallaxRowFactoryProtocol? { get }
     var eventBus: EventBusProtocol { get }
     var textureManager: TextureManager { get }
 }
@@ -17,6 +18,7 @@ public class GameContainer: GameContainerProtocol {
     let eventBus: EventBusProtocol
     
     var factory: EntityFactoryProtocol?
+    var parallaxFactory: ParallaxRowFactoryProtocol?
     
     public init(on view: UIView, with delegate: RetryDelegateProtocol) {
         hostView = view
@@ -29,7 +31,9 @@ public class GameContainer: GameContainerProtocol {
     
     public func bootstrap() {
         
-        factory = EntityFactory(container: self)
+        let entityFactory = EntityFactory(container: self)
+        factory = entityFactory
+        parallaxFactory = ParallaxRowFactory(factory: entityFactory)
         
         let rect = hostView.bounds
         let gameView = GameView(frame: rect)

@@ -1,16 +1,22 @@
 import GameplayKit
 
-class SpriteComponent: Component {
+class SpriteComponent: GKComponent {
     
-    private let sprite: SKSpriteNode
+    let sprite: SKSpriteNode
     
-    init(on node: SKNode, texture: SKTexture) {
+    init(texture: SKTexture) {
         sprite = SKSpriteNode(texture: texture)
-        node.addChild(sprite)
         super.init()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension Entity {
+    func addSpriteComponent(_ component: SpriteComponent) {
+        self.sprite = component
+        self.skNode.addChild(component.sprite)
     }
 }
