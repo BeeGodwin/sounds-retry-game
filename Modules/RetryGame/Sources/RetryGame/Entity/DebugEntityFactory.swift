@@ -10,13 +10,6 @@ enum DebugEntityFlavour {
 }
 
 extension EntityFactory: DebugEntityFactory {
-    func light() -> SKNode? {
-        return create(producing: .debug(.light))
-    }
-    
-    func dark() -> SKNode? {
-        return create(producing: .debug(.dark))
-    }
     
     func build(_ flavour: DebugEntityFlavour) -> SKNode? {
         var node: SKNode?
@@ -30,8 +23,8 @@ extension EntityFactory: DebugEntityFactory {
     }
     
     private func buildLight() -> SKNode {
-        let node = SKNode()
-        addSpriteNode(to: node, flavour: .light)
+        let node = SKNode() // let's hang an entity off of an SKNode
+        addSpriteNode(to: node, flavour: .light) // let's make this a SpriteComponent that owns a sprite
         return node
     }
     

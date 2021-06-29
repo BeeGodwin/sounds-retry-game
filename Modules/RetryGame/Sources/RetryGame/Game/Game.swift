@@ -27,12 +27,12 @@ class Game: ObserverProtocol {
     }
     
     func spawnTilePair(at x: Int) {
-        if let factory = container.factory as? DebugEntityFactory {
-            if let lightEntity = factory.build(.light) {
+        if let factory = container.factory {
+            if let lightEntity = factory.create(entity: .debug(.light)) {
                 lightEntity.position = CGPoint(x: x, y: 0)
-                scene.addChild(lightEntity)
+                scene.addChild(lightEntity) // this won't add the entity, but add its node instead.
             }
-            if let darkEntity = factory.build(.dark) {
+            if let darkEntity = factory.create(entity: .debug(.dark)) {
                 darkEntity.position = CGPoint(x: x + 64, y: 0)
                 scene.addChild(darkEntity)
             }
@@ -41,7 +41,7 @@ class Game: ObserverProtocol {
     
     func update() {
         let move = SKAction.move(by: CGVector(dx: -1, dy: 0), duration: 0.1)
-        scene.children.forEach { node in
+        scene.children.forEach { node in // actions seem shonky, seeing some drift when actions are repeated over time. But then not doing this particularly stylishly anyway
             if node.position.x <= -256 {
                 node.removeAllActions()
                 node.position.x = 256
