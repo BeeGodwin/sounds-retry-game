@@ -14,7 +14,7 @@ class GameScene: SKScene {
         }
     }
     
-    override func update(_ currentTime: TimeInterval) {
+    override func update(_ currentTime: TimeInterval) { // TODO: doing this here is creating a circular reference?
         if let game = self.game {
             game.update()
         }
