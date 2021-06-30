@@ -27,13 +27,18 @@ class Game: ObserverProtocol {
     }
     
     func spawnParallax() {
-        parallax = ParallaxRowSystem(maxSpeed: 256.0)
+        guard let factory = container.factory, let sceneWidth = scene.view?.bounds.width else { return }
         
-        if let factory = container.factory {
-            let layer = factory.create(entity: .parallaxRow(.cycling([.debug(.dark), .debug(.light)], 1.0, scene.view?.bounds.width)))
-            parallax?.addRow(on: layer)
-            scene.addChild(layer.skNode)
-        }
+        parallax = ParallaxRowSystem(maxSpeed: 256.0)
+                
+        let rows: [EntityPrototype] = [
+            .parallaxRow(.cycling([.debug(.dark), .debug(.light)], ParallaxRowParameters(distance: 0.25, width: sceneWidth, y: 48))),
+            .parallaxRow(.cycling([.debug(.light), .debug(.dark)], ParallaxRowParameters(distance: 0.5, width: sceneWidth, y: 32))),
+            .parallaxRow(.cycling([.debug(.dark), .debug(.light)], ParallaxRowParameters(distance: 1, width: sceneWidth, y: 0))),
+            .parallaxRow(.cycling([.debug(.light), .debug(.dark)], ParallaxRowParameters(distance: 2, width: sceneWidth, y: -64))),
+        ]
+        
+        parallax?.spawn(rows: rows, on: scene, from: factory)
     }
 
     func update(_ delta: TimeInterval) {

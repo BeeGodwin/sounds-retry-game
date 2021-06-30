@@ -14,6 +14,14 @@ class ParallaxRowSystem {
         self.maxSpeed = maxSpeed
     }
     
+    func spawn(rows toSpawn: [EntityPrototype], on scene: GameScene, from factory: EntityFactoryProtocol) {
+        toSpawn.forEach { prototype in
+            let rowEntity = factory.create(entity: prototype)
+            addRow(on: rowEntity)
+            scene.addChild(rowEntity.skNode)
+        }
+    }
+    
     func addRow(on entity: Entity) {
         rows.append(entity)
         system.addComponent(foundIn: entity)

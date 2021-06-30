@@ -30,6 +30,4 @@ class EntityFactory: EntityFactoryProtocol {
         }
         return entity
     }
-        
-    // needs to have references to any GKComponentSystem object managing components
 }
