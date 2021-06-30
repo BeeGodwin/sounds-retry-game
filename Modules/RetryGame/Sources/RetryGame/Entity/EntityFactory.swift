@@ -4,11 +4,12 @@ protocol EntityFactoryProtocol {
     
     var container: GameContainerProtocol { get }
     
-    func create(entity kind: EntityFactoryProducing) -> Entity
+    func create(entity kind: EntityPrototype) -> Entity
 }
 
-enum EntityFactoryProducing {
+enum EntityPrototype {
     case debug(DebugEntityFlavour)
+    case parallaxRow(ParallaxRowEntityFlavour)
 }
 
 class EntityFactory: EntityFactoryProtocol {
@@ -19,11 +20,13 @@ class EntityFactory: EntityFactoryProtocol {
         self.container = container
     }
     
-    func create(entity kind: EntityFactoryProducing) -> Entity {
+    func create(entity kind: EntityPrototype) -> Entity {
         let entity = Entity()
         switch kind {
-        case .debug(let flavour):
-            build(on: entity, with: flavour)
+        case .debug(let debugFlavour):
+            build(on: entity, with: debugFlavour)
+        case .parallaxRow(let parallaxFlavour):
+            build(on: entity, with: parallaxFlavour)
         }
         return entity
     }

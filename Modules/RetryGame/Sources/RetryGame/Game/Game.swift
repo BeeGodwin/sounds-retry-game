@@ -4,7 +4,6 @@ class Game: ObserverProtocol {
     
     let container: GameContainerProtocol
     let scene: GameScene
-    var rows = [ParallaxRow]()
     var running = false
     
     init(container: GameContainerProtocol, scene: GameScene) {
@@ -27,18 +26,13 @@ class Game: ObserverProtocol {
     }
     
     func spawnParallax() {
-        if let factory = container.parallaxFactory {
-            rows.append(factory.createRow(in: scene, from: [.debug(.dark), .debug(.light)], at: CGPoint(x: 0, y: 48), distance: 0.25))
-            rows.append(factory.createRow(in: scene, from: [.debug(.light), .debug(.dark)], at: CGPoint(x: 0, y: 32), distance: 0.5))
-            rows.append(factory.createRow(in: scene, from: [.debug(.dark), .debug(.light)], at: CGPoint(x: 0, y: 0), distance: 1.0))
-            rows.append(factory.createRow(in: scene, from: [.debug(.light), .debug(.dark)], at: CGPoint(x: 0, y: -64), distance: 2))
+        if let factory = container.factory {
+            scene.addChild(factory.create(entity: .parallaxRow(.cycling([.debug(.dark), .debug(.light)], CGPoint(x: 0, y: 0), 1.0, scene.view?.bounds.width))).skNode)
         }
     }
 
     func update() {
         if !running { return }
-        for row in rows {
-            row.moveBy(delta: 2)
-        }
+        // TODO: needs refactor to be handled by a component system
     }
 }
