@@ -27,7 +27,7 @@ class Game: ObserverProtocol {
     
     func spawnParallax() {
         if let factory = container.factory {
-            scene.addChild(factory.create(entity: .parallaxRow(.cycling([.debug(.dark), .debug(.light)], CGPoint(x: 0, y: 0), 1.0, scene.view?.bounds.width))).skNode)
+            scene.addChild(factory.create(entity: .parallaxRow(.cycling([.debug(.dark), .debug(.light)], 1.0, scene.view?.bounds.width))).skNode)
         }
     }
 

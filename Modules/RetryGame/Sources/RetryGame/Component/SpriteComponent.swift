@@ -16,7 +16,8 @@ class SpriteComponent: GKComponent {
 
 extension Entity {
     func addSpriteComponent(_ component: SpriteComponent) {
-        self.sprite = component
+        self.sprite = component // TODO: is this needed? use a getter on entity? Or just use the getters in GK?
+        self.addComponent(component)
         self.skNode.addChild(component.sprite)
     }
 }
