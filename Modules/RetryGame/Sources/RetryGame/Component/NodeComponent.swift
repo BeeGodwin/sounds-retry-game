@@ -15,5 +15,6 @@ class NodeComponent: GKComponent {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+        // TODO: isn't getting added into the entity.
     }
 }

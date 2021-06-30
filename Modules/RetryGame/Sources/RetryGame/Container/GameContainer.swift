@@ -1,10 +1,12 @@
 import UIKit
 import SpriteKit
+import GameplayKit
 
 protocol GameContainerProtocol {
     var factory: EntityFactoryProtocol? { get }
     var eventBus: EventBusProtocol { get }
     var textureManager: TextureManager { get }
+    var parallax: GKComponentSystem<ParallaxRowComponent>? { get }
 }
 
 public class GameContainer: GameContainerProtocol {
@@ -17,6 +19,7 @@ public class GameContainer: GameContainerProtocol {
     let eventBus: EventBusProtocol
     
     var factory: EntityFactoryProtocol?
+    var parallax: GKComponentSystem<ParallaxRowComponent>?
     
     public init(on view: UIView, with delegate: RetryDelegateProtocol) {
         hostView = view
@@ -29,6 +32,7 @@ public class GameContainer: GameContainerProtocol {
     
     public func bootstrap() {
         
+        parallax = GKComponentSystem(componentClass: ParallaxRowComponent.self) // IDK if this should be here? game-level concern?
         factory = EntityFactory(container: self)
         
         let rect = hostView.bounds

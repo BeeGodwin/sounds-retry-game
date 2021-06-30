@@ -4,7 +4,10 @@ class Game: ObserverProtocol {
     
     let container: GameContainerProtocol
     let scene: GameScene
+    var parallax = [Entity]()
     var running = false
+    
+    var parallaxSpeed = 64.0
     
     init(container: GameContainerProtocol, scene: GameScene) {
         self.container = container
@@ -27,12 +30,14 @@ class Game: ObserverProtocol {
     
     func spawnParallax() {
         if let factory = container.factory {
-            scene.addChild(factory.create(entity: .parallaxRow(.cycling([.debug(.dark), .debug(.light)], 1.0, scene.view?.bounds.width))).skNode)
+            let layer = factory.create(entity: .parallaxRow(.cycling([.debug(.dark), .debug(.light)], 1.0, scene.view?.bounds.width)))
+            parallax.append(layer)
+            scene.addChild(layer.skNode)
         }
     }
 
-    func update() {
+    func update(_ delta: TimeInterval) {
         if !running { return }
-        // TODO: needs refactor to be handled by a component system
+        container.parallax?.update(deltaTime: delta * parallaxSpeed)
     }
 }

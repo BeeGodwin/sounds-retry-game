@@ -11,7 +11,7 @@ enum ParallaxRowEntityFlavour {
 extension EntityFactory: ParallaxRowEntityFactory {
     func build(on entity: Entity, with flavour: ParallaxRowEntityFlavour) {
         switch flavour {
-        case .cycling(let prototypes, let distance, let width): // TODO: could compose those params into a type
+        case .cycling(let prototypes, let distance, let width): // TODO: could compose those params into a type. could also hang oft-referenced values off the factory?
             addCyclingParallaxRowComponent(to: entity, with: prototypes, at: distance, width)
         }
     }
@@ -29,7 +29,11 @@ extension EntityFactory: ParallaxRowEntityFactory {
             cell.skNode.setScale(distance)
             cell.skNode.position.x = CGFloat(-rowWidth / 2) + cellSize * CGFloat(idx)
         }
+        let component = ParallaxRowComponent(node: entity.skNode, distance: distance, width: Int(sceneWidth))
+        entity.addParallaxRowComponent(component)
         
-        entity.addParallaxRowComponent(ParallaxRowComponent(node: entity.skNode, distance: distance, width: Int(sceneWidth)))
+        if let _ = container.parallax {
+            container.parallax?.addComponent(foundIn: entity)
+        }
     }
 }

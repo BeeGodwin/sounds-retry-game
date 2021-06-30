@@ -3,7 +3,6 @@ import GameplayKit
 class ParallaxRowComponent: GKComponent {
     
     let node: SKNode
-//    let position: CGPoint // nah
     let distance: CGFloat
     let width: Int // TODO: int?
     
@@ -12,7 +11,6 @@ class ParallaxRowComponent: GKComponent {
     
     init(node: SKNode, distance: CGFloat, width: Int) {
         self.node = node
-//        self.position = position
         self.distance = distance
         self.width = width
         super.init()
@@ -20,6 +18,10 @@ class ParallaxRowComponent: GKComponent {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func update(deltaTime seconds: TimeInterval) {
+        moveBy(delta: CGFloat(seconds))
     }
     
     func moveBy(delta: CGFloat) {
