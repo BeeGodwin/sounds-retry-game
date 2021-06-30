@@ -6,7 +6,7 @@ class ParallaxRowComponent: GKComponent {
     let distance: CGFloat
     let width: Int // TODO: int?
     
-    private var leftEdge: CGFloat { CGFloat(-width / 2) }
+    private var leftEdge: CGFloat { CGFloat(-width / 2) - 64}
     private var wrapDistance: CGFloat { CGFloat(width + 64 * Int(distance)) }
     
     init(node: SKNode, distance: CGFloat, width: Int) {

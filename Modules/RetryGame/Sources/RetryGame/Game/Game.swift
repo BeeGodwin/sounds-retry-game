@@ -27,7 +27,7 @@ class Game: ObserverProtocol {
     }
     
     func spawnParallax() {
-        parallax = ParallaxRowSystem(maxSpeed: 64.0)
+        parallax = ParallaxRowSystem(maxSpeed: 256.0)
         
         if let factory = container.factory {
             let layer = factory.create(entity: .parallaxRow(.cycling([.debug(.dark), .debug(.light)], 1.0, scene.view?.bounds.width)))

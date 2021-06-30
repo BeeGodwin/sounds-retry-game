@@ -23,13 +23,15 @@ extension EntityFactory: ParallaxRowEntityFactory {
         let numCells = Int((sceneWidth + cellSize * 2) / cellSize)
         let rowWidth = Int(CGFloat(numCells) * cellSize)
         
+        let leftEdge = -(sceneWidth / 2)
+        
         for idx in 0...numCells {
             let cell = create(entity: prototypes[idx % prototypes.count])
             entity.node.addChild(cell.node)
             cell.skNode.setScale(distance)
-            cell.skNode.position.x = CGFloat(-rowWidth / 2) + cellSize * CGFloat(idx)
+            cell.skNode.position.x = leftEdge + cellSize * CGFloat(idx)
         }
-        let component = ParallaxRowComponent(node: entity.skNode, distance: distance, width: Int(sceneWidth))
+        let component = ParallaxRowComponent(node: entity.skNode, distance: distance, width: Int(rowWidth))
         entity.addParallaxRowComponent(component)
     }
 }
