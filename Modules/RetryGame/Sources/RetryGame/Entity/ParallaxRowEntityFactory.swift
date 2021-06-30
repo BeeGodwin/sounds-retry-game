@@ -19,7 +19,7 @@ extension EntityFactory: ParallaxRowEntityFactory {
     private func addCyclingParallaxRowComponent(to entity: Entity, with prototypes: [EntityPrototype], at distance: CGFloat, _ width: CGFloat?) {
         guard let sceneWidth = width else { return }
                 
-        let cellSize = 64 * distance // TODO: need to lose the consts here and go off the texture width instead? (Powers of 2 are good!)
+        let cellSize = 64 * distance // TODO: need to lose the consts here and go off the texture width instead? (Powers of 2 are good)
         let numCells = Int((sceneWidth + cellSize * 2) / cellSize)
         let rowWidth = Int(CGFloat(numCells) * cellSize)
         
@@ -31,9 +31,5 @@ extension EntityFactory: ParallaxRowEntityFactory {
         }
         let component = ParallaxRowComponent(node: entity.skNode, distance: distance, width: Int(sceneWidth))
         entity.addParallaxRowComponent(component)
-        
-        if let _ = container.parallax {
-            container.parallax?.addComponent(foundIn: entity)
-        }
     }
 }
