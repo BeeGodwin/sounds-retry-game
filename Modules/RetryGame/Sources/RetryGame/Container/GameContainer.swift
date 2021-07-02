@@ -6,26 +6,28 @@ protocol GameContainerProtocol {
     var factory: EntityFactoryProtocol? { get }
     var eventBus: EventBusProtocol { get }
     var textureManager: TextureManager { get }
+    var scene: GameScene? { get }
+    
+    func bootstrap()
+    func retry()
 }
 
 public class GameContainer: GameContainerProtocol {
     
-    var hostView: UIView
-    var retryDelegate: RetryDelegateProtocol
-    
-    let textureManager: TextureManager
-    let inputManager: InputManager
-    let eventBus: EventBusProtocol
-    
     var factory: EntityFactoryProtocol?
+    let eventBus: EventBusProtocol
+    let textureManager: TextureManager
+    var scene: GameScene?
+    
+    private var hostView: UIView
+    private var retryDelegate: RetryDelegateProtocol
     
     public init(on view: UIView, with delegate: RetryDelegateProtocol) {
         hostView = view
         retryDelegate = delegate
         
-        textureManager = TextureManager()
         eventBus = EventBus()
-        inputManager = InputManager(eventBus: eventBus)
+        textureManager = TextureManager()
     }
     
     public func bootstrap() {
@@ -33,18 +35,29 @@ public class GameContainer: GameContainerProtocol {
         factory = EntityFactory(container: self)
         
         let rect = hostView.bounds
+        
         let gameView = GameView(frame: rect)
-        gameView.inputManager = inputManager
+        enableDebug(gameView)
+        gameView.inputManager = InputManager(eventBus: eventBus)
         hostView.addSubview(gameView)
         
-        let scene = GameScene(size: rect.size)
-        scene.container = self
-        scene.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        scene = GameScene(size: rect.size)
+        scene?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
-        let game = Game(container: self, scene: scene)
-        
+        let game = Game(container: self)
+        scene?.game = game
         gameView.presentScene(scene)
-        scene.game = game
+        
         game.start()
+    }
+    
+    func retry() {
+        print("Calling retryDelegate")
+    }
+    
+    private func enableDebug(_ gameView: GameView) {
+        gameView.showsFPS = true
+        gameView.showsNodeCount = true
+        gameView.showsDrawCount = true
     }
 }

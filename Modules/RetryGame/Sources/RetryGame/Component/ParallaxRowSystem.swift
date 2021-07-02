@@ -2,16 +2,18 @@ import GameplayKit
 
 class ParallaxRowSystem {
     
-    let system: GKComponentSystem<ParallaxRowComponent>
-    var rows: [Entity]
-    
-    var maxSpeed: CGFloat
+    private let system: GKComponentSystem<ParallaxRowComponent>
+    private var rows: [Entity]
+    private var maxSpeed: CGFloat
 
-    
     init(maxSpeed: CGFloat) {
         system = GKComponentSystem(componentClass: ParallaxRowComponent.self)
         rows = [Entity]()
         self.maxSpeed = maxSpeed
+    }
+        
+    func update(_ delta: TimeInterval) {
+        system.components.forEach { $0.moveBy(delta: CGFloat(delta) * maxSpeed) }
     }
     
     func spawn(rows toSpawn: [EntityPrototype], on scene: GameScene, from factory: EntityFactoryProtocol) {
@@ -22,12 +24,8 @@ class ParallaxRowSystem {
         }
     }
     
-    func addRow(on entity: Entity) {
+    private func addRow(on entity: Entity) {
         rows.append(entity)
         system.addComponent(foundIn: entity)
-    }
-    
-    func update(_ delta: TimeInterval) {
-        system.components.forEach { $0.moveBy(delta: CGFloat(delta) * maxSpeed) }
     }
 }

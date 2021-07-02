@@ -22,12 +22,12 @@ extension EntityFactory: ParallaxRowEntityFactory {
         }
     }
     
-    private func addCyclingParallaxRowComponent(to entity: Entity, with prototypes: [EntityPrototype], params: ParallaxRowParameters) {
-        guard let sceneWidth = params.width else { return }
+    private func addCyclingParallaxRowComponent(to entity: Entity, with prototypes: [EntityPrototype], params: ParallaxRowParameters) { // TODO: this could/should take an array of textures? That would make prototype singular? or is that contextual based on what the layer's for?
+        guard let sceneWidth = params.width else { return } // TODO: check if still needs to be optional. dont think it does
                 
-        let cellSize = 64 * params.distance // TODO: need to lose the consts here and go off the texture width instead?
+        let cellSize = 64 * params.distance // TODO: need to lose the consts here and go off the texture width instead? not a magic number anyhow.
         let numCells = Int((sceneWidth + cellSize * 2) / cellSize)
-        let rowWidth = Int(CGFloat(numCells) * cellSize)
+        let rowWidth = CGFloat(numCells) * cellSize
         
         let leftEdge = -(sceneWidth / 2)
         
@@ -38,7 +38,7 @@ extension EntityFactory: ParallaxRowEntityFactory {
             cell.skNode.setScale(params.distance)
             cell.skNode.position.x = leftEdge + cellSize * CGFloat(idx)
         }
-        let component = ParallaxRowComponent(node: entity.skNode, distance: params.distance, width: Int(rowWidth))
+        let component = ParallaxRowComponent(node: entity.skNode, distance: params.distance, width: rowWidth)
         entity.addParallaxRowComponent(component)
     }
 }

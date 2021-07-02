@@ -2,11 +2,12 @@ import SpriteKit
 
 class GameScene: SKScene {
     
-    var contentCreated = false
     
-    var container: GameContainerProtocol?
     var game: Game?
-    var lastFrameTime: TimeInterval?
+    
+    private var lastFrameTime: TimeInterval?
+    private var contentCreated = false
+
     
     override func didMove(to view: SKView) {
         if !contentCreated {
@@ -15,7 +16,7 @@ class GameScene: SKScene {
         }
     }
     
-    override func update(_ currentTime: TimeInterval) { // TODO: doing this here is creating a circular reference?
+    override func update(_ currentTime: TimeInterval) {
         guard let game = self.game else { return }
         
         let lastFrame = lastFrameTime ?? currentTime

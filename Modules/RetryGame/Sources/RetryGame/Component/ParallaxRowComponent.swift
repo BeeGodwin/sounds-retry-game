@@ -4,12 +4,12 @@ class ParallaxRowComponent: GKComponent {
     
     let node: SKNode
     let distance: CGFloat
-    let width: Int // TODO: int?
+    let width: CGFloat
     
-    private var leftEdge: CGFloat { CGFloat(-(width / 2)) }
-    private var wrapDistance: CGFloat { CGFloat(width + 64 * Int(distance)) }
+    private var leftEdge: CGFloat { -(width / 2) }
+    private var wrapDistance: CGFloat { width + 64 * distance }
     
-    init(node: SKNode, distance: CGFloat, width: Int) {
+    init(node: SKNode, distance: CGFloat, width: CGFloat) {
         self.node = node
         self.distance = distance
         self.width = width
@@ -29,7 +29,7 @@ class ParallaxRowComponent: GKComponent {
             childNode.position.x -= delta * distance
             if childNode.position.x <= leftEdge {
                 childNode.position.x += wrapDistance
-                // TODO: pick a sprite on repositioning a cell
+                // TODO: configure the leading edge node that's just got moved
             }
         }
     }

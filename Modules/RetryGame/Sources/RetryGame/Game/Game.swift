@@ -2,34 +2,32 @@ import SpriteKit
 
 class Game: ObserverProtocol {
     
-    let container: GameContainerProtocol
-    let scene: GameScene
-    var parallax: ParallaxRowSystem?
-    var running = false
+    private let container: GameContainerProtocol
+    private var parallax: ParallaxRowSystem?
+    private var running = false
         
-    init(container: GameContainerProtocol, scene: GameScene) {
+    init(container: GameContainerProtocol) {
         self.container = container
-        self.scene = scene
-    }
-    
-    func receiveEvent(_ message: EventProtocol) {
-        running = !running
     }
     
     func start() {
-        setUp()
-    }
-    
-    func setUp() {
         container.eventBus.subscribe(to: .input, with: self)
-
         spawnParallax()
     }
     
-    func spawnParallax() {
-        guard let factory = container.factory, let sceneWidth = scene.view?.bounds.width else { return }
+    func receiveEvent(_ message: EventProtocol) {
+        running = !running // TODO: switch on the event type (even tho we should already be filtered b/c channels) and delegate to some private method
+    }
+    
+    func update(_ delta: TimeInterval) {
+        if !running { return }
+        parallax?.update(delta)
+    }
+    
+    private func spawnParallax() {
+        guard let factory = container.factory, let scene = container.scene, let sceneWidth = scene.view?.bounds.width else { return }
         
-        parallax = ParallaxRowSystem(maxSpeed: 256.0)
+        parallax = ParallaxRowSystem(maxSpeed: 256.0) // TODO: magic values here should instead be pulled out of some config object
                 
         let rows: [EntityPrototype] = [
             .parallaxRow(.cycling([.debug(.dark), .debug(.light)], ParallaxRowParameters(distance: 0.25, width: sceneWidth, y: 48))),
@@ -39,10 +37,5 @@ class Game: ObserverProtocol {
         ]
         
         parallax?.spawn(rows: rows, on: scene, from: factory)
-    }
-
-    func update(_ delta: TimeInterval) {
-        if !running { return }
-        parallax?.update(delta)
     }
 }
