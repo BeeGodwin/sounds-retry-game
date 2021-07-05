@@ -9,7 +9,7 @@ protocol GameContainerProtocol {
     var scene: GameScene? { get }
     
     func bootstrap()
-    func retry()
+    func retryNetwork()
 }
 
 public class GameContainer: GameContainerProtocol {
@@ -51,7 +51,7 @@ public class GameContainer: GameContainerProtocol {
         game.start()
     }
     
-    func retry() {
+    func retryNetwork() {
         print("Calling retryDelegate")
     }
     

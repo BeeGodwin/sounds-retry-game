@@ -11,9 +11,9 @@ class Game: ObserverProtocol {
     }
     
     func start() {
-        container.eventBus.subscribe(to: .input, with: self)
+        container.eventBus.subscribe(to: .input, with: self) // TODO: consider, should this be done here, or in scene / container?
         container.eventBus.subscribe(to: .game, with: self)
-        spawnParallax()
+        spawnGame()
     }
     
     func receiveEvent(_ message: EventProtocol) {
@@ -32,26 +32,51 @@ class Game: ObserverProtocol {
         parallax?.update(delta)
     }
     
+    private var tempCount = 0
+    
     private func handleInputEvent() {
-        // delegate to a state machine here.
-        // in the stopped state, input means transition to the running state
-        // in the running state, input goes to the player state machine
-        running = !running
+        if running {
+            print("player input") // TODO: fire a player input event
+            tempCount += 1
+            if tempCount >= 3 {
+                tempCount = 0
+                let event = EventMessage(channel: .game, event: GameEvent.gameOver)
+                container.eventBus.notify(of: event)
+            }
+        } else {
+            let event = EventMessage(channel: .game, event: GameEvent.gameStart)
+            container.eventBus.notify(of: event)
+        }
     }
     
     private func handleGameEvent(_ event: GameEvent) {
         switch event {
         case .gameStart:
             print("game start")
+            running = true
         case .gameOver:
             print("game over")
+            running = false
+            container.retryNetwork()
+            restartGame() // TODO: is there a 3rd state here? Waiting to start / running / ended? & if so do we need a state machine rather than a boolean?
         }
+    }
+    
+    private func spawnGame() {
+        spawnParallax()
+        spawnPlayer()
+    }
+    
+    private func restartGame() {
+        guard let scene = container.scene else { return }
+        parallax?.destroy(scene: scene)
+        spawnGame()
     }
     
     private func spawnParallax() {
         guard let factory = container.factory, let scene = container.scene, let sceneWidth = scene.view?.bounds.width else { return }
         
-        parallax = ParallaxRowSystem(maxSpeed: GameConstants.maxSpeed)
+        parallax = ParallaxRowSystem(maxSpeed: GameConstants.maxSpeed, acceleration: GameConstants.acceleration)
                 
         let rows: [EntityPrototype] = [
             .parallaxRow(.cycling([.debug(.dark), .debug(.light)], ParallaxRowParameters(distance: 0.25, width: sceneWidth, y: 48))),
@@ -61,5 +86,9 @@ class Game: ObserverProtocol {
         ]
         
         parallax?.spawn(rows, on: scene, from: factory)
+    }
+    
+    private func spawnPlayer() {
+        print("spawn player")
     }
 }

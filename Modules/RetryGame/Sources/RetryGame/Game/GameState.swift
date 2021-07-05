@@ -1,3 +1,0 @@
-import GameplayKit
-
-struct GameState {}
