@@ -5,9 +5,11 @@ class Game: ObserverProtocol {
     private let container: GameContainerProtocol
     private var parallax: ParallaxRowSystem?
     private var running = false
+    private var gameState: GameState
         
     init(container: GameContainerProtocol) {
         self.container = container
+        gameState = .ready
     }
     
     func start() {
@@ -28,14 +30,18 @@ class Game: ObserverProtocol {
     }
     
     func update(_ delta: TimeInterval) {
-        if !running { return }
+        if gameState != .running { return }
         parallax?.update(delta)
     }
     
     private var tempCount = 0
     
     private func handleInputEvent() {
-        if running {
+        switch gameState {
+        case .ready:
+            let event = EventMessage(channel: .game, event: GameEvent.gameStart)
+            container.eventBus.notify(of: event)
+        case .running:
             print("player input") // TODO: fire a player input event
             tempCount += 1
             if tempCount >= 3 {
@@ -43,9 +49,10 @@ class Game: ObserverProtocol {
                 let event = EventMessage(channel: .game, event: GameEvent.gameOver)
                 container.eventBus.notify(of: event)
             }
-        } else {
-            let event = EventMessage(channel: .game, event: GameEvent.gameStart)
-            container.eventBus.notify(of: event)
+        case .gameOver:
+            container.retryNetwork()
+            restartGame()
+            gameState = .ready // TODO: should this drop straight into .running here?
         }
     }
     
@@ -53,13 +60,20 @@ class Game: ObserverProtocol {
         switch event {
         case .gameStart:
             print("game start")
-            running = true
+            gameState = .running
         case .gameOver:
             print("game over")
-            running = false
-            container.retryNetwork()
-            restartGame() // TODO: is there a 3rd state here? Waiting to start / running / ended? & if so do we need a state machine rather than a boolean?
+            gameState = .gameOver
         }
+    }
+    
+    private func handleGameStart() {
+        gameState = .running
+    }
+    
+    private func handleGameEnd() {
+        gameState = .gameOver
+        
     }
     
     private func spawnGame() {
