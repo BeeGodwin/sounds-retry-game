@@ -12,6 +12,7 @@ struct ParallaxRowParameters {
     var distance: CGFloat
     var width: CGFloat?
     var y: CGFloat
+    var isGround: Bool = false
 }
 
 extension EntityFactory: ParallaxRowEntityFactory {
@@ -40,5 +41,14 @@ extension EntityFactory: ParallaxRowEntityFactory {
         }
         let component = ParallaxRowComponent(node: entity.skNode, distance: params.distance, width: rowWidth)
         entity.addParallaxRowComponent(component)
+        
+        if params.isGround {
+            let edgeNode = SKNode()
+            let y = params.y + cellSize / 2
+            let leftEnd = CGPoint(x: leftEdge, y: y)
+            let rightEnd = CGPoint(x: -leftEdge, y: y)
+            edgeNode.physicsBody = SKPhysicsBody(edgeFrom: leftEnd, to: rightEnd)
+            entity.skNode.addChild(edgeNode)
+        }
     }
 }
