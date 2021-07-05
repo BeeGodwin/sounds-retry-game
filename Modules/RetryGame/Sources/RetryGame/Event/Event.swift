@@ -15,3 +15,7 @@ enum GameEvent: Event {
     case gameStart
     case gameOver
 }
+
+enum ControlEvent: Event {
+    case playerAction
+}

@@ -3,9 +3,10 @@ import SpriteKit
 class Game: ObserverProtocol {
     
     private let container: GameContainerProtocol
-    private var parallax: ParallaxRowSystem?
-    private var running = false
     private var gameState: GameState
+
+    private var parallax: ParallaxRowSystem?
+    private var player: Entity?
         
     init(container: GameContainerProtocol) {
         self.container = container
@@ -26,6 +27,8 @@ class Game: ObserverProtocol {
             if let gameEvent = message.event as? GameEvent {
                 handleGameEvent(gameEvent)
             }
+        default:
+            print("noop") // TODO: get rid
         }
     }
     
@@ -42,13 +45,15 @@ class Game: ObserverProtocol {
             let event = EventMessage(channel: .game, event: GameEvent.gameStart)
             container.eventBus.notify(of: event)
         case .running:
-            print("player input") // TODO: fire a player input event
+            let controlEvent = EventMessage(channel: .control, event: ControlEvent.playerAction)
+            container.eventBus.notify(of: controlEvent)
+            // MARK: PH game logic
             tempCount += 1
             if tempCount >= 3 {
                 tempCount = 0
                 let event = EventMessage(channel: .game, event: GameEvent.gameOver)
                 container.eventBus.notify(of: event)
-            }
+            } // end PH code
         case .gameOver:
             container.retryNetwork()
             restartGame()
@@ -82,8 +87,12 @@ class Game: ObserverProtocol {
     }
     
     private func restartGame() {
-        guard let scene = container.scene else { return }
+        guard let scene = container.scene, let playerNode = player?.skNode else { return }
+        
         parallax?.destroy(scene: scene)
+        scene.removeChildren(in: [playerNode])
+        player = nil
+        
         spawnGame()
     }
     
@@ -103,6 +112,10 @@ class Game: ObserverProtocol {
     }
     
     private func spawnPlayer() {
-        print("spawn player")
+        guard let factory = container.factory, let scene = container.scene else { return }
+        
+        let player = factory.create(entity: .player)
+        scene.addChild(player.skNode)
+        player.skNode.position = GameConstants.startPosition
     }
 }

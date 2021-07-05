@@ -10,6 +10,7 @@ protocol EntityFactoryProtocol {
 enum EntityPrototype {
     case debug(DebugEntityFlavour)
     case parallaxRow(ParallaxRowEntityFlavour)
+    case player
 }
 
 class EntityFactory: EntityFactoryProtocol {
@@ -27,6 +28,8 @@ class EntityFactory: EntityFactoryProtocol {
             build(on: entity, with: debugFlavour)
         case .parallaxRow(let parallaxFlavour):
             build(on: entity, with: parallaxFlavour)
+        case .player:
+            build(on: entity)
         }
         return entity
     }
