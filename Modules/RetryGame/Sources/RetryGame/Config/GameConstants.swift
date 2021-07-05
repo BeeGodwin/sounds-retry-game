@@ -9,4 +9,5 @@ struct GameConstants {
 
     // MARK: player
     static let startPosition: CGPoint = CGPoint(x: -128, y: 64)
+    static let jumpForce: CGFloat = 650.0
 }

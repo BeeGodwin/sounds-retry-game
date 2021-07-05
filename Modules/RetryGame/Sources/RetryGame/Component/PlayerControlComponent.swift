@@ -3,9 +3,11 @@ import GameplayKit
 class PlayerControlComponent: GKComponent, ObserverProtocol {
 
     let eventBus: EventBusProtocol
+    let physicsBody: SKPhysicsBody
     
-    init(eventBus: EventBusProtocol) {
+    init(eventBus: EventBusProtocol, physicsBody: SKPhysicsBody) {
         self.eventBus = eventBus
+        self.physicsBody = physicsBody
         super.init()
         eventBus.subscribe(to: .control, with: self)
     }
@@ -18,7 +20,7 @@ class PlayerControlComponent: GKComponent, ObserverProtocol {
         guard let controlEvent = event.event as? ControlEvent else { return }
         switch controlEvent {
         case .playerAction:
-            print("player action")
+            physicsBody.velocity = CGVector(dx: 0, dy: GameConstants.jumpForce)
         }
     }
 }
