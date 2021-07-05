@@ -6,6 +6,7 @@ protocol ParallaxRowEntityFactory {
 
 enum ParallaxRowEntityFlavour {
     case cycling([EntityPrototype], ParallaxRowParameters)
+    case obstacles
 }
 
 struct ParallaxRowParameters {
@@ -20,6 +21,8 @@ extension EntityFactory: ParallaxRowEntityFactory {
         switch flavour {
         case .cycling(let prototypes, let parameters):
             addCyclingParallaxRowComponent(to: entity, with: prototypes, params: parameters)
+        case .obstacles:
+            addObstaclesParallaxRowComponent(to: entity)
         }
     }
     
@@ -48,7 +51,19 @@ extension EntityFactory: ParallaxRowEntityFactory {
             let leftEnd = CGPoint(x: leftEdge, y: y)
             let rightEnd = CGPoint(x: -leftEdge, y: y)
             edgeNode.physicsBody = SKPhysicsBody(edgeFrom: leftEnd, to: rightEnd)
+            edgeNode.name = GameConstants.floorName
             entity.skNode.addChild(edgeNode)
         }
+    }
+    
+    private func addObstaclesParallaxRowComponent(to entity: Entity) {
+        // TODO: proper obstacle spawning
+        entity.skNode.position.y = 64
+        let obstacle = create(entity: .obstacle(.debug))
+        entity.node.addChild(obstacle.node)
+        obstacle.skNode.position.x = 128
+        
+        let component = ParallaxRowComponent(node: entity.skNode, distance: 1, width: 1000)
+        entity.addParallaxRowComponent(component)
     }
 }

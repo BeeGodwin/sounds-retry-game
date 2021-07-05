@@ -10,4 +10,10 @@ struct GameConstants {
     // MARK: player
     static let startPosition: CGPoint = CGPoint(x: -128, y: 64)
     static let jumpForce: CGFloat = 650.0
+    
+    // MARK: world
+    static let collisionBitMask: UInt32 = 0x00001
+    static let playerName = "player"
+    static let obstacleName = "obstacle"
+    static let floorName = "floor"
 }

@@ -12,8 +12,12 @@ extension EntityFactory: PlayerEntityFactory {
         
         let spriteComponent = SpriteComponent(texture: tx)
         let sprite = spriteComponent.sprite
-        let physicsBody = SKPhysicsBody(rectangleOf: sprite.size)
+        sprite.name = GameConstants.playerName
+        
+        let physicsBody = SKPhysicsBody(circleOfRadius: sprite.size.height / 2)
         physicsBody.allowsRotation = false
+        physicsBody.contactTestBitMask = GameConstants.collisionBitMask
+
         sprite.physicsBody = physicsBody
         
         entity.addSpriteComponent(spriteComponent)

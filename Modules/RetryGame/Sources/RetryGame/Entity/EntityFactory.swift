@@ -11,6 +11,7 @@ enum EntityPrototype {
     case debug(DebugEntityFlavour)
     case parallaxRow(ParallaxRowEntityFlavour)
     case player
+    case obstacle(ObstacleEntityFlavour)
 }
 
 class EntityFactory: EntityFactoryProtocol {
@@ -30,6 +31,8 @@ class EntityFactory: EntityFactoryProtocol {
             build(on: entity, with: parallaxFlavour)
         case .player:
             build(on: entity)
+        case .obstacle(let obstacleFlavour):
+            build(on: entity, with: obstacleFlavour)
         }
         return entity
     }

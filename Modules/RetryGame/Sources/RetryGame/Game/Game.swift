@@ -4,10 +4,10 @@ class Game: ObserverProtocol {
     
     private let container: GameContainerProtocol
     private var gameState: GameState
-
+    
     private var parallax: ParallaxRowSystem?
     private var player: Entity?
-        
+    
     init(container: GameContainerProtocol) {
         self.container = container
         gameState = .ready
@@ -28,7 +28,7 @@ class Game: ObserverProtocol {
                 handleGameEvent(gameEvent)
             }
         default:
-            print("noop") // TODO: get rid
+            print("unhandled event") // TODO: get rid
         }
     }
     
@@ -37,7 +37,11 @@ class Game: ObserverProtocol {
         parallax?.update(delta)
     }
     
-    private var tempCount = 0
+    func playerCollidedWithObstacle() {
+        print("game over")
+        handleGameEnd()
+    }
+    
     
     private func handleInputEvent() {
         switch gameState {
@@ -47,13 +51,6 @@ class Game: ObserverProtocol {
         case .running:
             let controlEvent = EventMessage(channel: .control, event: ControlEvent.playerAction)
             container.eventBus.notify(of: controlEvent)
-            // MARK: PH game logic
-            tempCount += 1
-            if tempCount >= 3 {
-                tempCount = 0
-                let event = EventMessage(channel: .game, event: GameEvent.gameOver)
-                container.eventBus.notify(of: event)
-            } // end PH code
         case .gameOver:
             container.retryNetwork()
             restartGame()
@@ -78,7 +75,6 @@ class Game: ObserverProtocol {
     
     private func handleGameEnd() {
         gameState = .gameOver
-        
     }
     
     private func spawnGame() {
@@ -100,11 +96,12 @@ class Game: ObserverProtocol {
         guard let factory = container.factory, let scene = container.scene, let sceneWidth = scene.view?.bounds.width else { return }
         
         parallax = ParallaxRowSystem(maxSpeed: GameConstants.maxSpeed, acceleration: GameConstants.acceleration)
-                
+        
         let rows: [EntityPrototype] = [
             .parallaxRow(.cycling([.debug(.dark), .debug(.light)], ParallaxRowParameters(distance: 0.25, width: sceneWidth, y: 48))),
             .parallaxRow(.cycling([.debug(.light), .debug(.dark)], ParallaxRowParameters(distance: 0.5, width: sceneWidth, y: 32))),
             .parallaxRow(.cycling([.debug(.dark), .debug(.light)], ParallaxRowParameters(distance: 1, width: sceneWidth, y: 0, isGround: true))),
+            .parallaxRow(.obstacles),
             .parallaxRow(.cycling([.debug(.light), .debug(.dark)], ParallaxRowParameters(distance: 2, width: sceneWidth, y: -64))),
         ]
         
