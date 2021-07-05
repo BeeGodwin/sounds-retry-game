@@ -34,6 +34,7 @@ class ParallaxRowSystem {
             system.removeComponent(foundIn: row)
             scene.removeChildren(in: [row.skNode])
         }
+        rows = []
     }
     
     private func addRow(on entity: Entity) {

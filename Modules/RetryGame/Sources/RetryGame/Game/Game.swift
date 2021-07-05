@@ -38,8 +38,8 @@ class Game: ObserverProtocol {
     }
     
     func playerCollidedWithObstacle() {
-        print("game over")
-        handleGameEnd()
+        let event = EventMessage(channel: .game, event: GameEvent.gameOver)
+        container.eventBus.notify(of: event)
     }
     
     
@@ -73,10 +73,6 @@ class Game: ObserverProtocol {
         gameState = .running
     }
     
-    private func handleGameEnd() {
-        gameState = .gameOver
-    }
-    
     private func spawnGame() {
         spawnParallax()
         spawnPlayer()
@@ -106,15 +102,15 @@ class Game: ObserverProtocol {
         ]
         
         parallax?.spawn(rows, on: scene, from: factory)
-        
-        
     }
     
     private func spawnPlayer() {
         guard let factory = container.factory, let scene = container.scene else { return }
         
-        let player = factory.create(entity: .player)
-        scene.addChild(player.skNode)
-        player.skNode.position = GameConstants.startPosition
+        player = factory.create(entity: .player)
+        guard let playerNode = player?.skNode else { return }
+        
+        scene.addChild(playerNode)
+        playerNode.position = GameConstants.startPosition
     }
 }

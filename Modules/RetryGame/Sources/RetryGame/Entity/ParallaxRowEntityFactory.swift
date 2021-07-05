@@ -63,7 +63,7 @@ extension EntityFactory: ParallaxRowEntityFactory {
         entity.node.addChild(obstacle.node)
         obstacle.skNode.position.x = 128
         
-        let component = ParallaxRowComponent(node: entity.skNode, distance: 1, width: 1000)
+        let component = ParallaxRowComponent(node: entity.skNode, distance: 1, width: 1000) // TODO: refactor out magic number
         entity.addParallaxRowComponent(component)
     }
 }
