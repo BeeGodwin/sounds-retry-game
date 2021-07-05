@@ -1,9 +1,5 @@
 import Foundation
 
-enum InputEvent: Event {
-    case touched
-}
-
 class InputManager {
     
     private let eventBus: EventBusProtocol

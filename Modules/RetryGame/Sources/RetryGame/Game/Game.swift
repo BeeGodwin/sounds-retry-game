@@ -12,11 +12,19 @@ class Game: ObserverProtocol {
     
     func start() {
         container.eventBus.subscribe(to: .input, with: self)
+        container.eventBus.subscribe(to: .game, with: self)
         spawnParallax()
     }
     
     func receiveEvent(_ message: EventProtocol) {
-        running = !running // TODO: switch on the event type (even tho we should already be filtered b/c channels) and delegate to some private method
+        switch message.channel {
+        case .input:
+            handleInputEvent()
+        case .game:
+            if let gameEvent = message.event as? GameEvent {
+                handleGameEvent(gameEvent)
+            }
+        }
     }
     
     func update(_ delta: TimeInterval) {
@@ -24,10 +32,26 @@ class Game: ObserverProtocol {
         parallax?.update(delta)
     }
     
+    private func handleInputEvent() {
+        // delegate to a state machine here.
+        // in the stopped state, input means transition to the running state
+        // in the running state, input goes to the player state machine
+        running = !running
+    }
+    
+    private func handleGameEvent(_ event: GameEvent) {
+        switch event {
+        case .gameStart:
+            print("game start")
+        case .gameOver:
+            print("game over")
+        }
+    }
+    
     private func spawnParallax() {
         guard let factory = container.factory, let scene = container.scene, let sceneWidth = scene.view?.bounds.width else { return }
         
-        parallax = ParallaxRowSystem(maxSpeed: 256.0) // TODO: magic values here should instead be pulled out of some config object
+        parallax = ParallaxRowSystem(maxSpeed: GameConstants.maxSpeed)
                 
         let rows: [EntityPrototype] = [
             .parallaxRow(.cycling([.debug(.dark), .debug(.light)], ParallaxRowParameters(distance: 0.25, width: sceneWidth, y: 48))),
@@ -36,6 +60,6 @@ class Game: ObserverProtocol {
             .parallaxRow(.cycling([.debug(.light), .debug(.dark)], ParallaxRowParameters(distance: 2, width: sceneWidth, y: -64))),
         ]
         
-        parallax?.spawn(rows: rows, on: scene, from: factory)
+        parallax?.spawn(rows, on: scene, from: factory)
     }
 }

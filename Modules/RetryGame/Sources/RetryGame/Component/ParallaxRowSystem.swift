@@ -16,8 +16,8 @@ class ParallaxRowSystem {
         system.components.forEach { $0.moveBy(delta: CGFloat(delta) * maxSpeed) }
     }
     
-    func spawn(rows toSpawn: [EntityPrototype], on scene: GameScene, from factory: EntityFactoryProtocol) {
-        toSpawn.forEach { prototype in
+    func spawn(_ rows: [EntityPrototype], on scene: GameScene, from factory: EntityFactoryProtocol) {
+        rows.forEach { prototype in
             let rowEntity = factory.create(entity: prototype)
             addRow(on: rowEntity)
             scene.addChild(rowEntity.skNode)

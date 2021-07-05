@@ -25,7 +25,7 @@ extension EntityFactory: ParallaxRowEntityFactory {
     private func addCyclingParallaxRowComponent(to entity: Entity, with prototypes: [EntityPrototype], params: ParallaxRowParameters) { // TODO: this could/should take an array of textures? That would make prototype singular? or is that contextual based on what the layer's for?
         guard let sceneWidth = params.width else { return } // TODO: check if still needs to be optional. dont think it does
                 
-        let cellSize = 64 * params.distance // TODO: need to lose the consts here and go off the texture width instead? not a magic number anyhow.
+        let cellSize = GameConstants.tileSize * params.distance
         let numCells = Int((sceneWidth + cellSize * 2) / cellSize)
         let rowWidth = CGFloat(numCells) * cellSize
         

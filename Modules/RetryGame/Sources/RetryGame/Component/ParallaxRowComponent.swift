@@ -6,8 +6,9 @@ class ParallaxRowComponent: GKComponent {
     let distance: CGFloat
     let width: CGFloat
     
-    private var leftEdge: CGFloat { -(width / 2) }
-    private var wrapDistance: CGFloat { width + 64 * distance }
+    
+    private var leftEdge: CGFloat { -width / 2 }
+    private var wrapDistance: CGFloat { width + GameConstants.tileSize * distance }
     
     init(node: SKNode, distance: CGFloat, width: CGFloat) {
         self.node = node

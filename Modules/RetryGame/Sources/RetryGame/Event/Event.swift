@@ -6,3 +6,12 @@ struct EventMessage: EventProtocol {
 }
 
 public protocol Event { }
+
+enum InputEvent: Event {
+    case touched
+}
+
+enum GameEvent: Event {
+    case gameStart
+    case gameOver
+}
