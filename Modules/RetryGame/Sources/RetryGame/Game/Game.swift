@@ -33,7 +33,7 @@ class Game: ObserverProtocol { // TODO: this class could do with refactoring int
                 handleGameEvent(gameEvent)
             }
         default:
-            print("unhandled event") // TODO: get rid?
+            print("unhandled event")
         }
     }
     
