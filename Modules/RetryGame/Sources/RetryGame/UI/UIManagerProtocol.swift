@@ -16,6 +16,7 @@ class UIManager: UIManagerProtocol, ObserverProtocol {
     func spawnUI(on scene: GameScene, eventBus: EventBusProtocol) {
         
         eventBus.subscribe(to: .game, with: self)
+        eventBus.subscribe(to: .score, with: self)
         
         let score = SKLabelNode(text: scoreLabelText)
         score.horizontalAlignmentMode = .right
@@ -35,8 +36,11 @@ class UIManager: UIManagerProtocol, ObserverProtocol {
         case .game:
             guard let event = message.event as? GameEvent else { return }
             handleGameEvent(event)
+        case .score:
+            guard let event = message.event as? ScoreEvent else { return }
+            handleScoreEvent(event)
         default:
-            print("unhandled game event") // TODO: resolve this
+            print("unhandled event")
         }
     }
     
@@ -46,6 +50,18 @@ class UIManager: UIManagerProtocol, ObserverProtocol {
             promptLabel.text = ""
         case .gameOver:
             promptLabel.text = GameConstants.gameOverPromptText
+        case .gameReady:
+            promptLabel.text = GameConstants.startGamePromptText
         }
+    }
+    
+    private func handleScoreEvent(_ event: ScoreEvent) {
+        switch event {
+        case .incrementBy(let increment):
+            score += increment
+        case .reset:
+            score = 0
+        }
+        scoreLabel.text = scoreLabelText
     }
 }

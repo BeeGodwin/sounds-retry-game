@@ -14,8 +14,14 @@ enum InputEvent: Event {
 enum GameEvent: Event {
     case gameStart
     case gameOver
+    case gameReady
 }
 
 enum ControlEvent: Event {
     case playerAction
+}
+
+enum ScoreEvent: Event {
+    case incrementBy(Int)
+    case reset
 }

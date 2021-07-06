@@ -47,7 +47,6 @@ class Game: ObserverProtocol { // TODO: this class could do with refactoring int
         container.eventBus.notify(of: event)
     }
     
-    
     private func handleInputEvent() {
         switch gameState {
         case .ready:
@@ -58,8 +57,9 @@ class Game: ObserverProtocol { // TODO: this class could do with refactoring int
             container.eventBus.notify(of: controlEvent)
         case .gameOver:
             container.retryNetwork()
+            let event = EventMessage(channel: .game, event: GameEvent.gameReady)
+            container.eventBus.notify(of: event)
             restartGame()
-            gameState = .ready // TODO: should this drop straight into .running here?
         }
     }
     
@@ -71,6 +71,8 @@ class Game: ObserverProtocol { // TODO: this class could do with refactoring int
         case .gameOver:
             print("game over")
             gameState = .gameOver
+        case .gameReady:
+            gameState = .ready
         }
     }
     
@@ -86,6 +88,8 @@ class Game: ObserverProtocol { // TODO: this class could do with refactoring int
     private func restartGame() {
         guard let scene = container.scene, let playerNode = player?.skNode else { return }
         
+        let resetScoreEvent = EventMessage(channel: .score, event: ScoreEvent.reset)
+        container.eventBus.notify(of: resetScoreEvent)
         parallax?.destroy(scene: scene)
         scene.removeChildren(in: [playerNode])
         player = nil
@@ -117,21 +121,5 @@ class Game: ObserverProtocol { // TODO: this class could do with refactoring int
         
         scene.addChild(playerNode)
         playerNode.position = GameConstants.startPosition
-    }
-    
-    private func spawnUI() { // TODO: let's bust these out into something where they can be event-driven.
-//        guard let scene = container.scene else { return }
-//
-//        let score = SKLabelNode(text: scoreLabelText)
-//        score.horizontalAlignmentMode = .right
-//        score.position = GameConstants.scoreLabelPosition
-//        scene.addChild(score)
-//        scoreLabel = score
-//
-//        let prompt = SKLabelNode(text: GameConstants.startGamePromptText)
-//        prompt.horizontalAlignmentMode = .center
-//        prompt.position = GameConstants.promptLabelPosition
-//        scene.addChild(prompt)
-//        promptLabel = prompt
     }
 }
