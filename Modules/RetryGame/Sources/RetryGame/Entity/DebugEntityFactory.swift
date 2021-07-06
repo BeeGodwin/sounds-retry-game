@@ -14,7 +14,7 @@ extension EntityFactory: DebugEntityFactory {
     func build(on entity: Entity, with flavour: DebugEntityFlavour) {
         switch flavour {
         case .light:
-            addSpriteComponent(to: entity, flavour: .light)
+            addSpriteComponent(to: entity, flavour: .light) // TODO these no longer need flavours
         case .dark:
             addSpriteComponent(to: entity, flavour: .dark)
         }
@@ -25,7 +25,7 @@ extension EntityFactory: DebugEntityFactory {
         var texture: SKTexture?
         switch flavour {
         case .light:
-            texture = textures.debugLightGrey()
+            texture = textures.debugLightGrey() // TODO we don't need to assign textures here any more; leave that to the configurator
         case .dark:
             texture = textures.debugDarkGrey()
         }

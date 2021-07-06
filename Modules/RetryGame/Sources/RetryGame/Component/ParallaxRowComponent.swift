@@ -5,16 +5,16 @@ class ParallaxRowComponent: GKComponent {
     let node: SKNode
     let distance: CGFloat
     let width: CGFloat
-    let edgeConfigurer: ParallaxEdgeConfiguring
+    let configurator: ParallaxEdgeConfiguring
     
     private var leftEdge: CGFloat { -width / 2 }
     private var wrapDistance: CGFloat { width + GameConstants.tileSize * distance }
     
-    init(node: SKNode, distance: CGFloat, width: CGFloat, edgeConfigurer: ParallaxEdgeConfiguring) {
+    init(node: SKNode, distance: CGFloat, width: CGFloat, configurator: ParallaxEdgeConfiguring) {
         self.node = node
         self.distance = distance
         self.width = width
-        self.edgeConfigurer = edgeConfigurer
+        self.configurator = configurator
         super.init()
     }
     
@@ -32,7 +32,7 @@ class ParallaxRowComponent: GKComponent {
             childNode.position.x -= delta * distance
             if childNode.position.x <= leftEdge {
                 childNode.position.x += wrapDistance
-                edgeConfigurer.configureNode(childNode)
+                configurator.configureNode(childNode)
             }
         }
     }

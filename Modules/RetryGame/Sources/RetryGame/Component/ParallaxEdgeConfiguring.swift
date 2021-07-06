@@ -14,8 +14,6 @@ class CyclingEdge: ParallaxEdgeConfiguring {
     }
     
     func configureNode(_ node: SKNode) {
-        print(node)
-        
         node.children.forEach { childNode in
             if let sprite = childNode as? SKSpriteNode {
                 sprite.texture = textures[index]
@@ -25,3 +23,5 @@ class CyclingEdge: ParallaxEdgeConfiguring {
         }
     }
 }
+
+// TODO: add other configurators for other cases (obstacles, random)

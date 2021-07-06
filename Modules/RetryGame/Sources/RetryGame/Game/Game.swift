@@ -107,12 +107,14 @@ class Game: ObserverProtocol { // TODO: this class could do with refactoring int
         
         parallax = ParallaxRowSystem(maxSpeed: GameConstants.maxSpeed, acceleration: GameConstants.acceleration)
         
+        let textures = [container.textureManager.debugDarkGrey()!, container.textureManager.debugLightGrey()!]
+        
         let rows: [EntityPrototype] = [
-            .parallaxRow(.cycling([.debug(.dark), .debug(.light)], ParallaxRowParameters(distance: 0.25, width: sceneWidth, y: 48))),
-            .parallaxRow(.cycling([.debug(.light), .debug(.dark)], ParallaxRowParameters(distance: 0.5, width: sceneWidth, y: 32))),
-            .parallaxRow(.cycling([.debug(.dark), .debug(.light)], ParallaxRowParameters(distance: 1, width: sceneWidth, y: 0, isGround: true))),
+            .parallaxRow(.cycling([.debug(.dark), .debug(.light)], textures, ParallaxRowParameters(distance: 0.25, width: sceneWidth, y: 48))),
+            .parallaxRow(.cycling([.debug(.light), .debug(.dark)], textures, ParallaxRowParameters(distance: 0.5, width: sceneWidth, y: 32))),
+            .parallaxRow(.cycling([.debug(.dark), .debug(.light)], textures, ParallaxRowParameters(distance: 1, width: sceneWidth, y: 0, isGround: true))),
             .parallaxRow(.obstacles),
-            .parallaxRow(.cycling([.debug(.light), .debug(.dark)], ParallaxRowParameters(distance: 2, width: sceneWidth, y: -64))),
+            .parallaxRow(.cycling([.debug(.light), .debug(.dark)], textures, ParallaxRowParameters(distance: 2, width: sceneWidth, y: -64))),
         ]
         
         parallax?.spawn(rows, on: scene, from: factory)

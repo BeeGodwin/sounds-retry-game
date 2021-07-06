@@ -5,7 +5,7 @@ protocol ParallaxRowEntityFactory {
 }
 
 enum ParallaxRowEntityFlavour {
-    case cycling([EntityPrototype], ParallaxRowParameters)
+    case cycling([EntityPrototype], [SKTexture], ParallaxRowParameters)
     case obstacles
 }
 
@@ -19,14 +19,15 @@ struct ParallaxRowParameters {
 extension EntityFactory: ParallaxRowEntityFactory {
     func build(on entity: Entity, with flavour: ParallaxRowEntityFlavour) {
         switch flavour {
-        case .cycling(let prototypes, let parameters):
-            addCyclingParallaxRowComponent(to: entity, with: prototypes, params: parameters)
+        case .cycling(let prototypes, let textures, let parameters):
+            addCyclingParallaxRowComponent(to: entity, with: prototypes, textures, parameters)
         case .obstacles:
             addObstaclesParallaxRowComponent(to: entity)
         }
     }
     
-    private func addCyclingParallaxRowComponent(to entity: Entity, with prototypes: [EntityPrototype], params: ParallaxRowParameters) { // TODO: this could/should take an array of textures? That would make prototype singular? or is that contextual based on what the layer's for?
+    private func addCyclingParallaxRowComponent(to entity: Entity, with prototypes: [EntityPrototype], _ textures: [SKTexture], _ params: ParallaxRowParameters) {
+        
         guard let sceneWidth = params.width else { return } // TODO: check if still needs to be optional. dont think it does
         
         let cellSize = GameConstants.tileSize * params.distance
@@ -36,15 +37,14 @@ extension EntityFactory: ParallaxRowEntityFactory {
         let leftEdge = -(sceneWidth / 2)
         
         for idx in 0...numCells {
-            let cell = create(entity: prototypes[idx % prototypes.count])
+            let cell = create(entity: prototypes[idx % prototypes.count]) // TODO: give the node to the configurator
             entity.skNode.position.y = params.y
             entity.node.addChild(cell.node)
             cell.skNode.setScale(params.distance)
             cell.skNode.position.x = leftEdge + cellSize * CGFloat(idx)
         }
         
-        let textures = [container.textureManager.debugDarkGrey()!, container.textureManager.debugLightGrey()!] // TODO: PH
-        let component = ParallaxRowComponent(node: entity.skNode, distance: params.distance, width: rowWidth, edgeConfigurer: CyclingEdge(with: textures))
+        let component = ParallaxRowComponent(node: entity.skNode, distance: params.distance, width: rowWidth, configurator: CyclingEdge(with: textures))
         entity.addParallaxRowComponent(component)
         
         if params.isGround {
@@ -59,15 +59,14 @@ extension EntityFactory: ParallaxRowEntityFactory {
     }
     
     private func addObstaclesParallaxRowComponent(to entity: Entity) {
-        // TODO: proper obstacle spawning
         entity.skNode.position.y = 64
         let obstacle = create(entity: .obstacle(.debug))
         entity.node.addChild(obstacle.node)
         obstacle.skNode.position.x = 128
-        
-        let textures = [container.textureManager.debugDarkGrey()!, container.textureManager.debugLightGrey()!] // TODO: PH
-        
-        let component = ParallaxRowComponent(node: entity.skNode, distance: 1, width: 1000, edgeConfigurer: CyclingEdge(with: textures)) // TODO: refactor out magic number
+                
+        // TODO: refactor out magic number
+        // TODO: use a configurator that's better suited
+        let component = ParallaxRowComponent(node: entity.skNode, distance: 1, width: 1000, configurator: CyclingEdge(with: [container.textureManager.debugDarkGrey()!, container.textureManager.debugLightGrey()!]))
         entity.addParallaxRowComponent(component)
     }
 }
