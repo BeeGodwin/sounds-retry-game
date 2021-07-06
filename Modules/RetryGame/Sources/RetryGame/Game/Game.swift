@@ -47,13 +47,18 @@ class Game: ObserverProtocol { // TODO: this class could do with refactoring int
         container.eventBus.notify(of: event)
     }
     
+    func playerLanded() {
+        let event = EventMessage(channel: .control, event: ControlEvent.land)
+        container.eventBus.notify(of: event)
+    }
+    
     private func handleInputEvent() {
         switch gameState {
         case .ready:
             let event = EventMessage(channel: .game, event: GameEvent.gameStart)
             container.eventBus.notify(of: event)
         case .running:
-            let controlEvent = EventMessage(channel: .control, event: ControlEvent.playerAction)
+            let controlEvent = EventMessage(channel: .control, event: ControlEvent.jump)
             container.eventBus.notify(of: controlEvent)
         case .gameOver:
             container.retryNetwork()

@@ -18,7 +18,8 @@ enum GameEvent: Event {
 }
 
 enum ControlEvent: Event {
-    case playerAction
+    case jump
+    case land
 }
 
 enum ScoreEvent: Event {

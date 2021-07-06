@@ -1,9 +1,15 @@
 import GameplayKit
 
+enum PlayerJumpState {
+    case jumping
+    case grounded
+}
+
 class PlayerControlComponent: GKComponent, ObserverProtocol {
     
     let eventBus: EventBusProtocol
     let physicsBody: SKPhysicsBody
+    var jumpState: PlayerJumpState = .grounded
     
     init(eventBus: EventBusProtocol, physicsBody: SKPhysicsBody) {
         self.eventBus = eventBus
@@ -31,9 +37,10 @@ class PlayerControlComponent: GKComponent, ObserverProtocol {
     
     private func handleControlEvent(_ event: ControlEvent) {
         switch event {
-        case .playerAction:
-            // TODO: resolve multi-jump bug
-            physicsBody.velocity = CGVector(dx: 0, dy: GameConstants.jumpForce)
+        case .jump:
+            handleJump()
+        case .land:
+            handleLanding()
         }
     }
     
@@ -44,6 +51,17 @@ class PlayerControlComponent: GKComponent, ObserverProtocol {
         case .gameReady, .gameStart:
             physicsBody.isDynamic = true
         }
+    }
+    
+    private func handleJump() {
+        if case .grounded = jumpState {
+            physicsBody.velocity = CGVector(dx: 0, dy: GameConstants.jumpForce)
+            jumpState = .jumping
+        }
+    }
+    
+    private func handleLanding() {
+        jumpState = .grounded
     }
 }
 
