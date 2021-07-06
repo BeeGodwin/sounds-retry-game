@@ -5,14 +5,16 @@ class ParallaxRowComponent: GKComponent {
     let node: SKNode
     let distance: CGFloat
     let width: CGFloat
+    let edgeConfigurer: ParallaxEdgeConfiguring
     
     private var leftEdge: CGFloat { -width / 2 }
     private var wrapDistance: CGFloat { width + GameConstants.tileSize * distance }
     
-    init(node: SKNode, distance: CGFloat, width: CGFloat) {
+    init(node: SKNode, distance: CGFloat, width: CGFloat, edgeConfigurer: ParallaxEdgeConfiguring) {
         self.node = node
         self.distance = distance
         self.width = width
+        self.edgeConfigurer = edgeConfigurer
         super.init()
     }
     
@@ -26,13 +28,18 @@ class ParallaxRowComponent: GKComponent {
     
     func moveBy(delta: CGFloat) {
         node.children.forEach { childNode in
-            if let _ = childNode.physicsBody { return } // TODO: might not work once we've got obstacles?
+            if isFloor(childNode) { return }
             childNode.position.x -= delta * distance
             if childNode.position.x <= leftEdge {
                 childNode.position.x += wrapDistance
-                // TODO: configure the leading edge node that's just got moved
+                edgeConfigurer.configureNode(childNode)
             }
         }
+    }
+    
+    private func isFloor(_ node: SKNode) -> Bool {
+        if let _ = node.physicsBody { return true }
+        return false
     }
 }
 

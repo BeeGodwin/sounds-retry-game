@@ -28,7 +28,7 @@ extension EntityFactory: ParallaxRowEntityFactory {
     
     private func addCyclingParallaxRowComponent(to entity: Entity, with prototypes: [EntityPrototype], params: ParallaxRowParameters) { // TODO: this could/should take an array of textures? That would make prototype singular? or is that contextual based on what the layer's for?
         guard let sceneWidth = params.width else { return } // TODO: check if still needs to be optional. dont think it does
-                
+        
         let cellSize = GameConstants.tileSize * params.distance
         let numCells = Int((sceneWidth + cellSize * 2) / cellSize)
         let rowWidth = CGFloat(numCells) * cellSize
@@ -42,7 +42,9 @@ extension EntityFactory: ParallaxRowEntityFactory {
             cell.skNode.setScale(params.distance)
             cell.skNode.position.x = leftEdge + cellSize * CGFloat(idx)
         }
-        let component = ParallaxRowComponent(node: entity.skNode, distance: params.distance, width: rowWidth)
+        
+        let textures = [container.textureManager.debugDarkGrey()!, container.textureManager.debugLightGrey()!] // TODO: PH
+        let component = ParallaxRowComponent(node: entity.skNode, distance: params.distance, width: rowWidth, edgeConfigurer: CyclingEdge(with: textures))
         entity.addParallaxRowComponent(component)
         
         if params.isGround {
@@ -63,7 +65,9 @@ extension EntityFactory: ParallaxRowEntityFactory {
         entity.node.addChild(obstacle.node)
         obstacle.skNode.position.x = 128
         
-        let component = ParallaxRowComponent(node: entity.skNode, distance: 1, width: 1000) // TODO: refactor out magic number
+        let textures = [container.textureManager.debugDarkGrey()!, container.textureManager.debugLightGrey()!] // TODO: PH
+        
+        let component = ParallaxRowComponent(node: entity.skNode, distance: 1, width: 1000, edgeConfigurer: CyclingEdge(with: textures)) // TODO: refactor out magic number
         entity.addParallaxRowComponent(component)
     }
 }
