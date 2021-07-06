@@ -2,6 +2,9 @@ import GameplayKit
 
 struct GameConstants {
     
+    // MARK: dev
+    static let isDebugMode = true
+    
     // MARK: parallax
     static let acceleration: CGFloat = 128.0
     static let maxSpeed: CGFloat = 256.0
@@ -16,4 +19,12 @@ struct GameConstants {
     static let playerName = "player"
     static let obstacleName = "obstacle"
     static let floorName = "floor"
+    
+    // MARK: UI
+    static let scoreLabelPosition = CGPoint(x: 192, y: 256)
+    static let promptLabelPosition = CGPoint(x: 0, y: 160)
+    
+    // MARK: Strings
+    static let startGamePromptText = "Tap to start!"
+    static let gameOverPromptText = "Game over! Tap to retry."
 }

@@ -7,9 +7,11 @@ protocol GameContainerProtocol {
     var eventBus: EventBusProtocol { get }
     var textureManager: TextureManager { get }
     var scene: GameScene? { get }
+    var uiManager: UIManagerProtocol { get }
     
     func bootstrap()
     func retryNetwork()
+    
 }
 
 public class GameContainer: GameContainerProtocol {
@@ -17,6 +19,7 @@ public class GameContainer: GameContainerProtocol {
     var factory: EntityFactoryProtocol?
     let eventBus: EventBusProtocol
     let textureManager: TextureManager
+    let uiManager: UIManagerProtocol
     var scene: GameScene?
     
     private var hostView: UIView
@@ -28,6 +31,7 @@ public class GameContainer: GameContainerProtocol {
         
         eventBus = EventBus()
         textureManager = TextureManager()
+        uiManager = UIManager()
     }
     
     public func bootstrap() {
@@ -37,7 +41,7 @@ public class GameContainer: GameContainerProtocol {
         let rect = hostView.bounds
         
         let gameView = GameView(frame: rect)
-        enableDebug(gameView)
+        if GameConstants.isDebugMode { enableDebug(gameView) }
         gameView.inputManager = InputManager(eventBus: eventBus)
         hostView.addSubview(gameView)
         

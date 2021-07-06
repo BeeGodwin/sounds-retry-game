@@ -1,12 +1,13 @@
 import SpriteKit
 
-class Game: ObserverProtocol {
+class Game: ObserverProtocol { // TODO: this class could do with refactoring into two or more classes, to separate 'running' concerns from 'building' concerns.
     
     private let container: GameContainerProtocol
     private var gameState: GameState
     
     private var parallax: ParallaxRowSystem?
     private var player: Entity?
+
     
     init(container: GameContainerProtocol) {
         self.container = container
@@ -14,8 +15,12 @@ class Game: ObserverProtocol {
     }
     
     func start() {
-        container.eventBus.subscribe(to: .input, with: self) // TODO: consider, should this be done here, or in scene / container?
-        container.eventBus.subscribe(to: .game, with: self)
+        guard let scene = container.scene else { return }
+        let bus = container.eventBus
+        bus.subscribe(to: .input, with: self) // TODO: consider, should this be done here, or in scene / container?
+        bus.subscribe(to: .game, with: self)
+        
+        container.uiManager.spawnUI(on: scene, eventBus: bus)
         spawnGame()
     }
     
@@ -28,7 +33,7 @@ class Game: ObserverProtocol {
                 handleGameEvent(gameEvent)
             }
         default:
-            print("unhandled event") // TODO: get rid
+            print("unhandled event") // TODO: get rid?
         }
     }
     
@@ -112,5 +117,21 @@ class Game: ObserverProtocol {
         
         scene.addChild(playerNode)
         playerNode.position = GameConstants.startPosition
+    }
+    
+    private func spawnUI() { // TODO: let's bust these out into something where they can be event-driven.
+//        guard let scene = container.scene else { return }
+//
+//        let score = SKLabelNode(text: scoreLabelText)
+//        score.horizontalAlignmentMode = .right
+//        score.position = GameConstants.scoreLabelPosition
+//        scene.addChild(score)
+//        scoreLabel = score
+//
+//        let prompt = SKLabelNode(text: GameConstants.startGamePromptText)
+//        prompt.horizontalAlignmentMode = .center
+//        prompt.position = GameConstants.promptLabelPosition
+//        scene.addChild(prompt)
+//        promptLabel = prompt
     }
 }
