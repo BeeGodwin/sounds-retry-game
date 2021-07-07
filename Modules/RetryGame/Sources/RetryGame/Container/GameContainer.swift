@@ -30,8 +30,8 @@ public class GameContainer: GameContainerProtocol {
         hostView = view
         retryDelegate = delegate
         
-        audioManager = AudioManager()
         eventBus = EventBus()
+        audioManager = AudioManager(eventBus: eventBus)
         textureManager = TextureManager()
         uiManager = UIManager()
     }
