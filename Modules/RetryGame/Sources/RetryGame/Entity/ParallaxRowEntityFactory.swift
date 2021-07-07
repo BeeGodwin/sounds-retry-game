@@ -6,14 +6,21 @@ protocol ParallaxRowEntityFactory {
 
 enum ParallaxRowEntityFlavour {
     case cycling([EntityPrototype], [SKTexture], ParallaxRowParameters)
-    case obstacles
+    case obstacles(CGFloat)
 }
 
 struct ParallaxRowParameters {
     var distance: CGFloat
-    var width: CGFloat?
+    var width: CGFloat
     var y: CGFloat
     var isGround: Bool = false
+}
+
+private struct DerivedRowParameters {
+    let cellSize: CGFloat
+    let numCells: Int
+    let rowWidth: CGFloat
+    let leftEdge: CGFloat
 }
 
 extension EntityFactory: ParallaxRowEntityFactory {
@@ -21,52 +28,55 @@ extension EntityFactory: ParallaxRowEntityFactory {
         switch flavour {
         case .cycling(let prototypes, let textures, let parameters):
             addCyclingParallaxRowComponent(to: entity, with: prototypes, textures, parameters)
-        case .obstacles:
-            addObstaclesParallaxRowComponent(to: entity)
+        case .obstacles(let width):
+            addObstaclesParallaxRowComponent(to: entity, with: width)
         }
     }
     
-    private func addCyclingParallaxRowComponent(to entity: Entity, with prototypes: [EntityPrototype], _ textures: [SKTexture], _ params: ParallaxRowParameters) {
-        
-        guard let sceneWidth = params.width else { return } // TODO: check if still needs to be optional. dont think it does
-        
-        let cellSize = GameConstants.tileSize * params.distance
-        let numCells = Int((sceneWidth + cellSize * 2) / cellSize)
+    private func deriveRowParameters(distance: CGFloat, width: CGFloat) -> DerivedRowParameters {
+        let cellSize = GameConstants.tileSize * distance
+        let numCells = Int((width + cellSize * 2) / cellSize)
         let rowWidth = CGFloat(numCells) * cellSize
+        let leftEdge = -(width / 2)
+        return DerivedRowParameters(cellSize: cellSize, numCells: numCells, rowWidth: rowWidth, leftEdge: leftEdge)
+    }
+    
+    private func addCyclingParallaxRowComponent(to entity: Entity, with prototypes: [EntityPrototype], _ textures: [SKTexture], _ params: ParallaxRowParameters) {
+    
+        let computed = deriveRowParameters(distance: params.distance, width: params.width)
         
-        let leftEdge = -(sceneWidth / 2)
-        
-        for idx in 0...numCells {
+        for idx in 0...computed.numCells {
             let cell = create(entity: prototypes[idx % prototypes.count]) // TODO: give the node to the configurator
             entity.skNode.position.y = params.y
             entity.node.addChild(cell.node)
             cell.skNode.setScale(params.distance)
-            cell.skNode.position.x = leftEdge + cellSize * CGFloat(idx)
+            cell.skNode.position.x = computed.leftEdge + computed.cellSize * CGFloat(idx)
         }
         
-        let component = ParallaxRowComponent(node: entity.skNode, distance: params.distance, width: rowWidth, configurator: CyclingEdge(with: textures))
+        let component = ParallaxRowComponent(node: entity.skNode, distance: params.distance, width: computed.rowWidth, configurator: CyclingEdge(with: textures))
         entity.addParallaxRowComponent(component)
         
         if params.isGround {
             let edgeNode = SKNode()
-            let y = params.y + cellSize / 2
-            let leftEnd = CGPoint(x: leftEdge, y: y)
-            let rightEnd = CGPoint(x: -leftEdge, y: y)
+            let y = params.y + computed.cellSize / 2
+            let leftEnd = CGPoint(x: computed.leftEdge, y: y)
+            let rightEnd = CGPoint(x: -computed.leftEdge, y: y)
             edgeNode.physicsBody = SKPhysicsBody(edgeFrom: leftEnd, to: rightEnd)
             edgeNode.name = GameConstants.floorName
             entity.skNode.addChild(edgeNode)
         }
     }
     
-    private func addObstaclesParallaxRowComponent(to entity: Entity) {
+    private func addObstaclesParallaxRowComponent(to entity: Entity, with width: CGFloat) {
+        let computed = deriveRowParameters(distance: 1, width: width)
+        
         entity.skNode.position.y = 64
         let obstacle = create(entity: .obstacle(.debug))
         entity.node.addChild(obstacle.node)
         obstacle.skNode.position.x = 128
                 
-        // TODO: refactor out magic number
         // TODO: use a configurator that's better suited
-        let component = ParallaxRowComponent(node: entity.skNode, distance: 1, width: 1000, configurator: CyclingEdge(with: [container.textureManager.debugDarkGrey()!, container.textureManager.debugLightGrey()!]))
+        let component = ParallaxRowComponent(node: entity.skNode, distance: 1, width: computed.rowWidth, configurator: CyclingEdge(with: [container.textureManager.debugDarkGrey()!, container.textureManager.debugLightGrey()!]))
         entity.addParallaxRowComponent(component)
     }
 }

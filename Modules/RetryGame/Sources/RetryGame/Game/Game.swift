@@ -113,7 +113,7 @@ class Game: ObserverProtocol { // TODO: this class could do with refactoring int
             .parallaxRow(.cycling([.debug(.dark), .debug(.light)], textures, ParallaxRowParameters(distance: 0.25, width: sceneWidth, y: 48))),
             .parallaxRow(.cycling([.debug(.light), .debug(.dark)], textures, ParallaxRowParameters(distance: 0.5, width: sceneWidth, y: 32))),
             .parallaxRow(.cycling([.debug(.dark), .debug(.light)], textures, ParallaxRowParameters(distance: 1, width: sceneWidth, y: 0, isGround: true))),
-            .parallaxRow(.obstacles),
+            .parallaxRow(.obstacles(sceneWidth)),
             .parallaxRow(.cycling([.debug(.light), .debug(.dark)], textures, ParallaxRowParameters(distance: 2, width: sceneWidth, y: -64))),
         ]
         
