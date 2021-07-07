@@ -1,6 +1,7 @@
 import UIKit
 import SpriteKit
 import GameplayKit
+import AVFoundation
 
 protocol GameContainerProtocol {
     var factory: EntityFactoryProtocol? { get }
@@ -8,7 +9,7 @@ protocol GameContainerProtocol {
     var textureManager: TextureManager { get }
     var scene: GameScene? { get }
     var uiManager: UIManagerProtocol { get }
-//    var audioManager: AudioManager { get }
+    var audioManager: AudioManager { get }
     
     func bootstrap()
     func retryNetwork()

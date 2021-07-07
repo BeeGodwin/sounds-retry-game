@@ -19,6 +19,21 @@
 		1C6BAE4E2684ED0200EF9B27 /* RetryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6BAE4D2684ED0200EF9B27 /* RetryViewModel.swift */; };
 		1C6BAE502684EE7A00EF9B27 /* RetryViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6BAE4F2684EE7A00EF9B27 /* RetryViewModelDelegate.swift */; };
 		1C6BAE552684F0F300EF9B27 /* RetryGame in Frameworks */ = {isa = PBXBuildFile; productRef = 1C6BAE542684F0F300EF9B27 /* RetryGame */; };
+		1C7097F32696336800CAB086 /* no3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1C7097E42696336700CAB086 /* no3.wav */; };
+		1C7097F42696336800CAB086 /* boing1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1C7097E52696336700CAB086 /* boing1.wav */; };
+		1C7097F52696336800CAB086 /* no5.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1C7097E62696336700CAB086 /* no5.wav */; };
+		1C7097F62696336800CAB086 /* boing5.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1C7097E72696336700CAB086 /* boing5.wav */; };
+		1C7097F72696336800CAB086 /* boing2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1C7097E82696336700CAB086 /* boing2.wav */; };
+		1C7097F82696336800CAB086 /* boing3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1C7097E92696336700CAB086 /* boing3.wav */; };
+		1C7097F92696336800CAB086 /* no2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1C7097EA2696336700CAB086 /* no2.wav */; };
+		1C7097FA2696336800CAB086 /* no1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1C7097EB2696336800CAB086 /* no1.wav */; };
+		1C7097FB2696336800CAB086 /* boing4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1C7097EC2696336800CAB086 /* boing4.wav */; };
+		1C7097FC2696336800CAB086 /* bing.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1C7097ED2696336800CAB086 /* bing.wav */; };
+		1C7097FD2696336800CAB086 /* boing6.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1C7097EE2696336800CAB086 /* boing6.wav */; };
+		1C7097FE2696336800CAB086 /* no4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1C7097EF2696336800CAB086 /* no4.wav */; };
+		1C7097FF2696336800CAB086 /* no6.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1C7097F02696336800CAB086 /* no6.wav */; };
+		1C7098002696336800CAB086 /* no7.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1C7097F12696336800CAB086 /* no7.wav */; };
+		1C7098012696336800CAB086 /* ukeloop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1C7097F22696336800CAB086 /* ukeloop.mp3 */; };
 		1CA0BB8A2685E459007A28AC /* RetryDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA0BB892685E459007A28AC /* RetryDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +73,21 @@
 		1C6BAE4D2684ED0200EF9B27 /* RetryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryViewModel.swift; sourceTree = "<group>"; };
 		1C6BAE4F2684EE7A00EF9B27 /* RetryViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryViewModelDelegate.swift; sourceTree = "<group>"; };
 		1C6BAE522684F04100EF9B27 /* RetryGame */ = {isa = PBXFileReference; lastKnownFileType = folder; path = RetryGame; sourceTree = "<group>"; };
+		1C7097E42696336700CAB086 /* no3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = no3.wav; sourceTree = "<group>"; };
+		1C7097E52696336700CAB086 /* boing1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = boing1.wav; sourceTree = "<group>"; };
+		1C7097E62696336700CAB086 /* no5.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = no5.wav; sourceTree = "<group>"; };
+		1C7097E72696336700CAB086 /* boing5.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = boing5.wav; sourceTree = "<group>"; };
+		1C7097E82696336700CAB086 /* boing2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = boing2.wav; sourceTree = "<group>"; };
+		1C7097E92696336700CAB086 /* boing3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = boing3.wav; sourceTree = "<group>"; };
+		1C7097EA2696336700CAB086 /* no2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = no2.wav; sourceTree = "<group>"; };
+		1C7097EB2696336800CAB086 /* no1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = no1.wav; sourceTree = "<group>"; };
+		1C7097EC2696336800CAB086 /* boing4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = boing4.wav; sourceTree = "<group>"; };
+		1C7097ED2696336800CAB086 /* bing.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bing.wav; sourceTree = "<group>"; };
+		1C7097EE2696336800CAB086 /* boing6.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = boing6.wav; sourceTree = "<group>"; };
+		1C7097EF2696336800CAB086 /* no4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = no4.wav; sourceTree = "<group>"; };
+		1C7097F02696336800CAB086 /* no6.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = no6.wav; sourceTree = "<group>"; };
+		1C7097F12696336800CAB086 /* no7.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = no7.wav; sourceTree = "<group>"; };
+		1C7097F22696336800CAB086 /* ukeloop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ukeloop.mp3; sourceTree = "<group>"; };
 		1CA0BB892685E459007A28AC /* RetryDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetryDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -188,6 +218,7 @@
 		1C6BAE4A2684EBFF00EF9B27 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				1C7097E32696334300CAB086 /* Audio */,
 				1C6BAE1E2684EBC400EF9B27 /* Assets.xcassets */,
 			);
 			path = Assets;
@@ -206,6 +237,28 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1C7097E32696334300CAB086 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				1C7097ED2696336800CAB086 /* bing.wav */,
+				1C7097E52696336700CAB086 /* boing1.wav */,
+				1C7097E82696336700CAB086 /* boing2.wav */,
+				1C7097E92696336700CAB086 /* boing3.wav */,
+				1C7097EC2696336800CAB086 /* boing4.wav */,
+				1C7097E72696336700CAB086 /* boing5.wav */,
+				1C7097EE2696336800CAB086 /* boing6.wav */,
+				1C7097EB2696336800CAB086 /* no1.wav */,
+				1C7097EA2696336700CAB086 /* no2.wav */,
+				1C7097E42696336700CAB086 /* no3.wav */,
+				1C7097EF2696336800CAB086 /* no4.wav */,
+				1C7097E62696336700CAB086 /* no5.wav */,
+				1C7097F02696336800CAB086 /* no6.wav */,
+				1C7097F12696336800CAB086 /* no7.wav */,
+				1C7097F22696336800CAB086 /* ukeloop.mp3 */,
+			);
+			path = Audio;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -314,9 +367,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C7097FE2696336800CAB086 /* no4.wav in Resources */,
+				1C7097F42696336800CAB086 /* boing1.wav in Resources */,
+				1C7097FB2696336800CAB086 /* boing4.wav in Resources */,
+				1C7097F62696336800CAB086 /* boing5.wav in Resources */,
+				1C7097F92696336800CAB086 /* no2.wav in Resources */,
 				1C6BAE222684EBC400EF9B27 /* LaunchScreen.storyboard in Resources */,
+				1C7098002696336800CAB086 /* no7.wav in Resources */,
+				1C7097FF2696336800CAB086 /* no6.wav in Resources */,
 				1C6BAE1F2684EBC400EF9B27 /* Assets.xcassets in Resources */,
+				1C7097F52696336800CAB086 /* no5.wav in Resources */,
+				1C7097FD2696336800CAB086 /* boing6.wav in Resources */,
 				1C6BAE1D2684EBC200EF9B27 /* Main.storyboard in Resources */,
+				1C7098012696336800CAB086 /* ukeloop.mp3 in Resources */,
+				1C7097FA2696336800CAB086 /* no1.wav in Resources */,
+				1C7097F32696336800CAB086 /* no3.wav in Resources */,
+				1C7097F72696336800CAB086 /* boing2.wav in Resources */,
+				1C7097F82696336800CAB086 /* boing3.wav in Resources */,
+				1C7097FC2696336800CAB086 /* bing.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
