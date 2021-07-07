@@ -9,7 +9,7 @@ class RandomisedFibonnaciProgressiveDifficultyGenerator: ObstacleGeneratingProto
     let fibonacci = [1, 1, 2, 3, 5, 8, 13, 21]
     let levelLength = GameConstants.levelLength
     
-    var random = GKShuffledDistribution(forDieWithSideCount: levelLength)
+    var random = GKShuffledDistribution(forDieWithSideCount: GameConstants.levelLength)
     
     var difficultyIndex = 0
     let minGap = 3
@@ -21,10 +21,10 @@ class RandomisedFibonnaciProgressiveDifficultyGenerator: ObstacleGeneratingProto
         var state = false
         
         levelCounter += 1
-        if levelCounter >= levelLength {
+        if levelCounter >= GameConstants.levelLength {
             levelCounter = 0
             difficultyIndex = min(difficultyIndex + 1, fibonacci.count - 1)
-            random = GKShuffledDistribution(forDieWithSideCount: levelLength)
+            random = GKShuffledDistribution(forDieWithSideCount: GameConstants.levelLength)
         }
         
         let difficulty = fibonacci[difficultyIndex]
