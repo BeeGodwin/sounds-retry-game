@@ -7,15 +7,13 @@ protocol ObstacleGeneratingProtocol {
 class RandomisedFibonnaciProgressiveDifficultyGenerator: ObstacleGeneratingProtocol {
     
     let fibonacci = [1, 1, 2, 3, 5, 8, 13, 21]
+    let levelLength = GameConstants.levelLength
     
-    var random = GKShuffledDistribution(forDieWithSideCount: 25)
-
+    var random = GKShuffledDistribution(forDieWithSideCount: levelLength)
+    
     var difficultyIndex = 0
-    
     let minGap = 3
     var gapCounter = 0
-
-    let levelLength = 25
     var levelCounter = 0
     
     func nextActiveState() -> Bool {
@@ -26,17 +24,17 @@ class RandomisedFibonnaciProgressiveDifficultyGenerator: ObstacleGeneratingProto
         if levelCounter >= levelLength {
             levelCounter = 0
             difficultyIndex = min(difficultyIndex + 1, fibonacci.count - 1)
-            random = GKShuffledDistribution(forDieWithSideCount: 20)
+            random = GKShuffledDistribution(forDieWithSideCount: levelLength)
         }
         
         let difficulty = fibonacci[difficultyIndex]
-         
-        if gapCounter >= minGap {
-            let roll = random.nextInt()
-            if roll <= difficulty {
-                gapCounter = 0
-                state = true
-            }
+        
+        let roll = random.nextInt()
+        
+        if gapCounter >= minGap && roll <= difficulty{
+            gapCounter = 0
+            state = true
+            
         } else {
             gapCounter += 1
         }

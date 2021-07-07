@@ -20,6 +20,9 @@ struct GameConstants {
     static let obstacleName = "obstacle"
     static let floorName = "floor"
     
+    // MARK: obstacle generation
+    static let levelLength = 25
+    
     // MARK: scoring
     static let obstaclePoints = 100
     
