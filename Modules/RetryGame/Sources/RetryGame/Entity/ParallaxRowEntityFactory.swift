@@ -74,14 +74,14 @@ extension EntityFactory: ParallaxRowEntityFactory {
         
         var obstacleEntities = [Entity]()
         
-        for idx in 0...computed.numCells / 2 {
+        for idx in 0...computed.numCells {
             let obstacle = create(entity: .obstacle(.debug))
-            obstacle.skNode.position.x = computed.leftEdge + computed.cellSize * CGFloat(idx * 2)
+            obstacle.skNode.position.x = computed.leftEdge + computed.cellSize * CGFloat(idx) //* 2)
             entity.node.addChild(obstacle.node)
             obstacleEntities.append(obstacle)
         }
                         
-        let component = ParallaxRowComponent(node: entity.skNode, distance: 1, width: computed.rowWidth, configurator: ObstacleEdge(entities: obstacleEntities, eventBus: container.eventBus))
+        let component = ParallaxRowComponent(node: entity.skNode, distance: 1, width: computed.rowWidth, configurator: ObstacleEdge(entities: obstacleEntities, eventBus: container.eventBus, generator: RandomisedFibonnaciProgressiveDifficultyGenerator()))
         entity.addParallaxRowComponent(component)
     }
 }

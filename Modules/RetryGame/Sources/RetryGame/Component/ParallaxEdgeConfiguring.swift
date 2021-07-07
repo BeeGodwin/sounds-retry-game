@@ -28,12 +28,14 @@ class ObstacleEdge: ParallaxEdgeConfiguring {
     
     let entities: [Entity]
     let eventBus: EventBusProtocol
+    let generator: ObstacleGeneratingProtocol
     
     var tempCount = 0
     
-    init(entities: [Entity], eventBus: EventBusProtocol) {
+    init(entities: [Entity], eventBus: EventBusProtocol, generator: ObstacleGeneratingProtocol) {
         self.entities = entities
         self.eventBus = eventBus
+        self.generator = generator
     }
     
     func configureNode(_ node: SKNode) {
@@ -42,7 +44,7 @@ class ObstacleEdge: ParallaxEdgeConfiguring {
         scoreIfWasActive(nodeEntity)
         
         if let controlComponent = nodeEntity.component(ofType: ObstacleControlComponent.self) {
-            controlComponent.setActive(true)
+            controlComponent.setActive(generator.nextActiveState())
         }
     }
     

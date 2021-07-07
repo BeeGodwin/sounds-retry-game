@@ -17,7 +17,7 @@ class Game: ObserverProtocol { // TODO: this class could do with refactoring int
     func start() {
         guard let scene = container.scene else { return }
         let bus = container.eventBus
-        bus.subscribe(to: .input, with: self) // TODO: consider, should this be done here, or in scene / container?
+        bus.subscribe(to: .input, with: self)
         bus.subscribe(to: .game, with: self)
         
         container.uiManager.spawnUI(on: scene, eventBus: bus)
@@ -71,10 +71,8 @@ class Game: ObserverProtocol { // TODO: this class could do with refactoring int
     private func handleGameEvent(_ event: GameEvent) {
         switch event {
         case .gameStart:
-            print("game start")
             gameState = .running
         case .gameOver:
-            print("game over")
             gameState = .gameOver
         case .gameReady:
             gameState = .ready
