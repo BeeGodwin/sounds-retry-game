@@ -30,5 +30,6 @@ extension EntityFactory: ObstacleEntityFactory {
         sprite.physicsBody = physicsBody
         
         entity.addSpriteComponent(spriteComponent)
+        entity.addObstacleControlComponent(ObstacleControlComponent(sprite: sprite))
     }
 }

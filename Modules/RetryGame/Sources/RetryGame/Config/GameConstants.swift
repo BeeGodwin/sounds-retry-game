@@ -20,6 +20,9 @@ struct GameConstants {
     static let obstacleName = "obstacle"
     static let floorName = "floor"
     
+    // MARK: scoring
+    static let obstaclePoints = 100
+    
     // MARK: UI
     static let scoreLabelPosition = CGPoint(x: 192, y: 256)
     static let promptLabelPosition = CGPoint(x: 0, y: 160)

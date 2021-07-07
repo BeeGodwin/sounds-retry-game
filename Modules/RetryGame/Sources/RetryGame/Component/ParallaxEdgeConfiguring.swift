@@ -5,7 +5,7 @@ protocol ParallaxEdgeConfiguring {
 }
 
 class CyclingEdge: ParallaxEdgeConfiguring {
-
+    
     let textures: [SKTexture]
     var index = 0
     
@@ -24,4 +24,33 @@ class CyclingEdge: ParallaxEdgeConfiguring {
     }
 }
 
-// TODO: add other configurators for other cases (obstacles, random)
+class ObstacleEdge: ParallaxEdgeConfiguring {
+    
+    let entities: [Entity]
+    let eventBus: EventBusProtocol
+    
+    var tempCount = 0
+    
+    init(entities: [Entity], eventBus: EventBusProtocol) {
+        self.entities = entities
+        self.eventBus = eventBus
+    }
+    
+    func configureNode(_ node: SKNode) {
+        guard let nodeEntity = entities.first(where: { $0.skNode === node}) else { return }
+        
+        scoreIfWasActive(nodeEntity)
+        
+        if let controlComponent = nodeEntity.component(ofType: ObstacleControlComponent.self) {
+            controlComponent.setActive(true)
+        }
+    }
+    
+    private func scoreIfWasActive(_ entity: Entity) {
+        guard let spriteComponent = entity.component(ofType: SpriteComponent.self) else { return }
+        if spriteComponent.sprite.isHidden { return }
+        
+        let event = EventMessage(channel: .score, event: ScoreEvent.incrementBy(GameConstants.obstaclePoints))
+        eventBus.notify(of: event)
+    }
+}

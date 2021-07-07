@@ -6,7 +6,7 @@ protocol ParallaxRowEntityFactory {
 
 enum ParallaxRowEntityFlavour {
     case cycling([EntityPrototype], [SKTexture], ParallaxRowParameters)
-    case obstacles(CGFloat)
+    case obstacles(ParallaxRowParameters)
 }
 
 struct ParallaxRowParameters {
@@ -28,8 +28,8 @@ extension EntityFactory: ParallaxRowEntityFactory {
         switch flavour {
         case .cycling(let prototypes, let textures, let parameters):
             addCyclingParallaxRowComponent(to: entity, with: prototypes, textures, parameters)
-        case .obstacles(let width):
-            addObstaclesParallaxRowComponent(to: entity, with: width)
+        case .obstacles(let parameters):
+            addObstaclesParallaxRowComponent(to: entity, with: parameters)
         }
     }
     
@@ -67,16 +67,21 @@ extension EntityFactory: ParallaxRowEntityFactory {
         }
     }
     
-    private func addObstaclesParallaxRowComponent(to entity: Entity, with width: CGFloat) {
-        let computed = deriveRowParameters(distance: 1, width: width)
+    private func addObstaclesParallaxRowComponent(to entity: Entity, with params: ParallaxRowParameters) {
+        let computed = deriveRowParameters(distance: params.distance, width: params.width)
+
+        entity.skNode.position.y = params.y
         
-        entity.skNode.position.y = 64
-        let obstacle = create(entity: .obstacle(.debug))
-        entity.node.addChild(obstacle.node)
-        obstacle.skNode.position.x = 128
-                
-        // TODO: use a configurator that's better suited
-        let component = ParallaxRowComponent(node: entity.skNode, distance: 1, width: computed.rowWidth, configurator: CyclingEdge(with: [container.textureManager.debugDarkGrey()!, container.textureManager.debugLightGrey()!]))
+        var obstacleEntities = [Entity]()
+        
+        for idx in 0...computed.numCells / 2 {
+            let obstacle = create(entity: .obstacle(.debug))
+            obstacle.skNode.position.x = computed.leftEdge + computed.cellSize * CGFloat(idx * 2)
+            entity.node.addChild(obstacle.node)
+            obstacleEntities.append(obstacle)
+        }
+                        
+        let component = ParallaxRowComponent(node: entity.skNode, distance: 1, width: computed.rowWidth, configurator: ObstacleEdge(entities: obstacleEntities, eventBus: container.eventBus))
         entity.addParallaxRowComponent(component)
     }
 }
