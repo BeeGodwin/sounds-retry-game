@@ -9,7 +9,7 @@ protocol GameContainerProtocol {
     var textureManager: TextureManager { get }
     var scene: GameScene? { get }
     var uiManager: UIManagerProtocol { get }
-    var audioManager: AudioManager { get }
+    var soundManager: SoundManager { get }
     
     func bootstrap()
     func retryNetwork()
@@ -20,7 +20,7 @@ public class GameContainer: GameContainerProtocol {
     var factory: EntityFactoryProtocol?
     let eventBus: EventBusProtocol
     let textureManager: TextureManager
-    let audioManager: AudioManager
+    let soundManager: SoundManager
     let uiManager: UIManagerProtocol
     var scene: GameScene?
     
@@ -32,7 +32,7 @@ public class GameContainer: GameContainerProtocol {
         retryDelegate = delegate
         
         eventBus = EventBus()
-        audioManager = AudioManager(eventBus: eventBus)
+        soundManager = SoundManager(eventBus: eventBus, audioPaths: GameConstants.audioPaths)
         textureManager = TextureManager()
         uiManager = UIManager()
     }
