@@ -17,9 +17,9 @@ class TextureManager: TextureManagerProtocol {
     private static var LIGHT_GREY = "debug_lightgrey" // TODO: should bin these off and do programatically, but if not, move to game constants
     private static var DARK_GREY = "debug_darkgrey"
     
-    private var playerWalkFrames = [SKTexture]()
-    private var playerJump: SKTexture?
-    private var playerDie: SKTexture?
+//    private var playerWalkFrames = [SKTexture]()
+//    private var playerJump: SKTexture?
+//    private var playerDie: SKTexture?
     
     private lazy var textures = [TextureSet: SKTexture]()
         
@@ -32,7 +32,7 @@ class TextureManager: TextureManagerProtocol {
         groundTiles = loader.loadTiles(tileDefinitions: GameConstants.groundTileNames)
         animations = loader.loadAnims(spriteDefs: GameConstants.sprites)
         
-        loadPlayerTextures()
+//        loadPlayerTextures()
     }
     
     func getTexture(named: String) -> SKTexture? {
@@ -65,22 +65,25 @@ class TextureManager: TextureManagerProtocol {
     
     // TODO: conform these / better dict usage
     func getPlayerWalk() -> [SKTexture] {
-        playerWalkFrames
+//        playerWalkFrames
+        return []
     }
     
-    func getPlayerJump() -> SKTexture? {
-        playerJump
+    func getPlayerJump() -> [SKTexture] {
+//        playerJump
+        return []
     }
     
-    func getPlayerDie() -> SKTexture? {
-        playerDie
+    func getPlayerDie() -> [SKTexture] {
+//        playerDie
+        return []
     }
     
     private func loadPlayerTextures() {
         let playerAtlas = SKTextureAtlas(named: "player")
-        playerWalkFrames.append(playerAtlas.textureNamed("alienPink_walk1"))
-        playerWalkFrames.append(playerAtlas.textureNamed("alienPink_walk2"))
-        playerJump = playerAtlas.textureNamed("alienPink_jump.png")
-        playerDie = playerAtlas.textureNamed("alienPink_hit.png")
+//        playerWalkFrames.append(playerAtlas.textureNamed("alienPink_walk1"))
+//        playerWalkFrames.append(playerAtlas.textureNamed("alienPink_walk2"))
+//        playerJump = playerAtlas.textureNamed("alienPink_jump.png")
+//        playerDie = playerAtlas.textureNamed("alienPink_hit.png")
     }
 }

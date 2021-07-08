@@ -11,7 +11,7 @@ class PlayerControlComponent: GKComponent, ObserverProtocol {
     let physicsBody: SKPhysicsBody
     var jumpState: PlayerJumpState = .grounded
     var sprite: SKSpriteNode
-    var textureManager: TextureManager // TODO: this is a bit crap and tightly coupled
+    var textureManager: TextureManager // TODO: this is a bit crap and tightly coupled, this should be in another component?
     
     init(eventBus: EventBusProtocol, physicsBody: SKPhysicsBody, spriteNode: SKSpriteNode, textureManager: TextureManager) {
         self.eventBus = eventBus
@@ -63,12 +63,13 @@ class PlayerControlComponent: GKComponent, ObserverProtocol {
     
     private func handleJump() {
         if case .grounded = jumpState {
-            physicsBody.velocity = CGVector(dx: 0, dy: GameConstants.jumpForce)
             jumpState = .jumping
-            if let jumpTexture = textureManager.getPlayerJump() {
-                sprite.removeAllActions()
-                sprite.texture = jumpTexture
-            }
+            sprite.removeAllActions()
+            physicsBody.velocity = CGVector(dx: 0, dy: GameConstants.jumpForce)
+            
+            let jumpTextures = textureManager.getPlayerJump()
+            sprite.texture = jumpTextures[0]
+            
         }
     }
     
@@ -95,9 +96,11 @@ class PlayerControlComponent: GKComponent, ObserverProtocol {
     
     private func die() {
         sprite.removeAllActions()
-        if let dieTexture = textureManager.getPlayerDie() {
-            sprite.texture = dieTexture
-        }
+        let dieTextures = textureManager.getPlayerDie()
+        if dieTextures.count > 0 { sprite.texture = dieTextures[0]}
+        //        if let dieTexture = textureManager.getPlayerDie()[0] {
+        //            sprite.texture = dieTexture
+        //        }
     }
     
 }

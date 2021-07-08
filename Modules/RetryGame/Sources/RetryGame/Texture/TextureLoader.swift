@@ -1,16 +1,16 @@
 import SpriteKit
 
 class TextureLoader {
-    
-    typealias AtlasName = String
-    typealias TexturePrefix = String
-    
+
     func loadAnims(spriteDefs: [Sprite: [String]]) -> [Sprite: [SKTexture]] {
+        let atlas = SKTextureAtlas(named: "sprite") // TODO: tidy magic value
         
         var animDict = [Sprite: [SKTexture]]()
         
-        // TODO: reimport the sprites to xcode and bring them in from a single atlas
-       
+        spriteDefs.forEach { sprite, names in
+            let textures = names.map { atlas.textureNamed($0) }
+            animDict[sprite] = textures
+        }
         return animDict
     }
     

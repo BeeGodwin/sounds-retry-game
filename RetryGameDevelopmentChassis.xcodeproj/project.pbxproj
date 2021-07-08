@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C1A09C42697B559007C74C8 /* sprite.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 1C1A09C32697B559007C74C8 /* sprite.atlas */; };
 		1C1CF5D826972C1500E453C9 /* world.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 1C1CF5D726972C1500E453C9 /* world.atlas */; };
-		1C1CF5DA26972C1D00E453C9 /* player.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 1C1CF5D926972C1D00E453C9 /* player.atlas */; };
-		1C1CF5DC26972C2800E453C9 /* obstacle.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 1C1CF5DB26972C2800E453C9 /* obstacle.atlas */; };
 		1C6BAE162684EBC200EF9B27 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6BAE152684EBC200EF9B27 /* AppDelegate.swift */; };
 		1C6BAE182684EBC200EF9B27 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6BAE172684EBC200EF9B27 /* SceneDelegate.swift */; };
 		1C6BAE1A2684EBC200EF9B27 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6BAE192684EBC200EF9B27 /* ViewController.swift */; };
@@ -58,9 +57,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1C1A09C32697B559007C74C8 /* sprite.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sprite.atlas; sourceTree = "<group>"; };
 		1C1CF5D726972C1500E453C9 /* world.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = world.atlas; sourceTree = "<group>"; };
-		1C1CF5D926972C1D00E453C9 /* player.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = player.atlas; sourceTree = "<group>"; };
-		1C1CF5DB26972C2800E453C9 /* obstacle.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = obstacle.atlas; sourceTree = "<group>"; };
 		1C6BAE122684EBC200EF9B27 /* RetryGameDevelopmentChassis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RetryGameDevelopmentChassis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C6BAE152684EBC200EF9B27 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1C6BAE172684EBC200EF9B27 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -126,8 +124,7 @@
 		1C1CF5D02697205900E453C9 /* Sprite */ = {
 			isa = PBXGroup;
 			children = (
-				1C1CF5DB26972C2800E453C9 /* obstacle.atlas */,
-				1C1CF5D926972C1D00E453C9 /* player.atlas */,
+				1C1A09C32697B559007C74C8 /* sprite.atlas */,
 				1C1CF5D726972C1500E453C9 /* world.atlas */,
 			);
 			path = Sprite;
@@ -394,15 +391,14 @@
 				1C7097FF2696336800CAB086 /* no6.wav in Resources */,
 				1C6BAE1F2684EBC400EF9B27 /* Assets.xcassets in Resources */,
 				1C7097F52696336800CAB086 /* no5.wav in Resources */,
+				1C1A09C42697B559007C74C8 /* sprite.atlas in Resources */,
 				1C7097FD2696336800CAB086 /* boing6.wav in Resources */,
 				1C6BAE1D2684EBC200EF9B27 /* Main.storyboard in Resources */,
-				1C1CF5DA26972C1D00E453C9 /* player.atlas in Resources */,
 				1C7098012696336800CAB086 /* ukeloop.mp3 in Resources */,
 				1C1CF5D826972C1500E453C9 /* world.atlas in Resources */,
 				1C7097FA2696336800CAB086 /* no1.wav in Resources */,
 				1C7097F32696336800CAB086 /* no3.wav in Resources */,
 				1C7097F72696336800CAB086 /* boing2.wav in Resources */,
-				1C1CF5DC26972C2800E453C9 /* obstacle.atlas in Resources */,
 				1C7097F82696336800CAB086 /* boing3.wav in Resources */,
 				1C7097FC2696336800CAB086 /* bing.wav in Resources */,
 			);

@@ -6,7 +6,7 @@ protocol ObstacleGeneratingProtocol {
 
 class RandomisedFibonnaciProgressiveDifficultyGenerator: ObstacleGeneratingProtocol {
     
-    let fibonacci = [1, 1, 2, 3, 5, 8, 13, 21]
+    let fibonacci = [0, 1, 1, 2, 3, 5, 8, 13, 21]
     let levelLength = GameConstants.levelLength
     
     var random = GKShuffledDistribution(forDieWithSideCount: GameConstants.levelLength)

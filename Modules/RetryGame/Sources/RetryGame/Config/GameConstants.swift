@@ -36,9 +36,8 @@ struct GameConstants {
     static let startGamePromptText = "Tap to start!"
     static let gameOverPromptText = "Game over! Tap to retry."
     
-    
     // MARK: Obviously this is a horrible way to import assets for anything real, there should be a build script.
-    
+
     // MARK: Audio assets
     static let sounds: [Sound: (String, String)] = [
         .jump: ("boing", "wav"),
@@ -53,7 +52,7 @@ struct GameConstants {
     static let sprites: [Sprite: [String]] = [
         .playerWalk: ["alienPink_walk1", "alienPink_walk2"],
         .playerJump: ["alienPink_jump1"],
-        .playerDie: ["alienPink_hit"],
+        .playerDie: ["alienPink_hit1"],
         .bee: ["bee1", "bee2"],
         .ladybug: ["ladybug1", "ladybug2"],
         .saw: ["saw1", "saw2"],

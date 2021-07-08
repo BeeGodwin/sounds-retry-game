@@ -113,6 +113,8 @@ class Game: ObserverProtocol { // TODO: this is becoming a bit bloated & needs s
             .parallaxRow(.cycling([.rowTile(.single(.sand, .center))],  ParallaxRowParameters(distance: 4, width: sceneWidth, y: -192))),
         ]
         
+        // TODO: foreground, background
+        
         parallax?.spawn(rows, on: scene, from: factory)
     }
     
