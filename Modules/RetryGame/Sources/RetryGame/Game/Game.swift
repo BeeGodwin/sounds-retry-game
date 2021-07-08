@@ -103,15 +103,14 @@ class Game: ObserverProtocol { // TODO: this is becoming a bit bloated
         guard let factory = container.factory, let scene = container.scene, let sceneWidth = scene.view?.bounds.width else { return }
         
         parallax = ParallaxRowSystem(maxSpeed: GameConstants.maxSpeed, acceleration: GameConstants.acceleration)
-        
-        let textures = [container.textureManager.debugDarkGrey()!, container.textureManager.debugLightGrey()!]
-        
+
         let rows: [EntityPrototype] = [
-            .parallaxRow(.cycling([.debug(.dark), .debug(.light)], textures, ParallaxRowParameters(distance: 0.25, width: sceneWidth, y: 48))),
-            .parallaxRow(.cycling([.debug(.light), .debug(.dark)], textures, ParallaxRowParameters(distance: 0.5, width: sceneWidth, y: 32))),
-            .parallaxRow(.cycling([.debug(.dark), .debug(.light)], textures, ParallaxRowParameters(distance: 1, width: sceneWidth, y: 0, isGround: true))),
+            .parallaxRow(.cycling([.rowTile(.single(.stone, .center))], [container.textureManager.getTile(from: .stone, side: .center)!], ParallaxRowParameters(distance: 0.25, width: sceneWidth, y: 48))),
+            .parallaxRow(.cycling([.rowTile(.single(.stone, .center))], [container.textureManager.getTile(from: .stone, side: .center)!], ParallaxRowParameters(distance: 0.5, width: sceneWidth, y: 32))),
+            .parallaxRow(.cycling([.rowTile(.single(.stone, .center))], [container.textureManager.getTile(from: .stone, side: .center)!], ParallaxRowParameters(distance: 1, width: sceneWidth, y: 0, isGround: true))),
             .parallaxRow(.obstacles(ParallaxRowParameters(distance: 1, width: sceneWidth, y: 64))),
-            .parallaxRow(.cycling([.debug(.light), .debug(.dark)], textures, ParallaxRowParameters(distance: 2, width: sceneWidth, y: -64))),
+            .parallaxRow(.cycling([.rowTile(.single(.grass, .mid))], [container.textureManager.getTile(from: .grass, side: .mid)!], ParallaxRowParameters(distance: 2, width: sceneWidth, y: -64))),
+            .parallaxRow(.cycling([.rowTile(.single(.sand, .center))], [container.textureManager.getTile(from: .sand, side: .center)!], ParallaxRowParameters(distance: 4, width: sceneWidth, y: -192))),
         ]
         
         parallax?.spawn(rows, on: scene, from: factory)

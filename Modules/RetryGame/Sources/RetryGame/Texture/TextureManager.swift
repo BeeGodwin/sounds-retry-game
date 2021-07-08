@@ -1,8 +1,21 @@
 import SpriteKit
 
 protocol TextureManagerProtocol {
-    func getTexture(named textureName: String) -> SKTexture?
+    func getTexture(named textureName: String) -> SKTexture? // fix
 }
+
+enum TextureSet: String {
+    case dirt = "dirt"
+    case grass = "grass"
+    case planet = "planet"
+    case sand = "sand"
+    case stone = "stone"
+}
+//
+//enum TextureSetSide: String {
+//    case mid = "Mid"
+//    case center = "Center"
+//}
 
 class TextureManager: TextureManagerProtocol {
     
@@ -13,11 +26,11 @@ class TextureManager: TextureManagerProtocol {
     private var playerJump: SKTexture?
     private var playerDie: SKTexture?
     
-    private lazy var textures = [String: SKTexture]()
+    private lazy var textures = [TextureSet: SKTexture]()
         
     let playerAnims: [String: [SKTexture]]
     let obstacleAnims: [String: [SKTexture]]
-    let groundTiles: [String: [SKTexture]]
+    let groundTiles: [TextureSet: [SKTexture]]
     
     init() {
         
@@ -26,12 +39,28 @@ class TextureManager: TextureManagerProtocol {
         obstacleAnims = loader.loadAnims(animationDefinitions: GameConstants.obstacleAnims)
         groundTiles = loader.loadTiles(tileDefinitions: GameConstants.groundTileNames)
         
-        loadDebugTextures()
+//        loadDebugTextures()
         loadPlayerTextures()
     }
     
-    func getTexture(named textureName: String) -> SKTexture? {
-        return textures[textureName]
+    func getTexture(named: String) -> SKTexture? {
+        if let lightGreyImage = UIImage(named: Self.LIGHT_GREY, in: .module, compatibleWith: nil) {
+            return SKTexture(image: lightGreyImage)
+        }
+        return nil
+    }
+    
+    func getTile(from set: TextureSet, side: TextureSetSide) -> SKTexture? {
+        if let tiles = groundTiles[set] {
+            switch side {
+            case .center:
+                return tiles[1]
+            case .mid:
+                return tiles[0]
+            }
+        }
+        return nil
+        
     }
     
     func debugLightGrey() -> SKTexture? {
@@ -55,14 +84,14 @@ class TextureManager: TextureManagerProtocol {
         playerDie
     }
     
-    private func loadDebugTextures() {
-        if let lightGreyImage = UIImage(named: Self.LIGHT_GREY, in: .module, compatibleWith: nil) {
-            textures[Self.LIGHT_GREY] = SKTexture(image: lightGreyImage)
-        }
-        if let darkGreyImage = UIImage(named: Self.DARK_GREY, in: .module, compatibleWith: nil) {
-            textures[Self.DARK_GREY] = SKTexture(image: darkGreyImage)
-        }
-    }
+//    private func loadDebugTextures() {
+//        if let lightGreyImage = UIImage(named: Self.LIGHT_GREY, in: .module, compatibleWith: nil) {
+//            textures[Self.LIGHT_GREY] = SKTexture(image: lightGreyImage)
+//        }
+//        if let darkGreyImage = UIImage(named: Self.DARK_GREY, in: .module, compatibleWith: nil) {
+//            textures[Self.DARK_GREY] = SKTexture(image: darkGreyImage)
+//        }
+//    }
     
     private func loadPlayerTextures() {
         let playerAtlas = SKTextureAtlas(named: "player")

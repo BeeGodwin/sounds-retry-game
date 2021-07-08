@@ -4,8 +4,11 @@ protocol ObstacleEntityFactory {
     func build(on entity: Entity, with flavour: ObstacleEntityFlavour)
 }
 
+
+
 enum ObstacleEntityFlavour {
     case debug
+    case animated([SKTexture])
 }
 
 extension EntityFactory: ObstacleEntityFactory {
@@ -13,6 +16,8 @@ extension EntityFactory: ObstacleEntityFactory {
         switch flavour {
         case .debug:
             buildDebugObstacle(on: entity)
+        case .animated(let textures):
+            buildAnimatedObstacle(on: entity, with: textures)
         }
     }
     
@@ -31,5 +36,9 @@ extension EntityFactory: ObstacleEntityFactory {
         
         entity.addSpriteComponent(spriteComponent)
         entity.addObstacleControlComponent(ObstacleControlComponent(sprite: sprite))
+    }
+    
+    private func buildAnimatedObstacle(on entity: Entity, with textures: [SKTexture]) {
+        
     }
 }

@@ -58,12 +58,13 @@ struct GameConstants {
         "snail": ("obstacle", "snail"),
     ]
     
-    static let groundTileNames: [String: [String]] = [
-        "dirt": ["dirtMid", "dirtCenter"],
-        "grass": ["grassMid", "grassCenter"],
-        "planet": ["planetMid", "planetCenter"],
-        "sand": ["sandMid", "sandCenter"],
-        "stone": ["stoneMid", "stoneCenter"],
+    static let groundTileNames: [TextureSet: [String]] = [
+        .dirt: ["dirtMid", "dirtCenter"],
+        .grass: ["grassMid", "grassCenter"],
+        .planet: ["planetMid", "planetCenter"],
+        .sand: ["sandMid", "sandCenter"],
+        .stone: ["stoneMid", "stoneCenter"],
     ]
     
+    static let spriteAtlasNames = ["obstacle", "player", "world"] // TODO: can we just load everything in the atlases and be consistent about file naming instead of specifying everything?
 }
