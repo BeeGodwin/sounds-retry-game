@@ -98,9 +98,6 @@ class PlayerControlComponent: GKComponent, ObserverProtocol {
         sprite.removeAllActions()
         let dieTextures = textureManager.getPlayerDie()
         if dieTextures.count > 0 { sprite.texture = dieTextures[0]}
-        //        if let dieTexture = textureManager.getPlayerDie()[0] {
-        //            sprite.texture = dieTexture
-        //        }
     }
     
 }

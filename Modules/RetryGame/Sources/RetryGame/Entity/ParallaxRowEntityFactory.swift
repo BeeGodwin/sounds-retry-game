@@ -89,7 +89,8 @@ extension EntityFactory: ParallaxRowEntityFactory {
         var obstacleEntities = [Entity]()
         
         for idx in 0...computed.numCells {
-            let obstacle = create(entity: .obstacle(.debug))
+            guard let animation = container.textureManager.animations[.bee] else { return }
+            let obstacle = create(entity: .obstacle(.animated(animation)))
             obstacle.skNode.position.x = computed.leftEdge + computed.cellSize * CGFloat(idx) //* 2)
             entity.node.addChild(obstacle.node)
             obstacleEntities.append(obstacle)

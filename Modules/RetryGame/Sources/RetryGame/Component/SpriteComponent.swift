@@ -4,12 +4,8 @@ class SpriteComponent: GKComponent {
     
     let sprite: SKSpriteNode
     
-    init(texture: SKTexture?) {
-        
-//        if let tx = texture {
+    init(texture: SKTexture) {
         sprite = SKSpriteNode(texture: texture)
-//        }
-//        sprite = SKSpriteNode()
         super.init()
     }
     

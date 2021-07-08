@@ -5,7 +5,6 @@ protocol ObstacleEntityFactory {
 }
 
 
-
 enum ObstacleEntityFlavour {
     case debug
     case animated([SKTexture])
@@ -15,15 +14,17 @@ extension EntityFactory: ObstacleEntityFactory {
     func build(on entity: Entity, with flavour: ObstacleEntityFlavour) {
         switch flavour {
         case .debug:
-            buildDebugObstacle(on: entity)
+            buildObstacle(on: entity, with: [container.textureManager.debugDarkGrey()[0]])
         case .animated(let textures):
-            buildAnimatedObstacle(on: entity, with: textures)
+            buildObstacle(on: entity, with: textures)
         }
     }
     
-    private func buildDebugObstacle(on entity: Entity) {
-        let textures = container.textureManager
-        guard let texture = textures.debugDarkGrey() else { return }
+    private func buildObstacle(on entity: Entity, with textures: [SKTexture]) {
+
+        if textures.count == 0 { return }
+        
+        let texture = textures[0] // TODO: OK now animate them with an animation component.
         
         let spriteComponent = SpriteComponent(texture: texture)
         let sprite = spriteComponent.sprite
@@ -36,9 +37,5 @@ extension EntityFactory: ObstacleEntityFactory {
         
         entity.addSpriteComponent(spriteComponent)
         entity.addObstacleControlComponent(ObstacleControlComponent(sprite: sprite))
-    }
-    
-    private func buildAnimatedObstacle(on entity: Entity, with textures: [SKTexture]) {
-        
     }
 }

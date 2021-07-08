@@ -1,7 +1,7 @@
 import SpriteKit
 
 protocol TextureManagerProtocol {
-    func getTexture(named textureName: String) -> SKTexture? // TODO: this is wrong
+    func getAnimationFrames(for sprite: Sprite) -> [SKTexture] // TODO: this is wrong
 }
 
 enum TextureSet: String {
@@ -14,32 +14,20 @@ enum TextureSet: String {
 
 class TextureManager: TextureManagerProtocol {
     
-    private static var LIGHT_GREY = "debug_lightgrey" // TODO: should bin these off and do programatically, but if not, move to game constants
-    private static var DARK_GREY = "debug_darkgrey"
-    
-//    private var playerWalkFrames = [SKTexture]()
-//    private var playerJump: SKTexture?
-//    private var playerDie: SKTexture?
-    
     private lazy var textures = [TextureSet: SKTexture]()
-        
+    
     let animations: [Sprite: [SKTexture]]
     let groundTiles: [TextureSet: [SKTexture]]
     
     init() {
-        
         let loader = TextureLoader()
         groundTiles = loader.loadTiles(tileDefinitions: GameConstants.groundTileNames)
         animations = loader.loadAnims(spriteDefs: GameConstants.sprites)
-        
-//        loadPlayerTextures()
     }
     
-    func getTexture(named: String) -> SKTexture? {
-        if let lightGreyImage = UIImage(named: Self.LIGHT_GREY, in: .module, compatibleWith: nil) {
-            return SKTexture(image: lightGreyImage)
-        }
-        return nil
+    func getAnimationFrames(for sprite: Sprite) -> [SKTexture] {
+        guard let frames = animations[sprite] else { return [] }
+        return frames
     }
     
     func getTile(from set: TextureSet, side: TextureSetSide) -> SKTexture? {
@@ -52,38 +40,31 @@ class TextureManager: TextureManagerProtocol {
             }
         }
         return nil
-        
     }
     
-    func debugLightGrey() -> SKTexture? {
-        getTexture(named: Self.LIGHT_GREY)
+    // MARK: these should prob be binned
+    func debugLightGrey() -> [SKTexture] {
+        guard let tile = getTile(from: .dirt, side: .center) else { return [] }
+        return [tile]
     }
     
-    func debugDarkGrey() -> SKTexture? {
-        getTexture(named: Self.DARK_GREY)
+    func debugDarkGrey() -> [SKTexture] {
+        debugLightGrey()
     }
     
     // TODO: conform these / better dict usage
     func getPlayerWalk() -> [SKTexture] {
-//        playerWalkFrames
-        return []
+        guard let frames = animations[.playerWalk] else { return [] }
+        return frames
     }
     
     func getPlayerJump() -> [SKTexture] {
-//        playerJump
-        return []
+        guard let frames = animations[.playerJump] else { return [] }
+        return frames
     }
     
     func getPlayerDie() -> [SKTexture] {
-//        playerDie
-        return []
-    }
-    
-    private func loadPlayerTextures() {
-        let playerAtlas = SKTextureAtlas(named: "player")
-//        playerWalkFrames.append(playerAtlas.textureNamed("alienPink_walk1"))
-//        playerWalkFrames.append(playerAtlas.textureNamed("alienPink_walk2"))
-//        playerJump = playerAtlas.textureNamed("alienPink_jump.png")
-//        playerDie = playerAtlas.textureNamed("alienPink_hit.png")
+        guard let frames = animations[.playerDie] else { return [] }
+        return frames
     }
 }

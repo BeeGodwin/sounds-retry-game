@@ -9,6 +9,8 @@ enum DebugEntityFlavour {
     case light
 }
 
+// MARK: bin it
+
 extension EntityFactory: DebugEntityFactory {
     
     func build(on entity: Entity, with flavour: DebugEntityFlavour) {
@@ -21,14 +23,7 @@ extension EntityFactory: DebugEntityFactory {
     }
     
     private func addSpriteComponent(to entity: Entity, flavour: DebugEntityFlavour) {
-        let textures = container.textureManager
         var texture: SKTexture?
-        switch flavour {
-        case .light:
-            texture = textures.debugLightGrey() // TODO we don't need to assign textures here any more; leave that to the configurator
-        case .dark:
-            texture = textures.debugDarkGrey()
-        }
         if let tx = texture {
             entity.addSpriteComponent(SpriteComponent(texture: tx))
         }
