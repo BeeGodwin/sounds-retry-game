@@ -4,12 +4,12 @@ class SoundManager: ObserverProtocol {
     
     var audioPlayer: AVAudioPlayer?
     
-    var audioPlayers = [AVAudioPlayer]()
+    var soundPlayers = [String: [AVAudioPlayer]]()
     
-    init(eventBus: EventBusProtocol, audioPaths: [(String, String)]) {
+    init(eventBus: EventBusProtocol, soundDefinitions: [String: (String, String)]) {
         eventBus.subscribe(to: .control, with: self)
         let loader = AudioLoader()
-        audioPlayers = loader.load(pathFragments: audioPaths)
+        soundPlayers = loader.load(from: soundDefinitions)
     }
     
     func receiveEvent(_ event: EventProtocol) {

@@ -32,7 +32,7 @@ public class GameContainer: GameContainerProtocol {
         retryDelegate = delegate
         
         eventBus = EventBus()
-        soundManager = SoundManager(eventBus: eventBus, audioPaths: GameConstants.audioPaths)
+        soundManager = SoundManager(eventBus: eventBus, soundDefinitions: GameConstants.sounds)
         textureManager = TextureManager()
         uiManager = UIManager()
     }

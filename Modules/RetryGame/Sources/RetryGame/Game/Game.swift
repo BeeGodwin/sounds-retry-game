@@ -1,7 +1,6 @@
 import SpriteKit
 
-class Game: ObserverProtocol { // TODO: this class could do with refactoring into two or more classes, to separate 'running' concerns from 'building' concerns.
-    
+class Game: ObserverProtocol { // TODO: this is becoming a bit bloated
     private let container: GameContainerProtocol
     private var gameState: GameState
     
