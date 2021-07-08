@@ -1,7 +1,7 @@
 import SpriteKit
 
 protocol TextureManagerProtocol {
-    func getTexture(named textureName: String) -> SKTexture? // fix
+    func getTexture(named textureName: String) -> SKTexture? // TODO: this is wrong
 }
 
 enum TextureSet: String {
@@ -11,15 +11,10 @@ enum TextureSet: String {
     case sand = "sand"
     case stone = "stone"
 }
-//
-//enum TextureSetSide: String {
-//    case mid = "Mid"
-//    case center = "Center"
-//}
 
 class TextureManager: TextureManagerProtocol {
     
-    private static var LIGHT_GREY = "debug_lightgrey" // should bin these off and do programatically, but if not, move to game constants
+    private static var LIGHT_GREY = "debug_lightgrey" // TODO: should bin these off and do programatically, but if not, move to game constants
     private static var DARK_GREY = "debug_darkgrey"
     
     private var playerWalkFrames = [SKTexture]()
@@ -39,7 +34,6 @@ class TextureManager: TextureManagerProtocol {
         obstacleAnims = loader.loadAnims(animationDefinitions: GameConstants.obstacleAnims)
         groundTiles = loader.loadTiles(tileDefinitions: GameConstants.groundTileNames)
         
-//        loadDebugTextures()
         loadPlayerTextures()
     }
     
@@ -83,15 +77,6 @@ class TextureManager: TextureManagerProtocol {
     func getPlayerDie() -> SKTexture? {
         playerDie
     }
-    
-//    private func loadDebugTextures() {
-//        if let lightGreyImage = UIImage(named: Self.LIGHT_GREY, in: .module, compatibleWith: nil) {
-//            textures[Self.LIGHT_GREY] = SKTexture(image: lightGreyImage)
-//        }
-//        if let darkGreyImage = UIImage(named: Self.DARK_GREY, in: .module, compatibleWith: nil) {
-//            textures[Self.DARK_GREY] = SKTexture(image: darkGreyImage)
-//        }
-//    }
     
     private func loadPlayerTextures() {
         let playerAtlas = SKTextureAtlas(named: "player")

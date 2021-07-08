@@ -44,7 +44,7 @@ class PlayerControlComponent: GKComponent, ObserverProtocol {
         case .jump:
             handleJump()
         case .land:
-            handleLanding() // TODO: we're inadvertently starting with this action so it always fires.
+            handleLanding()
         }
     }
     

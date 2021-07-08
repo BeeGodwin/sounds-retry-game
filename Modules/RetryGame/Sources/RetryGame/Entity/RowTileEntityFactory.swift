@@ -11,8 +11,6 @@ protocol RowTileEntityFactory {
     func build(on entity: Entity, with flavour: RowTileEntityFlavour)
 }
 
-
-
 enum RowTileEntityFlavour {
     case single(TextureSet, TextureSetSide)
 }

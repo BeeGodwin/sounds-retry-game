@@ -5,7 +5,7 @@ protocol ParallaxRowEntityFactory {
 }
 
 enum ParallaxRowEntityFlavour {
-    case cycling([EntityPrototype], [SKTexture], ParallaxRowParameters)
+    case cycling([EntityPrototype], ParallaxRowParameters)
     case obstacles(ParallaxRowParameters)
 }
 
@@ -26,8 +26,8 @@ private struct DerivedRowParameters {
 extension EntityFactory: ParallaxRowEntityFactory {
     func build(on entity: Entity, with flavour: ParallaxRowEntityFlavour) {
         switch flavour {
-        case .cycling(let prototypes, let textures, let parameters):
-            addCyclingParallaxRowComponent(to: entity, with: prototypes, textures, parameters)
+        case .cycling(let prototypes, let parameters):
+            addCyclingParallaxRowComponent(to: entity, with: prototypes, parameters)
         case .obstacles(let parameters):
             addObstaclesParallaxRowComponent(to: entity, with: parameters)
         }
@@ -41,19 +41,32 @@ extension EntityFactory: ParallaxRowEntityFactory {
         return DerivedRowParameters(cellSize: cellSize, numCells: numCells, rowWidth: rowWidth, leftEdge: leftEdge)
     }
     
-    private func addCyclingParallaxRowComponent(to entity: Entity, with prototypes: [EntityPrototype], _ textures: [SKTexture], _ params: ParallaxRowParameters) {
+    private func addCyclingParallaxRowComponent(to entity: Entity, with prototypes: [EntityPrototype], _ params: ParallaxRowParameters) {
     
         let computed = deriveRowParameters(distance: params.distance, width: params.width)
         
+        let textureArray: [SKTexture] = prototypes.map { prototype in
+            switch prototype {
+            case .rowTile(let flavour):
+                switch flavour {
+                case .single(let set, let side):
+                    return container.textureManager.getTile(from: set, side: side)
+                }
+            default:
+                print("unhandled tile texture")
+            }
+            return nil
+        }.map { $0! } // TODO: icky force unwrap
+        
         for idx in 0...computed.numCells {
-            let cell = create(entity: prototypes[idx % prototypes.count]) // TODO: give the node to the configurator
+            let cell = create(entity: prototypes[idx % prototypes.count]) // TODO: should give the node to the configurator instead?
             entity.skNode.position.y = params.y
             entity.node.addChild(cell.node)
             cell.skNode.setScale(params.distance)
             cell.skNode.position.x = computed.leftEdge + computed.cellSize * CGFloat(idx)
         }
         
-        let component = ParallaxRowComponent(node: entity.skNode, distance: params.distance, width: computed.rowWidth, configurator: CyclingEdge(with: textures))
+        let component = ParallaxRowComponent(node: entity.skNode, distance: params.distance, width: computed.rowWidth, configurator: CyclingEdge(with: textureArray))
         entity.addParallaxRowComponent(component)
         
         if params.isGround {
