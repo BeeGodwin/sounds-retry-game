@@ -13,7 +13,6 @@ class SoundManager: ObserverProtocol {
         eventBus.subscribe(to: .control, with: self)
         eventBus.subscribe(to: .score, with: self)
         eventBus.subscribe(to: .game, with: self)
-        
     }
     
     func receiveEvent(_ message: EventProtocol) {
@@ -73,11 +72,10 @@ class SoundManager: ObserverProtocol {
     }
     
     private func playMusic() {
-        
-    }
-    
-    private func fadeMusic() {
-        
+        guard let players = soundPlayers[.music] else { return }
+        if players.isEmpty { return }
+        players[0].numberOfLoops = -1
+        players[0].play()
     }
     
     private func noop () {}
