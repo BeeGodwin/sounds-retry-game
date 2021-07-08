@@ -25,6 +25,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
+        if !(game?.gameState == GameState.running) { return }
         guard let aName = contact.bodyA.node?.name, let bName = contact.bodyB.node?.name else { return }
         
         if [aName, bName].firstIndex(of: GameConstants.floorName) != nil {

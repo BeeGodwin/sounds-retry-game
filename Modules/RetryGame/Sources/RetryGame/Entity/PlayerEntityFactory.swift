@@ -6,15 +6,18 @@ protocol PlayerEntityFactory {
 
 extension EntityFactory: PlayerEntityFactory {
     func build(on entity: Entity) {
-        let texture = container.textureManager.debugLightGrey()
         
-        guard let tx = texture else { return }
+        let walkTextures = container.textureManager.getPlayerWalk()
+        
+        if walkTextures.count == 0 { return }
+        
+        let tx = container.textureManager.getPlayerWalk()[0]
         
         let spriteComponent = SpriteComponent(texture: tx)
         let sprite = spriteComponent.sprite
         sprite.name = GameConstants.playerName
         
-        let physicsBody = SKPhysicsBody(circleOfRadius: sprite.size.height / 2)
+        let physicsBody = SKPhysicsBody(circleOfRadius: sprite.size.width / 2)
         physicsBody.allowsRotation = false
         physicsBody.contactTestBitMask = GameConstants.collisionBitMask
 
@@ -22,6 +25,6 @@ extension EntityFactory: PlayerEntityFactory {
         
         entity.addSpriteComponent(spriteComponent)
         
-        entity.addPlayerControlComponent(PlayerControlComponent(eventBus: container.eventBus, physicsBody: physicsBody))
+        entity.addPlayerControlComponent(PlayerControlComponent(eventBus: container.eventBus, physicsBody: physicsBody, spriteNode: sprite, textureManager: container.textureManager))
     }
 }

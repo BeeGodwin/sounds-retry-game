@@ -2,7 +2,7 @@ import SpriteKit
 
 class Game: ObserverProtocol { // TODO: this is becoming a bit bloated
     private let container: GameContainerProtocol
-    private var gameState: GameState
+    var gameState: GameState
     
     private var parallax: ParallaxRowSystem?
     private var player: Entity?

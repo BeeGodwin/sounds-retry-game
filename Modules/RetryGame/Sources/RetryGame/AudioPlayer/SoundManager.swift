@@ -55,7 +55,6 @@ class SoundManager: ObserverProtocol {
     private func handleGameEvent(_ event: GameEvent) {
         switch event {
         case .gameOver:
-            fadeMusic()
             playAudio(.die)
         case .gameStart:
             playMusic()

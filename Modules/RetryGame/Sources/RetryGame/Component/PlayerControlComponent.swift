@@ -10,10 +10,14 @@ class PlayerControlComponent: GKComponent, ObserverProtocol {
     let eventBus: EventBusProtocol
     let physicsBody: SKPhysicsBody
     var jumpState: PlayerJumpState = .grounded
+    var sprite: SKSpriteNode
+    var textureManager: TextureManager // TODO: this is a bit crap and tightly coupled
     
-    init(eventBus: EventBusProtocol, physicsBody: SKPhysicsBody) {
+    init(eventBus: EventBusProtocol, physicsBody: SKPhysicsBody, spriteNode: SKSpriteNode, textureManager: TextureManager) {
         self.eventBus = eventBus
         self.physicsBody = physicsBody
+        self.sprite = spriteNode
+        self.textureManager = textureManager
         super.init()
         eventBus.subscribe(to: .control, with: self)
         eventBus.subscribe(to: .game, with: self)
@@ -40,7 +44,7 @@ class PlayerControlComponent: GKComponent, ObserverProtocol {
         case .jump:
             handleJump()
         case .land:
-            handleLanding()
+            handleLanding() // TODO: we're inadvertently starting with this action so it always fires.
         }
     }
     
@@ -48,8 +52,12 @@ class PlayerControlComponent: GKComponent, ObserverProtocol {
         switch event {
         case .gameOver:
             physicsBody.isDynamic = false
-        case .gameReady, .gameStart:
+            die()
+        case .gameReady:
             physicsBody.isDynamic = true
+            ready()
+        case .gameStart:
+            walk()
         }
     }
     
@@ -57,12 +65,41 @@ class PlayerControlComponent: GKComponent, ObserverProtocol {
         if case .grounded = jumpState {
             physicsBody.velocity = CGVector(dx: 0, dy: GameConstants.jumpForce)
             jumpState = .jumping
+            if let jumpTexture = textureManager.getPlayerJump() {
+                sprite.removeAllActions()
+                sprite.texture = jumpTexture
+            }
         }
     }
     
     private func handleLanding() {
         jumpState = .grounded
+        walk()
     }
+    
+    private func walk() {
+        let walkTextures = textureManager.getPlayerWalk()
+        if walkTextures.count > 0 {
+            sprite.run(SKAction.repeatForever(
+                        SKAction.animate(with: walkTextures, timePerFrame: 0.1, resize: true, restore: false)))
+        }
+    }
+    
+    private func ready() {
+        let walkTextures = textureManager.getPlayerWalk()
+        if walkTextures.count > 0 {
+            sprite.removeAllActions()
+            sprite.texture = walkTextures[0]
+        }
+    }
+    
+    private func die() {
+        sprite.removeAllActions()
+        if let dieTexture = textureManager.getPlayerDie() {
+            sprite.texture = dieTexture
+        }
+    }
+    
 }
 
 extension Entity {

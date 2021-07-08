@@ -41,4 +41,29 @@ struct GameConstants {
         .die: ("no", "wav"),
         .music: ("ukeloop", "mp3"),
     ]
+    
+    // MARK: Sprite assets
+    static let playerAnims: [String: (String, String)] = [
+        "walk": ("player", "alienPink_walk"),
+        "jump": ("player", "alienPink_jump"),
+        "die": ("player", "alienPink_hit"),
+    ]
+    
+    static let obstacleAnims: [String: (String, String)] = [
+        "bee": ("obstacle", "bee"),
+        "ladybug": ("obstacle", "ladybug"),
+        "saw": ("obstacle", "saw"),
+        "slimeBlock": ("obstacle", "slimeBlock"),
+        "slimePurple": ("obstacle", "slimePurple"),
+        "snail": ("obstacle", "snail"),
+    ]
+    
+    static let groundTileNames: [String: [String]] = [
+        "dirt": ["dirtMid", "dirtCenter"],
+        "grass": ["grassMid", "grassCenter"],
+        "planet": ["planetMid", "planetCenter"],
+        "sand": ["sandMid", "sandCenter"],
+        "stone": ["stoneMid", "stoneCenter"],
+    ]
+    
 }
