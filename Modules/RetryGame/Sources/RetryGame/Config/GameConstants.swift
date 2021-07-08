@@ -35,10 +35,10 @@ struct GameConstants {
     static let gameOverPromptText = "Game over! Tap to retry."
     
     // MARK: Audio assets
-    static let sounds = [
-        "jump": ("boing", "wav"),
-        "score": ("bing", "wav"),
-        "die": ("no", "wav"),
-        "music": ("ukeloop", "mp3"),
+    static let sounds: [Sound: (String, String)] = [
+        .jump: ("boing", "wav"),
+        .score: ("bing", "wav"),
+        .die: ("no", "wav"),
+        .music: ("ukeloop", "mp3"),
     ]
 }
