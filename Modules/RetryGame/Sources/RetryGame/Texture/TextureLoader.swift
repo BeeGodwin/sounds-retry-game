@@ -5,26 +5,12 @@ class TextureLoader {
     typealias AtlasName = String
     typealias TexturePrefix = String
     
-    func loadAnims(animationDefinitions: [String: (String, String)]) -> [String: [SKTexture]] {
-        // anims will either be single framed or be suffixed with an index
+    func loadAnims(spriteDefs: [Sprite: [String]]) -> [Sprite: [SKTexture]] {
+        
+        var animDict = [Sprite: [SKTexture]]()
+        
+        // TODO: reimport the sprites to xcode and bring them in from a single atlas
        
-        
-        var animDict = [String: [SKTexture]]()
-        
-        animationDefinitions.forEach { (key, value)in
-            let atlas = SKTextureAtlas(named: value.0)
-        
-            var textures = [SKTexture]()
-            
-            textures.append(atlas.textureNamed(value.1))
-            
-            // now do the iterated ones, this misses some.
-            
-            animDict[key] = textures
-        }
-       
-       
-        
         return animDict
     }
     

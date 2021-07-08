@@ -16,6 +16,10 @@ class ParallaxRowComponent: GKComponent {
         self.width = width
         self.configurator = configurator
         super.init()
+        
+        self.node.children.forEach { node in
+            self.configurator.configure(node)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -32,12 +36,12 @@ class ParallaxRowComponent: GKComponent {
             childNode.position.x -= delta * distance
             if childNode.position.x <= leftEdge {
                 childNode.position.x += wrapDistance
-                configurator.configureNode(childNode)
+                configurator.configure(childNode)
             }
         }
     }
     
-    private func isFloor(_ node: SKNode) -> Bool {
+    private func isFloor(_ node: SKNode) -> Bool { // TODO: should this be in the parallax system at all? It shouldn't.
         if let _ = node.physicsBody { return true }
         return false
     }

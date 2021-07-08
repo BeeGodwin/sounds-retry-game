@@ -5,6 +5,8 @@ struct GameConstants {
     // MARK: dev
     static let isDebugMode = true
     
+    // TODO: off switch for sound and/or volume
+    
     // MARK: parallax
     static let acceleration: CGFloat = 128.0
     static let maxSpeed: CGFloat = 256.0
@@ -34,6 +36,9 @@ struct GameConstants {
     static let startGamePromptText = "Tap to start!"
     static let gameOverPromptText = "Game over! Tap to retry."
     
+    
+    // MARK: Obviously this is a horrible way to import assets for anything real, there should be a build script.
+    
     // MARK: Audio assets
     static let sounds: [Sound: (String, String)] = [
         .jump: ("boing", "wav"),
@@ -42,21 +47,21 @@ struct GameConstants {
         .music: ("ukeloop", "mp3"),
     ]
     
+    // TODO: make sprites into a flat list and load them one way. they're all teeny anyway.
+    
     // MARK: Sprite assets
-    static let playerAnims: [String: (String, String)] = [
-        "walk": ("player", "alienPink_walk"),
-        "jump": ("player", "alienPink_jump"),
-        "die": ("player", "alienPink_hit"),
+    static let sprites: [Sprite: [String]] = [
+        .playerWalk: ["alienPink_walk1", "alienPink_walk2"],
+        .playerJump: ["alienPink_jump1"],
+        .playerDie: ["alienPink_hit"],
+        .bee: ["bee1", "bee2"],
+        .ladybug: ["ladybug1", "ladybug2"],
+        .saw: ["saw1", "saw2"],
+        .slimeBlock: ["slimeBlock1", "slimeBlock2"],
+        .slimePurple: ["slimePurple1", "slimePurple2"],
+        .snail: ["snail1", "snail2"],
     ]
     
-    static let obstacleAnims: [String: (String, String)] = [
-        "bee": ("obstacle", "bee"),
-        "ladybug": ("obstacle", "ladybug"),
-        "saw": ("obstacle", "saw"),
-        "slimeBlock": ("obstacle", "slimeBlock"),
-        "slimePurple": ("obstacle", "slimePurple"),
-        "snail": ("obstacle", "snail"),
-    ]
     
     static let groundTileNames: [TextureSet: [String]] = [
         .dirt: ["dirtMid", "dirtCenter"],
@@ -65,6 +70,4 @@ struct GameConstants {
         .sand: ["sandMid", "sandCenter"],
         .stone: ["stoneMid", "stoneCenter"],
     ]
-    
-    static let spriteAtlasNames = ["obstacle", "player", "world"] // TODO: can we just load everything in the atlases and be consistent about file naming instead of specifying everything?
 }

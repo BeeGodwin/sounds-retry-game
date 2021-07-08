@@ -105,7 +105,7 @@ class Game: ObserverProtocol { // TODO: this is becoming a bit bloated & needs s
         parallax = ParallaxRowSystem(maxSpeed: GameConstants.maxSpeed, acceleration: GameConstants.acceleration)
 
         let rows: [EntityPrototype] = [
-            .parallaxRow(.cycling([.rowTile(.single(.stone, .center))],  ParallaxRowParameters(distance: 0.25, width: sceneWidth, y: 48))),
+            .parallaxRow(.cycling([.rowTile(.single(.stone, .center))], ParallaxRowParameters(distance: 0.25, width: sceneWidth, y: 48))),
             .parallaxRow(.cycling([.rowTile(.single(.stone, .center)), .rowTile(.single(.dirt, .center))],  ParallaxRowParameters(distance: 0.5, width: sceneWidth, y: 32))),
             .parallaxRow(.cycling([.rowTile(.single(.dirt, .center)), .rowTile(.single(.stone, .center))],  ParallaxRowParameters(distance: 1, width: sceneWidth, y: 0, isGround: true))),
             .parallaxRow(.obstacles(ParallaxRowParameters(distance: 1, width: sceneWidth, y: 64))),

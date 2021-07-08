@@ -28,6 +28,5 @@ extension EntityFactory: RowTileEntityFactory {
             let component = SpriteComponent(texture: texture)
             entity.addSpriteComponent(component)
         }
-        
     }
 }

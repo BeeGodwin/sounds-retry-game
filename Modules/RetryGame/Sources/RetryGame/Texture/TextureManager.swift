@@ -23,16 +23,14 @@ class TextureManager: TextureManagerProtocol {
     
     private lazy var textures = [TextureSet: SKTexture]()
         
-    let playerAnims: [String: [SKTexture]]
-    let obstacleAnims: [String: [SKTexture]]
+    let animations: [Sprite: [SKTexture]]
     let groundTiles: [TextureSet: [SKTexture]]
     
     init() {
         
         let loader = TextureLoader()
-        playerAnims = loader.loadAnims(animationDefinitions: GameConstants.playerAnims)
-        obstacleAnims = loader.loadAnims(animationDefinitions: GameConstants.obstacleAnims)
         groundTiles = loader.loadTiles(tileDefinitions: GameConstants.groundTileNames)
+        animations = loader.loadAnims(spriteDefs: GameConstants.sprites)
         
         loadPlayerTextures()
     }

@@ -1,7 +1,7 @@
 import SpriteKit
 
 protocol ParallaxEdgeConfiguring {
-    func configureNode(_ node: SKNode)
+    func configure(_ node: SKNode)
 }
 
 class CyclingEdge: ParallaxEdgeConfiguring {
@@ -11,9 +11,10 @@ class CyclingEdge: ParallaxEdgeConfiguring {
     
     init(with textures: [SKTexture]) {
         self.textures = textures
+        
     }
     
-    func configureNode(_ node: SKNode) {
+    func configure(_ node: SKNode) {
         node.children.forEach { childNode in
             if let sprite = childNode as? SKSpriteNode {
                 sprite.texture = textures[index]
@@ -38,7 +39,7 @@ class ObstacleEdge: ParallaxEdgeConfiguring {
         self.generator = generator
     }
     
-    func configureNode(_ node: SKNode) {
+    func configure(_ node: SKNode) {
         guard let nodeEntity = entities.first(where: { $0.skNode === node}) else { return }
         
         scoreIfWasActive(nodeEntity)

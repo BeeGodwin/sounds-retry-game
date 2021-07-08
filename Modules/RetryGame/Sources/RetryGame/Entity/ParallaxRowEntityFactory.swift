@@ -7,6 +7,7 @@ protocol ParallaxRowEntityFactory {
 enum ParallaxRowEntityFlavour {
     case cycling([EntityPrototype], ParallaxRowParameters)
     case obstacles(ParallaxRowParameters)
+    // TODO: case background, which spawns a larger scale slower scrolling background
 }
 
 struct ParallaxRowParameters {
