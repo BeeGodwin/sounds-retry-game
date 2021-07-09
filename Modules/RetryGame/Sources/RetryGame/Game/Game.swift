@@ -1,15 +1,17 @@
 import SpriteKit
 
-class Game: ObserverProtocol { // TODO: this is becoming a bit bloated & needs splitting up
+class Game: ObserverProtocol {
     private let container: GameContainerProtocol
+    private let spawner: GameSpawnerProtocol
     var gameState: GameState
     
     private var parallax: ParallaxRowSystem?
     private var player: Entity?
 
     
-    init(container: GameContainerProtocol) {
+    init(container: GameContainerProtocol, spawner: GameSpawnerProtocol) {
         self.container = container
+        self.spawner = spawner
         gameState = .ready
     }
     
@@ -102,33 +104,11 @@ class Game: ObserverProtocol { // TODO: this is becoming a bit bloated & needs s
     
     private func spawnParallax() {
         guard let factory = container.factory, let scene = container.scene, let sceneWidth = scene.view?.bounds.width else { return }
-        
-        parallax = ParallaxRowSystem(maxSpeed: GameConstants.maxSpeed, acceleration: GameConstants.acceleration)
-
-        let rows: [EntityPrototype] = [
-            .parallaxRow(.cycling([.rowTile(.single(.planet, .center))], ParallaxRowParameters(distance: 0.125, width: sceneWidth, y: 314, scale: 32))),
-            .parallaxRow(.cycling([.rowTile(.single(.planet, .center))], ParallaxRowParameters(distance: 0.125, width: sceneWidth, y: 160, scale: 32))),
-            .parallaxRow(.cycling([.rowTile(.single(.dirt, .mid))], ParallaxRowParameters(distance: 0.25, width: sceneWidth, y: 72))),
-            .parallaxRow(.cycling([.rowTile(.single(.dirt, .mid))],  ParallaxRowParameters(distance: 0.5, width: sceneWidth, y: 48))),
-            .parallaxRow(.cycling([.rowTile(.single(.grass, .mid))],  ParallaxRowParameters(distance: 1, width: sceneWidth, y: 0, isGround: true))),
-            .parallaxRow(.obstacles(ParallaxRowParameters(distance: 1, width: sceneWidth, y: 64))),
-            .parallaxRow(.cycling([.rowTile(.single(.sand, .center))],  ParallaxRowParameters(distance: 2, width: sceneWidth, y: -96))),
-            .parallaxRow(.cycling([.rowTile(.single(.sand, .center))],  ParallaxRowParameters(distance: 4, width: sceneWidth, y: -256))),
-            .parallaxRow(.cycling([.rowTile(.single(.sand, .center))],  ParallaxRowParameters(distance: 8, width: sceneWidth, y: -576))),
-        ]
-        
-        // TODO: background
-        
-        parallax?.spawn(rows, on: scene, from: factory)
+        parallax = spawner.spawnParallax(in: scene, of: sceneWidth, using: factory)
     }
     
     private func spawnPlayer() {
         guard let factory = container.factory, let scene = container.scene else { return }
-        
-        player = factory.create(entity: .player)
-        guard let playerNode = player?.skNode else { return }
-        
-        scene.addChild(playerNode)
-        playerNode.position = GameConstants.startPosition
+        player = spawner.spawnPlayer(in: scene, using: factory)
     }
 }

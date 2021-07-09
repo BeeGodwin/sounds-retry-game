@@ -43,7 +43,7 @@ class ParallaxRowComponent: GKComponent {
         }
     }
     
-    private func isFloor(_ node: SKNode) -> Bool { // TODO: should this be in the parallax system at all? It shouldn't.
+    private func isFloor(_ node: SKNode) -> Bool { // TODO: should this be in the parallax system at all?
         if let _ = node.physicsBody { return true }
         return false
     }

@@ -51,7 +51,7 @@ public class GameContainer: GameContainerProtocol {
         scene = GameScene(size: rect.size)
         scene?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
-        let game = Game(container: self)
+        let game = Game(container: self, spawner: GameSpawner())
         scene?.game = game
         gameView.presentScene(scene)
         

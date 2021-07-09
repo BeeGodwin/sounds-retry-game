@@ -30,6 +30,7 @@ class ObstacleControlComponent: GKComponent {
             sprite.physicsBody = physicsBody
             animator.updateAnimation(with: textureManager.getAnimationFrames(for: obstacleSprite))
         } else {
+            sprite.removeAllActions()
             sprite.physicsBody = nil
         }
     }
