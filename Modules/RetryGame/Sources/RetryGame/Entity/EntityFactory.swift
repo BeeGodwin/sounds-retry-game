@@ -8,7 +8,6 @@ protocol EntityFactoryProtocol {
 }
 
 enum EntityPrototype {
-    case debug(DebugEntityFlavour)
     case rowTile(RowTileEntityFlavour)
     case parallaxRow(ParallaxRowEntityFlavour)
     case player
@@ -26,8 +25,6 @@ class EntityFactory: EntityFactoryProtocol {
     func create(entity kind: EntityPrototype) -> Entity {
         let entity = Entity()
         switch kind {
-        case .debug(let debugFlavour):
-            build(on: entity, with: debugFlavour)
         case .parallaxRow(let parallaxFlavour):
             build(on: entity, with: parallaxFlavour)
         case .player:

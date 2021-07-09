@@ -42,13 +42,4 @@ class TextureManager: TextureManagerProtocol {
         }
         return nil
     }
-    
-    func debugLightGrey() -> [SKTexture] {
-        guard let tile = getTile(from: .dirt, side: .center) else { return [] }
-        return [tile]
-    }
-    
-    func debugDarkGrey() -> [SKTexture] {
-        debugLightGrey()
-    }
 }

@@ -6,15 +6,12 @@ protocol ObstacleEntityFactory {
 
 
 enum ObstacleEntityFlavour {
-    case debug
     case animated([SKTexture])
 }
 
 extension EntityFactory: ObstacleEntityFactory {
     func build(on entity: Entity, with flavour: ObstacleEntityFlavour) {
         switch flavour {
-        case .debug:
-            buildObstacle(on: entity, with: [container.textureManager.debugDarkGrey()[0]])
         case .animated(let textures):
             buildObstacle(on: entity, with: textures)
         }
