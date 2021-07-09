@@ -106,16 +106,15 @@ class Game: ObserverProtocol { // TODO: this is becoming a bit bloated & needs s
         parallax = ParallaxRowSystem(maxSpeed: GameConstants.maxSpeed, acceleration: GameConstants.acceleration)
 
         let rows: [EntityPrototype] = [
-            .parallaxRow(.cycling([.rowTile(.single(.planet, .center))], ParallaxRowParameters(distance: 0.25, width: sceneWidth, y: 320, scale: 16))),
-            .parallaxRow(.cycling([.rowTile(.single(.planet, .center))], ParallaxRowParameters(distance: 0.25, width: sceneWidth, y: 160, scale: 16))),
-            .parallaxRow(.cycling([.rowTile(.single(.dirt, .center)), .rowTile(.single(.stone, .center))], ParallaxRowParameters(distance: 0.25, width: sceneWidth, y: 48))),
-            .parallaxRow(.cycling([.rowTile(.single(.stone, .center)), .rowTile(.single(.dirt, .center))],  ParallaxRowParameters(distance: 0.5, width: sceneWidth, y: 32))),
+            .parallaxRow(.cycling([.rowTile(.single(.planet, .center))], ParallaxRowParameters(distance: 0.125, width: sceneWidth, y: 314, scale: 32))),
+            .parallaxRow(.cycling([.rowTile(.single(.planet, .center))], ParallaxRowParameters(distance: 0.125, width: sceneWidth, y: 160, scale: 32))),
+            .parallaxRow(.cycling([.rowTile(.single(.dirt, .mid))], ParallaxRowParameters(distance: 0.25, width: sceneWidth, y: 72))),
+            .parallaxRow(.cycling([.rowTile(.single(.dirt, .mid))],  ParallaxRowParameters(distance: 0.5, width: sceneWidth, y: 48))),
             .parallaxRow(.cycling([.rowTile(.single(.grass, .mid))],  ParallaxRowParameters(distance: 1, width: sceneWidth, y: 0, isGround: true))),
             .parallaxRow(.obstacles(ParallaxRowParameters(distance: 1, width: sceneWidth, y: 64))),
-            .parallaxRow(.cycling([.rowTile(.single(.sand, .center))],  ParallaxRowParameters(distance: 2, width: sceneWidth, y: -64))),
-            .parallaxRow(.cycling([.rowTile(.single(.sand, .center))],  ParallaxRowParameters(distance: 4, width: sceneWidth, y: -192))),
-            .parallaxRow(.cycling([.rowTile(.single(.sand, .center))],  ParallaxRowParameters(distance: 4, width: sceneWidth, y: -384))),
-
+            .parallaxRow(.cycling([.rowTile(.single(.sand, .center))],  ParallaxRowParameters(distance: 2, width: sceneWidth, y: -96))),
+            .parallaxRow(.cycling([.rowTile(.single(.sand, .center))],  ParallaxRowParameters(distance: 4, width: sceneWidth, y: -256))),
+            .parallaxRow(.cycling([.rowTile(.single(.sand, .center))],  ParallaxRowParameters(distance: 8, width: sceneWidth, y: -576))),
         ]
         
         // TODO: background

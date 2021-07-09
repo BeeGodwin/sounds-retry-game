@@ -16,7 +16,7 @@ struct GameConstants {
 
     // MARK: player
     static let startPosition: CGPoint = CGPoint(x: -128, y: 64)
-    static let jumpForce: CGFloat = 650.0
+    static let jumpForce: CGFloat = 550.0
     
     // MARK: world
     static let collisionBitMask: UInt32 = 0x00001
@@ -25,7 +25,9 @@ struct GameConstants {
     static let floorName = "floor"
     
     // MARK: obstacle generation
-    static let levelLength = 25
+    static let levelLength = 30
+    static let difficultyLevels = [0, 1, 1, 2, 3, 5, 8, 13, 21]
+    static let minimumGap = 3
     static let obstacleSprites: [Sprite] = [.bee, .ladybug, .saw, .slimeBlock, .slimePurple, .snail]
     
     // MARK: scoring

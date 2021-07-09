@@ -21,12 +21,14 @@ class UIManager: UIManagerProtocol, ObserverProtocol {
         let score = SKLabelNode(text: scoreLabelText)
         score.horizontalAlignmentMode = .right
         score.position = GameConstants.scoreLabelPosition
+        score.zPosition = 1
         scene.addChild(score)
         scoreLabel = score
         
         let prompt = SKLabelNode(text: GameConstants.startGamePromptText)
         prompt.horizontalAlignmentMode = .center
         prompt.position = GameConstants.promptLabelPosition
+        prompt.zPosition = 1
         scene.addChild(prompt)
         promptLabel = prompt
     }

@@ -85,7 +85,7 @@ extension EntityFactory: ParallaxRowEntityFactory {
             obstacleEntities.append(obstacle)
         }
                         
-        let component = ParallaxRowComponent(node: entity.skNode, distance: 1, width: computed.rowWidth, scale: params.scale, configurator: ObstacleEdge(entities: obstacleEntities, eventBus: container.eventBus, generator: RandomisedFibonnaciProgressiveDifficultyGenerator()))
+        let component = ParallaxRowComponent(node: entity.skNode, distance: 1, width: computed.rowWidth, scale: params.scale, configurator: ObstacleEdge(entities: obstacleEntities, eventBus: container.eventBus, generator: RandomisedProgressiveDifficultyGenerator()))
         entity.addParallaxRowComponent(component)
     }
     
