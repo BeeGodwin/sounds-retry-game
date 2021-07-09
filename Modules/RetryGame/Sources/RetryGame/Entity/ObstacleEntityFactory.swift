@@ -25,14 +25,16 @@ extension EntityFactory: ObstacleEntityFactory {
         
         let spriteComponent = SpriteComponent(texture: texture)
         let sprite = spriteComponent.sprite
-        sprite.name = GameConstants.obstacleName
-        
         let physicsBody = SKPhysicsBody(circleOfRadius: sprite.size.height / 2)
         physicsBody.isDynamic = false
-
         sprite.physicsBody = physicsBody
+        sprite.name = GameConstants.obstacleName
+        
+        let animatorComponent = AnimatorComponent(with: sprite)
+        let obstacleControlComponent = ObstacleControlComponent(sprite: sprite, animator: animatorComponent, textureManager: container.textureManager)
         
         entity.addSpriteComponent(spriteComponent)
-        entity.addObstacleControlComponent(ObstacleControlComponent(sprite: sprite))
+        entity.addAnimatorComponent(animatorComponent)
+        entity.addObstacleControlComponent(obstacleControlComponent)
     }
 }

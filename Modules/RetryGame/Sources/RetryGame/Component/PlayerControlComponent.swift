@@ -11,14 +11,17 @@ class PlayerControlComponent: GKComponent, ObserverProtocol {
     let physicsBody: SKPhysicsBody
     var jumpState: PlayerJumpState = .grounded
     var sprite: SKSpriteNode
-    var textureManager: TextureManager // TODO: this is a bit crap and tightly coupled, this should be in another component?
+    let animator: AnimatorComponent
+    var textureManager: TextureManager
     
-    init(eventBus: EventBusProtocol, physicsBody: SKPhysicsBody, spriteNode: SKSpriteNode, textureManager: TextureManager) {
+    init(eventBus: EventBusProtocol, physicsBody: SKPhysicsBody, spriteNode: SKSpriteNode, textureManager: TextureManager, animator: AnimatorComponent) {
         self.eventBus = eventBus
         self.physicsBody = physicsBody
         self.sprite = spriteNode
         self.textureManager = textureManager
+        self.animator = animator
         super.init()
+       
         eventBus.subscribe(to: .control, with: self)
         eventBus.subscribe(to: .game, with: self)
     }
@@ -64,12 +67,8 @@ class PlayerControlComponent: GKComponent, ObserverProtocol {
     private func handleJump() {
         if case .grounded = jumpState {
             jumpState = .jumping
-            sprite.removeAllActions()
             physicsBody.velocity = CGVector(dx: 0, dy: GameConstants.jumpForce)
-            
-            let jumpTextures = textureManager.getAnimationFrames(for: .playerJump)
-            sprite.texture = jumpTextures[0]
-            
+            animator.updateAnimation(with: textureManager.getAnimationFrames(for: .playerJump))
         }
     }
     
@@ -79,25 +78,17 @@ class PlayerControlComponent: GKComponent, ObserverProtocol {
     }
     
     private func walk() {
-        let walkTextures = textureManager.getAnimationFrames(for: .playerWalk)
-        if walkTextures.count > 0 {
-            sprite.run(SKAction.repeatForever(
-                        SKAction.animate(with: walkTextures, timePerFrame: 0.1, resize: true, restore: false)))
-        }
+        animator.updateAnimation(with: textureManager.getAnimationFrames(for: .playerWalk))
     }
     
     private func ready() {
-        let walkTextures = textureManager.getAnimationFrames(for: .playerWalk)
-        if walkTextures.count > 0 {
-            sprite.removeAllActions()
-            sprite.texture = walkTextures[0]
+        if let singleWalkFrame = textureManager.getAnimationFrames(for: .playerWalk).first {
+            animator.updateAnimation(with: [singleWalkFrame])
         }
     }
     
     private func die() {
-        sprite.removeAllActions()
-        let dieTextures = textureManager.getAnimationFrames(for: .playerDie)
-        if dieTextures.count > 0 { sprite.texture = dieTextures[0]}
+        animator.updateAnimation(with: textureManager.getAnimationFrames(for: .playerDie))
     }
     
 }

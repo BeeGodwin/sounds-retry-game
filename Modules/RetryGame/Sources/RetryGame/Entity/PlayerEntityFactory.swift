@@ -8,14 +8,14 @@ extension EntityFactory: PlayerEntityFactory {
     func build(on entity: Entity) {
         
         let walkTextures = container.textureManager.getAnimationFrames(for: .playerWalk)
-        
         if walkTextures.count == 0 { return }
         
         let tx = walkTextures[0]
-        
         let spriteComponent = SpriteComponent(texture: tx)
         let sprite = spriteComponent.sprite
         sprite.name = GameConstants.playerName
+        
+        let animatorComponent = AnimatorComponent(with: sprite)
         
         let physicsBody = SKPhysicsBody(circleOfRadius: sprite.size.width / 2)
         physicsBody.allowsRotation = false
@@ -24,7 +24,7 @@ extension EntityFactory: PlayerEntityFactory {
         sprite.physicsBody = physicsBody
         
         entity.addSpriteComponent(spriteComponent)
-        
-        entity.addPlayerControlComponent(PlayerControlComponent(eventBus: container.eventBus, physicsBody: physicsBody, spriteNode: sprite, textureManager: container.textureManager))
+        entity.addAnimatorComponent(animatorComponent)
+        entity.addPlayerControlComponent(PlayerControlComponent(eventBus: container.eventBus, physicsBody: physicsBody, spriteNode: sprite, textureManager: container.textureManager, animator: animatorComponent))
     }
 }

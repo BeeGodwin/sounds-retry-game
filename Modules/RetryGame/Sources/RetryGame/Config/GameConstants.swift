@@ -10,6 +10,9 @@ struct GameConstants {
     static let acceleration: CGFloat = 128.0
     static let maxSpeed: CGFloat = 256.0
     static let tileSize: CGFloat = 64.0
+    
+    // MARK: animation
+    static let defaultFrameInterval = 0.1
 
     // MARK: player
     static let startPosition: CGPoint = CGPoint(x: -128, y: 64)
@@ -23,6 +26,7 @@ struct GameConstants {
     
     // MARK: obstacle generation
     static let levelLength = 25
+    static let obstacleSprites: [Sprite] = [.bee, .ladybug, .saw, .slimeBlock, .slimePurple, .snail]
     
     // MARK: scoring
     static let obstaclePoints = 100

@@ -2,7 +2,7 @@ import SpriteKit
 
 protocol TextureManagerProtocol {
     func getAnimationFrames(for sprite: Sprite) -> [SKTexture]
-    func getTile(from set: TextureSet, side: TextureSetSide) -> SKTexture? // TODO: review use of this and see if can be non-optional
+    func getTile(from set: TextureSet, side: TextureSetSide) -> SKTexture?
 }
 
 enum TextureSet: String {
