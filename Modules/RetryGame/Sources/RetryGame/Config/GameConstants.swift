@@ -26,7 +26,7 @@ struct GameConstants {
     
     // MARK: obstacle generation
     static let levelLength = 30
-    static let difficultyLevels = [0, 1, 1, 2, 3, 5, 8, 13, 21]
+    static let difficultyLevels = [0, 1, 2, 3, 5, 8, 13, 21]
     static let minimumGap = 3
     static let obstacleSprites: [Sprite] = [.bee, .ladybug, .saw, .slimeBlock, .slimePurple, .snail]
     
