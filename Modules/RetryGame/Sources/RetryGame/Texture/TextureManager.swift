@@ -1,7 +1,8 @@
 import SpriteKit
 
 protocol TextureManagerProtocol {
-    func getAnimationFrames(for sprite: Sprite) -> [SKTexture] // TODO: this is wrong
+    func getAnimationFrames(for sprite: Sprite) -> [SKTexture]
+    func getTile(from set: TextureSet, side: TextureSetSide) -> SKTexture? // TODO: review use of this and see if can be non-optional
 }
 
 enum TextureSet: String {
@@ -42,7 +43,6 @@ class TextureManager: TextureManagerProtocol {
         return nil
     }
     
-    // MARK: these should prob be binned
     func debugLightGrey() -> [SKTexture] {
         guard let tile = getTile(from: .dirt, side: .center) else { return [] }
         return [tile]
@@ -50,21 +50,5 @@ class TextureManager: TextureManagerProtocol {
     
     func debugDarkGrey() -> [SKTexture] {
         debugLightGrey()
-    }
-    
-    // TODO: conform these / better dict usage
-    func getPlayerWalk() -> [SKTexture] {
-        guard let frames = animations[.playerWalk] else { return [] }
-        return frames
-    }
-    
-    func getPlayerJump() -> [SKTexture] {
-        guard let frames = animations[.playerJump] else { return [] }
-        return frames
-    }
-    
-    func getPlayerDie() -> [SKTexture] {
-        guard let frames = animations[.playerDie] else { return [] }
-        return frames
     }
 }

@@ -7,11 +7,11 @@ protocol PlayerEntityFactory {
 extension EntityFactory: PlayerEntityFactory {
     func build(on entity: Entity) {
         
-        let walkTextures = container.textureManager.getPlayerWalk()
+        let walkTextures = container.textureManager.getAnimationFrames(for: .playerWalk)
         
         if walkTextures.count == 0 { return }
         
-        let tx = container.textureManager.getPlayerWalk()[0]
+        let tx = walkTextures[0]
         
         let spriteComponent = SpriteComponent(texture: tx)
         let sprite = spriteComponent.sprite

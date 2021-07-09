@@ -4,8 +4,7 @@ struct GameConstants {
     
     // MARK: dev
     static let isDebugMode = true
-    
-    // TODO: off switch for sound and/or volume
+    static let audioVolume: Float = 1.0
     
     // MARK: parallax
     static let acceleration: CGFloat = 128.0
@@ -45,10 +44,10 @@ struct GameConstants {
         .die: ("no", "wav"),
         .music: ("ukeloop", "mp3"),
     ]
-    
-    // TODO: make sprites into a flat list and load them one way. they're all teeny anyway.
-    
+        
     // MARK: Sprite assets
+    static let spriteAtlas = "sprite"
+    
     static let sprites: [Sprite: [String]] = [
         .playerWalk: ["alienPink_walk1", "alienPink_walk2"],
         .playerJump: ["alienPink_jump1"],
@@ -61,6 +60,7 @@ struct GameConstants {
         .snail: ["snail1", "snail2"],
     ]
     
+    static let worldAtlas = "world"
     
     static let groundTileNames: [TextureSet: [String]] = [
         .dirt: ["dirtMid", "dirtCenter"],

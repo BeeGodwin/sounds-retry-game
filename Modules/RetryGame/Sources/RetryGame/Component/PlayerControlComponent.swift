@@ -67,7 +67,7 @@ class PlayerControlComponent: GKComponent, ObserverProtocol {
             sprite.removeAllActions()
             physicsBody.velocity = CGVector(dx: 0, dy: GameConstants.jumpForce)
             
-            let jumpTextures = textureManager.getPlayerJump()
+            let jumpTextures = textureManager.getAnimationFrames(for: .playerJump)
             sprite.texture = jumpTextures[0]
             
         }
@@ -79,7 +79,7 @@ class PlayerControlComponent: GKComponent, ObserverProtocol {
     }
     
     private func walk() {
-        let walkTextures = textureManager.getPlayerWalk()
+        let walkTextures = textureManager.getAnimationFrames(for: .playerWalk)
         if walkTextures.count > 0 {
             sprite.run(SKAction.repeatForever(
                         SKAction.animate(with: walkTextures, timePerFrame: 0.1, resize: true, restore: false)))
@@ -87,7 +87,7 @@ class PlayerControlComponent: GKComponent, ObserverProtocol {
     }
     
     private func ready() {
-        let walkTextures = textureManager.getPlayerWalk()
+        let walkTextures = textureManager.getAnimationFrames(for: .playerWalk)
         if walkTextures.count > 0 {
             sprite.removeAllActions()
             sprite.texture = walkTextures[0]
@@ -96,7 +96,7 @@ class PlayerControlComponent: GKComponent, ObserverProtocol {
     
     private func die() {
         sprite.removeAllActions()
-        let dieTextures = textureManager.getPlayerDie()
+        let dieTextures = textureManager.getAnimationFrames(for: .playerDie)
         if dieTextures.count > 0 { sprite.texture = dieTextures[0]}
     }
     

@@ -2,7 +2,7 @@ import AVFoundation
 import GameplayKit
 
 class SoundManager: ObserverProtocol {
-        
+
     var soundPlayers = [Sound: [AVAudioPlayer]]()
     
     init(eventBus: EventBusProtocol, soundDefinitions: [Sound: (String, String)]) {
@@ -67,14 +67,22 @@ class SoundManager: ObserverProtocol {
         guard let players = soundPlayers[sound] else { return }
         if players.isEmpty { return }
         let random = GKRandomDistribution(forDieWithSideCount: players.count)
-        players[random.nextInt() - 1].play()
+        let chosenPlayer = players[random.nextInt() - 1]
+        setVolume(chosenPlayer)
+        chosenPlayer.play()
     }
     
     private func playMusic() {
-        guard let players = soundPlayers[.music] else { return }
-        if players.isEmpty { return }
-        players[0].numberOfLoops = -1
-        players[0].play()
+        guard let player = soundPlayers[.music]?.first else { return }
+        setVolume(player)
+        player.numberOfLoops = -1
+        player.play()
+    }
+    
+    private func setVolume(_ player: AVAudioPlayer) {
+        if #available(iOS 10.0, *) {
+            player.setVolume(GameConstants.audioVolume, fadeDuration: 0.0)
+        }
     }
     
     private func noop () {}

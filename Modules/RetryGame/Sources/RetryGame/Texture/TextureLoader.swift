@@ -3,7 +3,7 @@ import SpriteKit
 class TextureLoader {
 
     func loadAnims(spriteDefs: [Sprite: [String]]) -> [Sprite: [SKTexture]] {
-        let atlas = SKTextureAtlas(named: "sprite") // TODO: tidy magic value
+        let atlas = SKTextureAtlas(named: GameConstants.spriteAtlas)
         
         var animDict = [Sprite: [SKTexture]]()
         
@@ -16,7 +16,7 @@ class TextureLoader {
     
     func loadTiles(tileDefinitions: [TextureSet: [String]]) -> [TextureSet: [SKTexture]] {
         var tileDict = [TextureSet: [SKTexture]]()
-        let atlas = SKTextureAtlas(named: "world")
+        let atlas = SKTextureAtlas(named: GameConstants.worldAtlas)
         
         tileDefinitions.keys.forEach { key in
             guard let nameArray = tileDefinitions[key] else { return }

@@ -46,21 +46,10 @@ extension EntityFactory: ParallaxRowEntityFactory {
     
         let computed = deriveRowParameters(distance: params.distance, width: params.width)
         
-        let textureArray: [SKTexture] = prototypes.map { prototype in
-            switch prototype {
-            case .rowTile(let flavour):
-                switch flavour {
-                case .single(let set, let side):
-                    return container.textureManager.getTile(from: set, side: side)
-                }
-            default:
-                print("unhandled tile texture")
-            }
-            return nil
-        }.map { $0! } // TODO: icky force unwrap
+        let textureArray: [SKTexture] = prototypes.compactMap { getTextureForPrototype($0) }
         
         for idx in 0...computed.numCells {
-            let cell = create(entity: prototypes[idx % prototypes.count]) // TODO: should give the node to the configurator instead?
+            let cell = create(entity: prototypes[idx % prototypes.count])
             entity.skNode.position.y = params.y
             entity.node.addChild(cell.node)
             cell.skNode.setScale(params.distance)
@@ -98,5 +87,17 @@ extension EntityFactory: ParallaxRowEntityFactory {
                         
         let component = ParallaxRowComponent(node: entity.skNode, distance: 1, width: computed.rowWidth, configurator: ObstacleEdge(entities: obstacleEntities, eventBus: container.eventBus, generator: RandomisedFibonnaciProgressiveDifficultyGenerator()))
         entity.addParallaxRowComponent(component)
+    }
+    
+    private func getTextureForPrototype(_ prototype: EntityPrototype) -> SKTexture? {
+        switch prototype {
+        case .rowTile(let flavour):
+            switch flavour {
+            case .single(let set, let side):
+                return container.textureManager.getTile(from: set, side: side)
+            }
+        default:
+            return nil
+        }
     }
 }
