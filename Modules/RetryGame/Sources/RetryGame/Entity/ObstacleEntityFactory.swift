@@ -20,12 +20,11 @@ extension EntityFactory: ObstacleEntityFactory {
     private func buildObstacle(on entity: Entity, with textures: [SKTexture]) {
 
         if textures.count == 0 { return }
-        
-        let texture = textures[0] // TODO: OK now animate them with an animation component.
+        let texture = textures[0]
         
         let spriteComponent = SpriteComponent(texture: texture)
         let sprite = spriteComponent.sprite
-        let physicsBody = SKPhysicsBody(circleOfRadius: sprite.size.height / 2)
+        let physicsBody = SKPhysicsBody(circleOfRadius: sprite.size.height / 3)
         physicsBody.isDynamic = false
         sprite.physicsBody = physicsBody
         sprite.name = GameConstants.obstacleName

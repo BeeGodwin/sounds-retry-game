@@ -7,7 +7,6 @@ protocol ParallaxRowEntityFactory {
 enum ParallaxRowEntityFlavour {
     case cycling([EntityPrototype], ParallaxRowParameters)
     case obstacles(ParallaxRowParameters)
-    // TODO: case background, which spawns a larger scale slower scrolling background
 }
 
 struct ParallaxRowParameters {
@@ -15,6 +14,7 @@ struct ParallaxRowParameters {
     var width: CGFloat
     var y: CGFloat
     var isGround: Bool = false
+    var scale: CGFloat = 1.0
 }
 
 private struct DerivedRowParameters {
@@ -52,11 +52,11 @@ extension EntityFactory: ParallaxRowEntityFactory {
             let cell = create(entity: prototypes[idx % prototypes.count])
             entity.skNode.position.y = params.y
             entity.node.addChild(cell.node)
-            cell.skNode.setScale(params.distance)
-            cell.skNode.position.x = computed.leftEdge + computed.cellSize * CGFloat(idx)
+            cell.skNode.setScale(params.distance * params.scale)
+            cell.skNode.position.x = computed.leftEdge + computed.cellSize * params.scale * CGFloat(idx)
         }
         
-        let component = ParallaxRowComponent(node: entity.skNode, distance: params.distance, width: computed.rowWidth, configurator: CyclingEdge(with: textureArray))
+        let component = ParallaxRowComponent(node: entity.skNode, distance: params.distance, width: computed.rowWidth, scale: params.scale, configurator: CyclingEdge(with: textureArray))
         entity.addParallaxRowComponent(component)
         
         if params.isGround {
@@ -85,7 +85,7 @@ extension EntityFactory: ParallaxRowEntityFactory {
             obstacleEntities.append(obstacle)
         }
                         
-        let component = ParallaxRowComponent(node: entity.skNode, distance: 1, width: computed.rowWidth, configurator: ObstacleEdge(entities: obstacleEntities, eventBus: container.eventBus, generator: RandomisedFibonnaciProgressiveDifficultyGenerator()))
+        let component = ParallaxRowComponent(node: entity.skNode, distance: 1, width: computed.rowWidth, scale: params.scale, configurator: ObstacleEdge(entities: obstacleEntities, eventBus: container.eventBus, generator: RandomisedFibonnaciProgressiveDifficultyGenerator()))
         entity.addParallaxRowComponent(component)
     }
     

@@ -14,6 +14,7 @@ extension EntityFactory: PlayerEntityFactory {
         let spriteComponent = SpriteComponent(texture: tx)
         let sprite = spriteComponent.sprite
         sprite.name = GameConstants.playerName
+        sprite.anchorPoint = CGPoint(x: 0.5, y: 0.25)
         
         let animatorComponent = AnimatorComponent(with: sprite)
         
